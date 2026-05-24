@@ -363,7 +363,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 
 /* LANGUAGE SWITCHER */
 .lang-switcher{position:relative}
-.lang-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:4px}
+.lang-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:4px}.lang-switcher{display:none!important}
 .lang-btn:hover{background:rgba(255,255,255,.2)}
 .lang-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#1a2a3a;border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:600}
 .lang-menu.open{display:block}
@@ -1090,7 +1090,7 @@ const LANGS={
   }
 };
 
-let currentLang=localStorage.getItem('argo_lang')||'it';
+let currentLang='it';localStorage.setItem('argo_lang','it');
 
 function setLang(lang){
   currentLang=lang;
