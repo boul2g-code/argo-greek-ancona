@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argo Greek Comfort Food | Ristorante Greco Ancona | Via Marconi 27</title>
+<meta name="description" content="Autentico cibo greco ad Ancona. Gyros, souvlaki, pita e molto altro. Ordina online, prenota il tavolo o vienici a trovare in Via Marconi 27. Consegna con Deliveroo, asporto con Pienissimo.">
+<meta name="keywords" content="ristorante greco ancona, gyros ancona, souvlaki ancona, cibo greco, pita ancona, delivery greco ancona">
+<meta property="og:title" content="Argo Greek Comfort Food | Ancona">
+<meta property="og:description" content="Autentico cibo greco nel cuore di Ancona. Gyros, souvlaki, pita fatti con amore ogni giorno.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80">
+<meta property="og:url" content="https://argoancona.vercel.app">
+<meta name="theme-color" content="#1a3a6b">
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Argo Greek Comfort Food",
+  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800",
+  "address": {"@type": "PostalAddress","streetAddress": "Via Marconi 27","addressLocality": "Ancona","postalCode": "60121","addressCountry": "IT"},
+  "telephone": "+39 071 000 0000",
+  "servesCuisine": "Greek",
+  "priceRange": "€€",
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Thursday","Friday"],"opens": "12:00","closes": "15:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens": "18:00","closes": "23:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": "Wednesday","opens": "00:00","closes": "00:00"}
+  ],
+  "aggregateRating": {"@type": "AggregateRating","ratingValue": "4.4","reviewCount": "180"},
+  "menu": "https://argoancona.vercel.app/#menu",
+  "hasMap": "https://maps.google.com/?q=Argo+Greek+Comfort+Food+Ancona",
+  "sameAs": ["https://www.tripadvisor.it/Restaurant_Review-g187895-d14176518","https://deliveroo.it"]
+}
+</script>
+<style>
+:root{
+  --blue-dark:#1a3a6b;
+  --blue-mid:#2456a4;
+  --blue-light:#3b82f6;
+  --blue-pale:#dbeafe;
+  --white:#ffffff;
+  --gold:#f59e0b;
+  --gold-dark:#d97706;
+  --gray-50:#f9fafb;
+  --gray-100:#f3f4f6;
+  --gray-600:#4b5563;
+  --gray-800:#1f2937;
+  --red:#ef4444;
+  --green:#22c55e;
+  --shadow-lg:0 10px 40px rgba(26,58,107,0.15);
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--gray-800);background:var(--white);overflow-x:hidden}
+
+/* URGENCY BAR */
+#urgency-bar{background:linear-gradient(90deg,#c0392b,#e74c3c);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:600;letter-spacing:.3px;position:relative;z-index:100}
+#urgency-bar span{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* NAV */
+nav{background:var(--blue-dark);padding:0 24px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.nav-logo-text{color:#fff;font-family:'Playfair Display',serif;font-size:20px;font-weight:700}
+.nav-logo-text span{color:var(--gold)}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:14px;font-weight:500;padding:8px 12px;border-radius:8px;transition:.2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+.nav-cta{background:var(--gold);color:var(--blue-dark)!important;font-weight:700!important;padding:8px 18px!important;border-radius:8px!important}
+.nav-cta:hover{background:var(--gold-dark)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:var(--blue-dark);padding:16px;z-index:199;flex-direction:column;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;text-decoration:none;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500}
+.mobile-menu a:hover{background:rgba(255,255,255,.1)}
+#open-badge{background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:8px}
+#open-badge.closed{background:var(--red)}
+
+/* HERO */
+.hero{min-height:100svh;background:linear-gradient(135deg,rgba(26,58,107,.92),rgba(36,86,164,.85)),url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1600&q=80') center/cover;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 24px 120px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(245,158,11,0.08)' stroke-width='1'/%3E%3C/svg%3E") repeat;pointer-events:none}
+.hero-content{max-width:800px;position:relative;z-index:1}
+.hero-flag{font-size:32px;margin-bottom:16px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);color:var(--gold);padding:6px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:24px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.5rem);color:#fff;line-height:1.15;margin-bottom:20px}
+.hero h1 span{color:var(--gold)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.25rem);color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-stats{display:flex;justify-content:center;gap:32px;margin-bottom:40px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);font-weight:700}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--blue-dark);padding:16px 32px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(245,158,11,.4)}
+.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,.5)}
+.btn-secondary{background:rgba(255,255,255,.12);color:#fff;padding:16px 32px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;transition:.2s;border:1.5px solid rgba(255,255,255,.3);display:inline-flex;align-items:center;gap:8px;backdrop-filter:blur(4px)}
+.btn-secondary:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+
+/* PIATTO DEL GIORNO */
+.daily-special{background:linear-gradient(135deg,var(--gold),var(--gold-dark));padding:20px 24px;text-align:center}
+.daily-special-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.daily-special h3{font-size:16px;font-weight:700;color:var(--blue-dark)}
+.daily-special .price-old{text-decoration:line-through;color:rgba(26,58,107,.5);font-size:14px}
+.daily-special .price-new{font-size:22px;font-weight:800;color:var(--blue-dark)}
+.daily-special .save-badge{background:var(--blue-dark);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+
+/* HAPPY HOUR */
+#happy-hour-banner{display:none;background:linear-gradient(90deg,#7c3aed,#a855f7);color:#fff;text-align:center;padding:14px 24px}
+#happy-hour-banner.visible{display:block}
+#hh-countdown{font-size:20px;font-weight:800;margin-left:8px}
+
+/* SECTIONS */
+.section{padding:80px 24px}
+.container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:56px}
+.section-tag{display:inline-block;background:var(--blue-pale);color:var(--blue-mid);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:6px 16px;border-radius:20px;margin-bottom:16px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--blue-dark);margin-bottom:12px}
+.section-sub{color:var(--gray-600);font-size:1.05rem;line-height:1.7;max-width:560px;margin:0 auto}
+
+/* STATS STRIP */
+.stats-strip{background:var(--blue-dark);padding:40px 24px}
+.stats-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px;text-align:center}
+.stat-item .num{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-weight:700}
+.stat-item .label{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+/* WHY */
+.why{background:var(--gray-50)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+.why-card{background:#fff;padding:32px 24px;border-radius:var(--radius);text-align:center;border:1px solid #e5e7eb;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--blue-light)}
+.why-icon{width:64px;height:64px;background:var(--blue-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
+.why-card h3{font-weight:700;font-size:16px;margin-bottom:8px;color:var(--blue-dark)}
+.why-card p{font-size:14px;color:var(--gray-600);line-height:1.6}
+.why-card .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--blue-mid);font-weight:700;margin-bottom:4px}
+
+/* MENU */
+.menu-filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.filter-btn{padding:8px 20px;border-radius:20px;border:2px solid #e5e7eb;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;color:var(--gray-600)}
+.filter-btn.active,.filter-btn:hover{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.menu-card{background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid #e5e7eb;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.menu-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.menu-card-img{position:relative;height:180px;overflow:hidden}
+.menu-card-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.menu-card:hover .menu-card-img img{transform:scale(1.06)}
+.menu-badge{position:absolute;top:10px;left:10px;background:var(--blue-dark);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.menu-card-body{padding:18px}
+.menu-card-body h3{font-weight:700;font-size:16px;margin-bottom:6px;color:var(--blue-dark)}
+.menu-card-body p{font-size:13px;color:var(--gray-600);line-height:1.5;margin-bottom:14px}
+.menu-card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--blue-dark);font-weight:700}
+.price-original{text-decoration:line-through;color:#999;font-size:14px;margin-right:4px}
+.add-btn{background:var(--blue-dark);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.add-btn:hover{background:var(--blue-mid)}
+
+/* CART */
+#cart-bar{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--blue-dark);color:#fff;padding:14px 28px;border-radius:30px;display:none;align-items:center;gap:16px;z-index:300;box-shadow:0 8px 30px rgba(0,0,0,.3);white-space:nowrap}
+#cart-bar.visible{display:flex}
+#cart-count{background:var(--gold);color:var(--blue-dark);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.cart-order-btn{background:var(--gold);color:var(--blue-dark);border:none;padding:8px 20px;border-radius:20px;font-weight:700;cursor:pointer;font-size:14px}
+
+/* ORDER PLATFORMS */
+.platforms{background:var(--blue-dark);padding:60px 24px}
+.platforms h2{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;text-align:center;margin-bottom:12px}
+.platforms-sub{color:rgba(255,255,255,.7);text-align:center;margin-bottom:40px}
+.platforms-grid{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.platform-card{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:28px 20px;text-align:center;transition:.3s;text-decoration:none;display:block}
+.platform-card:hover{background:rgba(255,255,255,.15);transform:translateY(-4px);border-color:var(--gold)}
+.platform-icon{font-size:36px;margin-bottom:12px}
+.platform-name{color:#fff;font-weight:700;font-size:18px;margin-bottom:6px}
+.platform-desc{color:rgba(255,255,255,.65);font-size:13px;line-height:1.5}
+.platform-tag{display:inline-block;margin-top:10px;background:rgba(245,158,11,.2);color:var(--gold);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+
+/* BOOKING */
+.booking{background:linear-gradient(135deg,var(--blue-pale),#fff)}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.booking-info h2{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--blue-dark);margin-bottom:16px}
+.booking-info p{color:var(--gray-600);line-height:1.7;margin-bottom:24px}
+.hours-list{list-style:none}
+.hours-list li{padding:10px 0;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;font-size:14px}
+.hours-list li:last-child{border:none}
+.hours-day{font-weight:600;color:var(--blue-dark)}
+.hours-time{color:var(--gray-600)}
+.hours-closed{color:var(--red);font-weight:600}
+.booking-form{background:#fff;border-radius:16px;padding:36px;box-shadow:var(--shadow-lg);border:1px solid #e5e7eb}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--blue-dark);margin-bottom:8px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:2px solid #e5e7eb;border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;transition:.2s;background:#fff}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{background:var(--blue-dark);color:#fff;border:none;width:100%;padding:16px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;margin-top:8px}
+.form-submit:hover{background:var(--blue-mid);transform:translateY(-1px)}
+.form-note{font-size:12px;color:#999;text-align:center;margin-top:12px}
+.form-note.closed-warn{color:var(--red);font-weight:600;font-size:13px}
+
+/* REVIEWS */
+.reviews{background:var(--gray-50)}
+.rating-overview{display:flex;align-items:center;justify-content:center;gap:40px;margin-bottom:48px;flex-wrap:wrap}
+.rating-big{text-align:center}
+.rating-num{font-family:'Playfair Display',serif;font-size:4rem;color:var(--blue-dark);font-weight:700;line-height:1}
+.rating-stars{color:var(--gold);font-size:24px;margin:8px 0}
+.rating-count{color:var(--gray-600);font-size:14px}
+.platform-badges{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.platform-badge{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:10px;text-decoration:none;transition:.2s}
+.platform-badge:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.platform-badge-name{font-weight:700;font-size:14px;color:var(--blue-dark)}
+.platform-badge-score{font-size:12px;color:var(--gray-600)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.review-card{background:#fff;border-radius:var(--radius);padding:28px;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.review-stars{color:var(--gold);font-size:16px;margin-bottom:12px}
+.review-text{font-size:14px;color:var(--gray-600);line-height:1.7;margin-bottom:16px;font-style:italic}
+.review-author{font-weight:700;font-size:13px;color:var(--blue-dark)}
+.review-source{font-size:11px;color:#999;margin-top:2px}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px;gap:12px}
+.gallery-item{overflow:hidden;border-radius:10px;cursor:pointer;position:relative}
+.gallery-item:first-child{grid-column:1/3;grid-row:1/3}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(26,58,107,.5);opacity:0;transition:.3s;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px}
+.gallery-item:hover .gallery-overlay{opacity:1}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px}
+#lb-close{position:absolute;top:20px;right:24px;color:#fff;font-size:36px;cursor:pointer;z-index:1001;background:none;border:none}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:32px;cursor:pointer;background:rgba(255,255,255,.1);border:none;padding:12px 18px;border-radius:8px}
+#lb-prev{left:20px}
+#lb-next{right:20px}
+#lb-caption{position:absolute;bottom:24px;color:rgba(255,255,255,.8);font-size:14px;text-align:center;width:100%}
+
+/* HOW TO GET HERE */
+.how-to{background:var(--blue-dark);padding:60px 24px}
+.how-to-grid{max-width:900px;margin:32px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px}
+.how-item{text-align:center}
+.how-icon{font-size:36px;margin-bottom:12px}
+.how-item h4{color:var(--gold);font-weight:700;margin-bottom:8px;font-size:15px}
+.how-item p{color:rgba(255,255,255,.7);font-size:13px;line-height:1.6}
+.map-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--blue-dark);padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none;margin-top:24px;font-size:15px;transition:.2s}
+.map-btn:hover{background:var(--gold-dark)}
+
+/* FAQ */
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border:1px solid #e5e7eb;border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.faq-q{background:#fff;padding:20px 24px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--blue-dark);font-size:15px;transition:.2s}
+.faq-q:hover{background:var(--blue-pale)}
+.faq-q span{transition:.3s;font-size:20px;color:var(--blue-mid)}
+.faq-q.open span{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:.35s ease;background:#fff}
+.faq-a.open{max-height:300px}
+.faq-a p{padding:0 24px 20px;color:var(--gray-600);line-height:1.7;font-size:14px}
+
+/* NEWSLETTER */
+.newsletter{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));padding:60px 24px;text-align:center}
+.newsletter h2{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:12px}
+.newsletter p{color:rgba(255,255,255,.8);margin-bottom:28px;font-size:15px}
+.newsletter-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto}
+.newsletter-form input{flex:1;min-width:220px;padding:14px 18px;border:none;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif}
+.newsletter-form button{background:var(--gold);color:var(--blue-dark);border:none;padding:14px 28px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px;white-space:nowrap;transition:.2s}
+.newsletter-form button:hover{background:var(--gold-dark)}
+#nl-success{display:none;color:var(--gold);font-weight:600;margin-top:12px;font-size:15px}
+
+/* FOOTER */
+footer{background:#111827;color:rgba(255,255,255,.7);padding:48px 24px 24px}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand .footer-logo{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:12px}
+.footer-brand .footer-logo span{color:var(--gold)}
+.footer-brand p{font-size:14px;line-height:1.7;max-width:280px}
+.footer-col h4{color:#fff;font-weight:700;margin-bottom:16px;font-size:15px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;transition:.2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;font-size:13px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{color:rgba(255,255,255,.6);font-size:18px;text-decoration:none;transition:.2s}
+.footer-social a:hover{color:var(--gold)}
+.qr-section{text-align:center;margin-top:24px}
+.qr-section p{font-size:13px;margin-top:8px;color:rgba(255,255,255,.5)}
+
+/* MOBILE STICKY CTA */
+#mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--blue-dark);padding:12px 16px;z-index:400;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+.mobile-cta-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mobile-cta-btn{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:10px 4px;font-size:12px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:2px}
+.mobile-cta-btn:hover{background:rgba(255,255,255,.2)}
+.mobile-cta-btn.gold{background:var(--gold);color:var(--blue-dark);border-color:var(--gold)}
+
+/* EXIT POPUP */
+#exit-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:900;align-items:center;justify-content:center;padding:20px}
+#exit-popup.open{display:flex}
+.popup-box{background:#fff;border-radius:20px;padding:40px;max-width:440px;width:100%;text-align:center;position:relative}
+.popup-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:24px;cursor:pointer;color:#999}
+.popup-emoji{font-size:48px;margin-bottom:16px}
+.popup-box h2{font-family:'Playfair Display',serif;color:var(--blue-dark);font-size:1.8rem;margin-bottom:12px}
+.popup-box p{color:var(--gray-600);margin-bottom:24px;line-height:1.6}
+.popup-code{background:var(--blue-pale);border:2px dashed var(--blue-mid);border-radius:10px;padding:12px 24px;font-size:22px;font-weight:800;color:var(--blue-dark);letter-spacing:2px;margin-bottom:20px}
+.popup-cta{background:var(--blue-dark);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;width:100%}
+.popup-cta:hover{background:var(--blue-mid)}
+.popup-skip{font-size:13px;color:#999;margin-top:12px;cursor:pointer;text-decoration:underline;display:block}
+
+/* CHATBOT */
+#chat-btn{position:fixed;bottom:90px;right:24px;width:60px;height:60px;background:var(--blue-dark);color:#fff;border:none;border-radius:50%;font-size:26px;cursor:pointer;z-index:500;box-shadow:0 4px 20px rgba(26,58,107,.4);transition:.2s}
+#chat-btn:hover{transform:scale(1.1);background:var(--blue-mid)}
+#chat-window{display:none;position:fixed;bottom:160px;right:24px;width:340px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);z-index:500;overflow:hidden;flex-direction:column}
+#chat-window.open{display:flex}
+.chat-header{background:var(--blue-dark);color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.chat-header-info{display:flex;align-items:center;gap:12px}
+.chat-avatar{width:38px;height:38px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-name{font-weight:700;font-size:15px}
+.chat-status{font-size:11px;color:rgba(255,255,255,.7)}
+#chat-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
+.chat-messages{padding:16px;height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.chat-msg{max-width:80%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5}
+.chat-msg.bot{background:var(--blue-pale);color:var(--blue-dark);align-self:flex-start;border-radius:12px 12px 12px 2px}
+.chat-msg.user{background:var(--blue-dark);color:#fff;align-self:flex-end;border-radius:12px 12px 2px 12px}
+.chat-msg.typing{background:var(--blue-pale);padding:14px 18px}
+.typing-dot{display:inline-block;width:6px;height:6px;background:var(--blue-mid);border-radius:50%;margin:0 2px;animation:typing 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-input-area{border-top:1px solid #e5e7eb;padding:12px;display:flex;gap:8px}
+.chat-input-area input{flex:1;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif}
+.chat-input-area input:focus{outline:none;border-color:var(--blue-light)}
+.chat-send{background:var(--blue-dark);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px}
+.chat-suggestions{display:flex;gap:6px;padding:0 12px 10px;flex-wrap:wrap}
+.chat-sugg{background:var(--blue-pale);border:none;color:var(--blue-mid);font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px;cursor:pointer;transition:.2s}
+.chat-sugg:hover{background:var(--blue-mid);color:#fff}
+
+/* COOKIE */
+#cookie-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:#1f2937;color:#fff;padding:16px 24px;z-index:600;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+.cookie-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cookie-inner p{font-size:13px;color:rgba(255,255,255,.8);flex:1;min-width:200px}
+.cookie-inner p a{color:var(--gold)}
+.cookie-btns{display:flex;gap:10px;flex-shrink:0}
+.cookie-accept{background:var(--gold);color:var(--blue-dark);border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+.cookie-reject{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3);padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px}
+
+/* ORDER MODAL */
+#order-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:800;align-items:center;justify-content:center;padding:20px}
+#order-modal.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:36px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal-box h2{font-family:'Playfair Display',serif;color:var(--blue-dark);font-size:1.6rem;margin-bottom:20px}
+#order-items-list{margin-bottom:24px}
+.order-item-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:14px}
+.order-total{font-size:18px;font-weight:700;color:var(--blue-dark);text-align:right;margin:12px 0 24px}
+.order-type-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.order-type-btn{padding:14px;border:2px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;text-align:center}
+.order-type-btn.selected{border-color:var(--blue-dark);background:var(--blue-pale);color:var(--blue-dark)}
+.modal-confirm{background:var(--blue-dark);color:#fff;border:none;width:100%;padding:16px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px;transition:.2s}
+.modal-confirm:hover{background:var(--blue-mid)}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:#999}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{gap:20px}
+  .hero-stat-num{font-size:1.6rem}
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .stats-grid .stat-item:nth-child(4),.stats-grid .stat-item:nth-child(5){grid-column:auto}
+  .booking-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item:first-child{grid-column:1/3;grid-row:1}
+  #chat-window{width:calc(100vw - 32px);right:16px;bottom:80px}
+  #mobile-cta{display:block}
+  body{padding-bottom:70px}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div id="urgency-bar">🔥 <span id="urgency-text">Posti limitati stasera — prenota ora!</span></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://images.unsplash.com/photo-1533777324565-a040eb52facd?w=100&q=80" alt="Argo Greek Comfort Food">
+      <div class="nav-logo-text">ARGO <span>GREEK</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#menu">Menu</a>
+      <a href="#ordina">Ordina</a>
+      <a href="#prenota">Prenota</a>
+      <a href="#recensioni">Recensioni</a>
+      <a href="#contatti">Contatti</a>
+      <span id="open-badge">● Aperto</span>
+      <a href="#prenota" class="nav-cta">🍽️ Prenota Tavolo</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu" onclick="toggleMenu()">📋 Menu</a>
+  <a href="#ordina" onclick="toggleMenu()">🛵 Ordina</a>
+  <a href="#prenota" onclick="toggleMenu()">📅 Prenota</a>
+  <a href="#recensioni" onclick="toggleMenu()">⭐ Recensioni</a>
+  <a href="#contatti" onclick="toggleMenu()">📍 Contatti</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-flag">🇬🇷</div>
+    <div class="hero-badge" id="live-status">🟢 Aperto ora · Cucina attiva</div>
+    <h1>Autentico Sapore<br><span>Greco ad Ancona</span></h1>
+    <p class="hero-sub">Gyros, souvlaki e pite preparate ogni giorno con ingredienti freschi. Il vero comfort food della Grecia — a due passi da te.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4.4★</div>
+        <div class="hero-stat-label">Rating Google</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">240+</div>
+        <div class="hero-stat-label">Recensioni</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Dal 2019</div>
+        <div class="hero-stat-label">Ad Ancona</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Top 10%</div>
+        <div class="hero-stat-label">TripAdvisor</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">🍽️ Esplora il Menu</a>
+      <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="btn-secondary">🛵 Ordina Subito</a>
+    </div>
+  </div>
+</section>
+
+<!-- PIATTO DEL GIORNO -->
+<div class="daily-special">
+  <div class="daily-special-inner">
+    <span>🌟</span>
+    <strong>Piatto del Giorno:</strong>
+    <span>Mix Grill Argo — La selezione completa dello chef</span>
+    <span class="price-old">€20,00</span>
+    <span class="price-new">€14,00</span>
+    <span class="save-badge">Risparmi €6!</span>
+    <a href="#menu" class="btn-primary" style="padding:8px 20px;font-size:14px">Ordina ora</a>
+  </div>
+</div>
+
+<!-- HAPPY HOUR BANNER -->
+<div id="happy-hour-banner">
+  🎉 <strong>HAPPY HOUR IN CORSO!</strong> Sconto 10% su tutti gli ordini asporto.
+  Finisce tra: <span id="hh-countdown">--:--</span> · Usa codice <strong>HAPPY10</strong>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-grid">
+    <div class="stat-item"><div class="num">240+</div><div class="label">Recensioni</div></div>
+    <div class="stat-item"><div class="num">4.4★</div><div class="label">Rating Medio</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="label">Ricette Greche</div></div>
+    <div class="stat-item"><div class="num">~25min</div><div class="label">Consegna Media</div></div>
+    <div class="stat-item"><div class="num">Top10%</div><div class="label">Ancona</div></div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="section why">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Perché Argo</span>
+      <h2 class="section-title">Tradizione greca, cuore anconetano</h2>
+      <p class="section-sub">Non è fast food — è comfort food vero, preparato ogni giorno con passione.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🥩</div>
+        <div class="stat-num">100%</div>
+        <h3>Ricette Originali</h3>
+        <p>Ogni piatto segue ricette autentiche greche, tramandate di generazione in generazione.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⭐</div>
+        <div class="stat-num">4.4/5</div>
+        <h3>Top Rated Ancona</h3>
+        <p>Oltre 240 recensioni su Google e TripAdvisor. Il greco più amato di Ancona.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="stat-num">~2min</div>
+        <h3>Pronto in Minuti</h3>
+        <p>Gyros e pite pronte in circa 2 minuti. Veloce quando serve, senza rinunciare alla qualità.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌿</div>
+        <div class="stat-num">Fresh</div>
+        <h3>Ingredienti Freschi</h3>
+        <p>Tzatziki fatto ogni giorno, pomodori locali, olio d'oliva greco. Niente compromessi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section" id="menu">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Il Nostro Menu</span>
+      <h2 class="section-title">Sapori autentici di Grecia</h2>
+      <p class="section-sub">Dal gyros alle pite, dal saganaki ai dolci — tutto preparato con amore ogni giorno.</p>
+    </div>
+    <div class="menu-filters" id="menu-filters"></div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </div>
+</section>
+
+<!-- ORDER PLATFORMS -->
+<section class="platforms" id="ordina">
+  <h2>Ordina come preferisci</h2>
+  <p class="platforms-sub">Scegli il tuo metodo preferito — siamo su tutte le piattaforme</p>
+  <div class="platforms-grid">
+    <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="platform-card">
+      <div class="platform-icon">🛵</div>
+      <div class="platform-name">Deliveroo</div>
+      <div class="platform-desc">Consegna a domicilio veloce. Porta il gusto greco direttamente a casa tua.</div>
+      <span class="platform-tag">🏠 Delivery</span>
+    </a>
+    <a href="https://www.pienissimo.it/argo-greek-comfort-food-ancona" target="_blank" class="platform-card">
+      <div class="platform-icon">📱</div>
+      <div class="platform-name">Pienissimo</div>
+      <div class="platform-desc">Ordina online e ritira in negozio. Zero attesa, tutto pronto per te.</div>
+      <span class="platform-tag">🥡 Asporto</span>
+    </a>
+    <a href="https://wa.me/390710000000?text=Ciao!%20Vorrei%20ordinare%20in%20asporto..." target="_blank" class="platform-card">
+      <div class="platform-icon">💬</div>
+      <div class="platform-name">WhatsApp</div>
+      <div class="platform-desc">Scrivi direttamente. Rispondiamo subito e prepariamo il tuo ordine.</div>
+      <span class="platform-tag">📞 Diretto</span>
+    </a>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="section booking" id="prenota">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking-info">
+        <span class="section-tag">Prenota Tavolo</span>
+        <h2>Riserva il tuo posto in anticipo</h2>
+        <p>Siamo spesso al completo la sera. Prenota il tuo tavolo e assicurati una serata greca perfetta.</p>
+        <ul class="hours-list">
+          <li><span class="hours-day">Lunedì – Martedì</span><span class="hours-time">12:00–15:00 · 18:00–23:00</span></li>
+          <li><span class="hours-day">Mercoledì</span><span class="hours-closed">CHIUSO</span></li>
+          <li><span class="hours-day">Giovedì – Venerdì</span><span class="hours-time">12:00–15:00 · 18:00–23:00</span></li>
+          <li><span class="hours-day">Sabato</span><span class="hours-time">18:00–23:00</span></li>
+          <li><span class="hours-day">Domenica</span><span class="hours-time">18:00–23:00</span></li>
+        </ul>
+        <br>
+        <p style="font-size:14px;color:#666">📍 Via Marconi 27, Ancona · 📞 Chiama per info</p>
+      </div>
+      <div class="booking-form">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--blue-dark);margin-bottom:24px">Prenota il tuo tavolo</h3>
+        <div class="form-group">
+          <label>Nome e Cognome</label>
+          <input type="text" id="book-name" placeholder="Es. Mario Rossi">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data</label>
+            <input type="date" id="book-date">
+          </div>
+          <div class="form-group">
+            <label>Orario</label>
+            <select id="book-time">
+              <optgroup label="🌞 Pranzo (Lun-Ven)">
+                <option>12:00</option><option>12:30</option><option>13:00</option>
+                <option>13:30</option><option>14:00</option><option>14:30</option>
+              </optgroup>
+              <optgroup label="🌙 Cena (tutti i giorni)">
+                <option>18:00</option><option>18:30</option><option>19:00</option>
+                <option>19:30</option><option>20:00</option><option>20:30</option>
+                <option>21:00</option><option>21:30</option><option>22:00</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Numero persone</label>
+          <select id="book-guests">
+            <option value="1">1 persona</option>
+            <option value="2" selected>2 persone</option>
+            <option value="3">3 persone</option>
+            <option value="4">4 persone</option>
+            <option value="5">5 persone</option>
+            <option value="6">6 persone</option>
+            <option value="7+">7+ persone — vi ricontatteremo per il gruppo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Note (opzionale)</label>
+          <textarea id="book-notes" rows="2" placeholder="Es. Allergie, compleanno, tavolo all'esterno, seggiolone bimbo..."></textarea>
+        </div>
+        <p class="form-note closed-warn">⚠️ Il mercoledì siamo chiusi — scegli un altro giorno</p>
+        <button class="form-submit" onclick="submitBooking()">📅 Prenota via WhatsApp</button>
+        <p class="form-note">La prenotazione viene inviata via WhatsApp. Conferma entro pochi minuti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews" id="recensioni">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Recensioni</span>
+      <h2 class="section-title">Cosa dicono i nostri clienti</h2>
+    </div>
+    <div class="rating-overview">
+      <div class="rating-big">
+        <div class="rating-num">4.4</div>
+        <div class="rating-stars">★★★★½</div>
+        <div class="rating-count">240+ recensioni</div>
+      </div>
+      <div class="platform-badges">
+        <a href="https://g.page/r/argo-ancona" target="_blank" class="platform-badge">
+          <span style="font-size:22px">🔵</span>
+          <div><div class="platform-badge-name">Google</div><div class="platform-badge-score">4.4 · 180 rec.</div></div>
+        </a>
+        <a href="https://www.tripadvisor.it/Restaurant_Review-g187895-d14176518" target="_blank" class="platform-badge">
+          <span style="font-size:22px">🟢</span>
+          <div><div class="platform-badge-name">TripAdvisor</div><div class="platform-badge-score">4.5 · Top 10%</div></div>
+        </a>
+        <a href="https://deliveroo.it" target="_blank" class="platform-badge">
+          <span style="font-size:22px">🔴</span>
+          <div><div class="platform-badge-name">Deliveroo</div><div class="platform-badge-score">4.3 · Delivery</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Il gyros più buono che ho mangiato in Italia. Il tzatziki fatto in casa è qualcosa di speciale. Tornerò sicuramente!"</p>
+        <div class="review-author">Marco D.</div>
+        <div class="review-source">Google Reviews · Ancona</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ambiente accogliente e cibo autentico. La pita souvlaki è diventata la mia cena preferita dopo il porto. Ottimo rapporto qualità-prezzo!"</p>
+        <div class="review-author">Sofia M.</div>
+        <div class="review-source">TripAdvisor · Viaggiatrice</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ordinato su Deliveroo: arrivato caldo, ben confezionato e delizioso. Il baklava era un capolavoro. Consigliato a tutti!"</p>
+        <div class="review-author">Lorenzo F.</div>
+        <div class="review-source">Deliveroo · Ancona</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Posto fantastico per una cena informale. Il mix grill è enorme e buonissimo. Staff gentilissimo e veloce. Unico posto greco vero ad Ancona."</p>
+        <div class="review-author">Anna R.</div>
+        <div class="review-source">Google Reviews</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Pita gyros double imperdibile! Prezzo onestissimo, porzioni generose, tutto preparato al momento. L'ho consigliato a tutti i miei amici."</p>
+        <div class="review-author">Giulia T.</div>
+        <div class="review-source">TripAdvisor</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Siamo venuti dal porto con il traghetto e ci siamo fermati qui per cena. Decisione migliore della vacanza! Autenticamente greco, prezzi onesti."</p>
+        <div class="review-author">Family W.</div>
+        <div class="review-source">TripAdvisor · Dal porto</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://g.page/r/argo-ancona/review" target="_blank" class="btn-primary">⭐ Lascia la tua recensione</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Galleria</span>
+      <h2 class="section-title">I nostri piatti e il locale</h2>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Mix Grill Argo">
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&q=80" alt="Pita Gyros">
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?w=400&q=80" alt="Baklava">
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80" alt="Insalata Greca">
+        <div class="gallery-overlay">🔍</div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80" alt="Souvlaki">
+        <div class="gallery-overlay">🔍</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">❮</button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-next" onclick="lbNav(1)">❯</button>
+  <div id="lb-caption"></div>
+</div>
+
+<!-- HOW TO GET HERE -->
+<div class="how-to" id="contatti">
+  <div class="container">
+    <div class="section-header" style="color:#fff">
+      <span class="section-tag" style="background:rgba(255,255,255,.15);color:var(--gold)">Come Arrivare</span>
+      <h2 class="section-title" style="color:#fff">Siamo facili da raggiungere</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.75)">Via Marconi 27, Ancona · A 10 minuti dal porto</p>
+    </div>
+    <div class="how-to-grid">
+      <div class="how-item">
+        <div class="how-icon">🚢</div>
+        <h4>Dal Porto</h4>
+        <p>10 minuti a piedi o 3 minuti in taxi. Perfetto prima o dopo il traghetto.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon">🚌</div>
+        <h4>Bus Urbano</h4>
+        <p>Linee 1, 2, 4 — fermata "Marconi". Ogni 10 minuti dal centro.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon">🚗</div>
+        <h4>In Auto</h4>
+        <p>Parcheggio libero disponibile in Via Marconi e strade adiacenti.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon">🚶</div>
+        <h4>A Piedi</h4>
+        <p>5 minuti dal centro storico di Ancona, vicino alla stazione.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="https://maps.google.com/?q=Argo+Greek+Comfort+Food,+Via+Marconi+27,+Ancona" target="_blank" class="map-btn">
+        📍 Apri in Google Maps
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Domande Frequenti</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Come posso ordinare in asporto? <span>+</span></div>
+        <div class="faq-a"><p>Puoi ordinare asporto tramite Pienissimo (app o sito) oppure direttamente su WhatsApp. Vieni a ritirare in Via Marconi 27 durante gli orari di apertura.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Fate consegna a domicilio? <span>+</span></div>
+        <div class="faq-a"><p>Sì! La consegna a domicilio è disponibile tramite Deliveroo nell'area di Ancona. Cerca "Argo Greek" sull'app Deliveroo.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Quali giorni siete aperti? <span>+</span></div>
+        <div class="faq-a"><p>Siamo aperti Lunedì, Martedì, Giovedì, Venerdì a pranzo (12:00–15:00) e cena (18:00–23:00). Sabato e Domenica solo a cena (18:00–23:00). Il mercoledì siamo chiusi.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Avete opzioni vegetariane? <span>+</span></div>
+        <div class="faq-a"><p>Sì! Abbiamo Spanakopita, Tiropita, Dakos, Insalata Greca, Tzatziki, Pita Dolmas e altri piatti vegetariani. Tutti contrassegnati con 🌿 nel menu.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">C'è parcheggio? <span>+</span></div>
+        <div class="faq-a"><p>Sì, c'è parcheggio libero disponibile in Via Marconi e nelle strade adiacenti.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Accettate carta di credito? <span>+</span></div>
+        <div class="faq-a"><p>Sì, accettiamo tutte le carte di credito e debito (Visa, Mastercard), pagamenti contactless e i principali wallet digitali.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Posso portare il cane? <span>+</span></div>
+        <div class="faq-a"><p>I cani sono benvenuti nell'area esterna. Per i tavoli interni vi chiediamo di contattarci in anticipo.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Come prenoto per un gruppo? <span>+</span></div>
+        <div class="faq-a"><p>Per gruppi di 7 o più persone ti consigliamo di contattarci direttamente su WhatsApp o telefono così possiamo organizzare al meglio la vostra serata.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>🇬🇷 Resta aggiornato sulle offerte</h2>
+  <p>Iscriviti e ricevi le promozioni esclusive, il menu del giorno e le novità direttamente nella tua email.</p>
+  <div class="newsletter-form">
+    <input type="email" id="nl-email" placeholder="La tua email">
+    <button onclick="subscribeNewsletter()">Iscriviti</button>
+  </div>
+  <div id="nl-success">✅ Grazie! Ti terremo aggiornato sulle nostre offerte.</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">ARGO <span>GREEK</span></div>
+        <p>Autentico comfort food greco nel cuore di Ancona. Gyros, souvlaki e pite preparate ogni giorno con amore.</p>
+        <div class="footer-social" style="margin-top:16px">
+          <a href="https://instagram.com/argogreek_ancona" target="_blank">📸</a>
+          <a href="https://facebook.com/argoancona" target="_blank">👥</a>
+          <a href="https://wa.me/390710000000" target="_blank">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#menu">Pite</a></li>
+          <li><a href="#menu">Piatti</a></li>
+          <li><a href="#menu">Antipasti</a></li>
+          <li><a href="#menu">Vegetariano</a></li>
+          <li><a href="#menu">Dolci</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ordina</h4>
+        <ul>
+          <li><a href="https://deliveroo.it" target="_blank">🛵 Deliveroo (delivery)</a></li>
+          <li><a href="https://www.pienissimo.it" target="_blank">📱 Pienissimo (asporto)</a></li>
+          <li><a href="https://wa.me/390710000000" target="_blank">💬 WhatsApp</a></li>
+          <li><a href="#prenota">📅 Prenota Tavolo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">📍 Via Marconi 27, Ancona</a></li>
+          <li><a href="#">🕐 Lun-Mar, Gio-Ven: 12-15, 18-23</a></li>
+          <li><a href="#">🌙 Sab-Dom: 18:00–23:00</a></li>
+          <li><a href="#">❌ Mercoledì: chiuso</a></li>
+          <li><a href="/admin.html">⚙️ Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Argo Greek Comfort Food · Via Marconi 27, Ancona · P.IVA in fase di registrazione</span>
+      <span style="color:rgba(255,255,255,.4)">Made with 🇬🇷 and ❤️ in Ancona</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div id="mobile-cta">
+  <div class="mobile-cta-grid">
+    <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="mobile-cta-btn">
+      🛵<span>Delivery</span>
+    </a>
+    <a href="https://www.pienissimo.it/argo-greek-comfort-food-ancona" target="_blank" class="mobile-cta-btn gold">
+      🥡<span>Asporto</span>
+    </a>
+    <a href="#prenota" class="mobile-cta-btn">
+      📅<span>Prenota</span>
+    </a>
+  </div>
+</div>
+
+<!-- CART BAR -->
+<div id="cart-bar">
+  <div id="cart-count">0</div>
+  <span id="cart-label">0 articoli · €0,00</span>
+  <button class="cart-order-btn" onclick="openOrderModal()">Ordina →</button>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="order-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    <h2>Il tuo ordine</h2>
+    <div id="order-items-list"></div>
+    <div class="order-total" id="order-total">Totale: €0,00</div>
+    <h3 style="font-size:15px;margin-bottom:12px;color:var(--blue-dark)">Come vuoi ordinare?</h3>
+    <div class="order-type-btns">
+      <button class="order-type-btn selected" id="type-delivery" onclick="selectOrderType('delivery')">🛵 Delivery<br><small>Deliveroo</small></button>
+      <button class="order-type-btn" id="type-takeaway" onclick="selectOrderType('takeaway')">🥡 Asporto<br><small>Pienissimo</small></button>
+    </div>
+    <button class="modal-confirm" onclick="confirmOrder()">Vai alla Piattaforma →</button>
+  </div>
+</div>
+
+<!-- EXIT POPUP -->
+<div id="exit-popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closeExitPopup()">✕</button>
+    <div class="popup-emoji">🇬🇷</div>
+    <h2>Aspetta! Un regalo per te</h2>
+    <p>Prima di andare, ecco uno sconto esclusivo sul tuo primo ordine asporto:</p>
+    <div class="popup-code">ARGO10</div>
+    <p style="font-size:13px;color:#666;margin-bottom:16px">10% di sconto sul tuo prossimo ordine su Pienissimo</p>
+    <button class="popup-cta" onclick="goToPienissimo()">🥡 Usa lo sconto ora</button>
+    <span class="popup-skip" onclick="closeExitPopup()">No grazie, non voglio risparmiare</span>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<button id="chat-btn" onclick="toggleChat()" title="Chatta con noi">💬</button>
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">🇬🇷</div>
+      <div>
+        <div class="chat-name">Argo AI</div>
+        <div class="chat-status">● Online · Risposta immediata</div>
+      </div>
+    </div>
+    <button id="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Γεια σου! 👋 Ciao! Sono l'assistente di Argo Greek. Come posso aiutarti oggi?</div>
+  </div>
+  <div class="chat-suggestions" id="chat-suggestions">
+    <button class="chat-sugg" onclick="sendSugg('Quali sono gli orari?')">Orari</button>
+    <button class="chat-sugg" onclick="sendSugg('Come ordino a domicilio?')">Delivery</button>
+    <button class="chat-sugg" onclick="sendSugg('Avete opzioni veg?')">Vegetariano</button>
+    <button class="chat-sugg" onclick="sendSugg('Dove siete?')">Dove siete?</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Scrivi un messaggio..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" onclick="sendMsg()">▶</button>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <div class="cookie-inner">
+    <p>🍪 Usiamo i cookie per migliorare la tua esperienza. <a href="#">Leggi la privacy policy</a>.</p>
+    <div class="cookie-btns">
+      <button class="cookie-reject" onclick="rejectCookies()">Solo necessari</button>
+      <button class="cookie-accept" onclick="acceptCookies()">Accetta tutti</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== OPEN/CLOSED STATUS ==========
+function updateStatus(){
+  const now=new Date();
+  const day=now.getDay(); // 0=sun,1=mon,...,6=sat
+  const h=now.getHours();
+  const m=now.getMinutes();
+  const t=h*60+m;
+  const lunch=t>=720&&t<900; // 12:00-15:00
+  const dinner=t>=1080&&t<1380; // 18:00-23:00
+  const hasPrenota=[1,2,4,5].includes(day); // mon,tue,thu,fri
+  const badge=document.getElementById('open-badge');
+  const liveStatus=document.getElementById('live-status');
+  const urgency=document.getElementById('urgency-text');
+  if(day===3){// Wednesday
+    if(badge){badge.textContent='● Chiuso oggi';badge.className='closed';badge.style.cssText='background:#ef4444;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:8px'}
+    if(liveStatus)liveStatus.innerHTML='🔴 Oggi siamo chiusi · Riapriamo domani alle 12:00';
+    if(urgency)urgency.textContent='Oggi siamo chiusi · Riapriamo Giovedì a pranzo';
+  } else if((hasPrenota&&lunch)||dinner){
+    if(badge){badge.textContent='● Aperto';badge.style.cssText='background:#22c55e;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:8px'}
+    if(liveStatus)liveStatus.innerHTML='🟢 Aperto ora · Cucina attiva · Ordini in corso';
+    if(urgency)urgency.textContent='🔥 Siamo aperti! Ordina ora o prenota il tuo tavolo';
+  } else {
+    const nextOpen=dinner?'Non disponibile':'alle 18:00';
+    if(badge){badge.textContent='● Chiuso ora';badge.style.cssText='background:#ef4444;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:8px'}
+    if(liveStatus)liveStatus.innerHTML=`⏰ Chiuso momentaneamente · Riapriamo ${nextOpen}`;
+    if(urgency)urgency.textContent=`Chiusi ora · Riapriamo ${nextOpen} · Prenota il tuo tavolo!`;
+  }
+}
+updateStatus();setInterval(updateStatus,60000);
+
+// ========== HAPPY HOUR ==========
+function checkHappyHour(){
+  const now=new Date();
+  const h=now.getHours();
+  const m=now.getMinutes();
+  const t=h*60+m;
+  const banner=document.getElementById('happy-hour-banner');
+  if(t>=1080&&t<1110){ // 18:00-18:30
+    banner.classList.add('visible');
+    const left=1110-t;
+    const mins=Math.floor(left);
+    document.getElementById('hh-countdown').textContent=`${mins}:${String(now.getSeconds()).padStart(2,'0')}`;
+  } else {
+    banner.classList.remove('visible');
+  }
+}
+checkHappyHour();setInterval(checkHappyHour,1000);
+
+// ========== HAMBURGER ==========
+function toggleMenu(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('nav')&&!e.target.closest('#mobile-menu')){
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+});
+
+// ========== MENU ==========
+let menuData=[];let activeFilter='Tutte';let cart=[];
+async function loadMenu(){
+  try{
+    const r=await fetch('menu.json');
+    menuData=await r.json();
+    renderFilters();renderMenu();
+  }catch(e){
+    console.log('Menu fallback');
+    document.getElementById('menu-grid').innerHTML='<p style="text-align:center;color:#666;padding:40px">Menu in caricamento...</p>';
+  }
+}
+function renderFilters(){
+  const cats=['Tutte',...new Set(menuData.items.map(i=>i.category))];
+  const el=document.getElementById('menu-filters');
+  el.innerHTML=cats.map(c=>`<button class="filter-btn${c===activeFilter?' active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+}
+function setFilter(cat){
+  activeFilter=cat;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===cat));
+  renderMenu();
+}
+function renderMenu(){
+  const items=activeFilter==='Tutte'?menuData.items:menuData.items.filter(i=>i.category===activeFilter&&i.available!==false);
+  const el=document.getElementById('menu-grid');
+  el.innerHTML=items.map(item=>`
+    <div class="menu-card">
+      <div class="menu-card-img">
+        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80'">
+        ${item.badge?`<div class="menu-badge">${item.badge}</div>`:''}
+      </div>
+      <div class="menu-card-body">
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
+        <div class="menu-card-footer">
+          <div>
+            ${item.originalPrice?`<span class="price-original">€${item.originalPrice.toFixed(2)}</span>`:''}
+            <span class="price">€${item.price.toFixed(2)}</span>
+          </div>
+          <button class="add-btn" onclick="addToCart(${item.id},'${item.name.replace(/'/g,"\\'")}',${item.price})">+ Aggiungi</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+loadMenu();
+
+// ========== CART ==========
+function addToCart(id,name,price){
+  const existing=cart.find(i=>i.id===id);
+  if(existing)existing.qty++;
+  else cart.push({id,name,price,qty:1});
+  updateCartBar();
+  showAddFeedback();
+}
+function updateCartBar(){
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  document.getElementById('cart-label').textContent=`${count} articol${count===1?'o':'i'} · €${total.toFixed(2).replace('.',',')}`;
+  document.getElementById('cart-bar').classList.toggle('visible',count>0);
+}
+function showAddFeedback(){
+  const btn=event.target;
+  const orig=btn.textContent;
+  btn.textContent='✓ Aggiunto';
+  btn.style.background='#22c55e';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},800);
+}
+let orderType='delivery';
+function openOrderModal(){
+  const listEl=document.getElementById('order-items-list');
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  listEl.innerHTML=cart.map(i=>`<div class="order-item-row"><span>${i.qty}x ${i.name}</span><span>€${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
+  document.getElementById('order-total').textContent=`Totale: €${total.toFixed(2).replace('.',',')}`;
+  document.getElementById('order-modal').classList.add('open');
+}
+function closeOrderModal(){document.getElementById('order-modal').classList.remove('open')}
+function selectOrderType(t){
+  orderType=t;
+  document.getElementById('type-delivery').classList.toggle('selected',t==='delivery');
+  document.getElementById('type-takeaway').classList.toggle('selected',t==='takeaway');
+}
+function confirmOrder(){
+  const url=orderType==='delivery'
+    ?'https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food'
+    :'https://www.pienissimo.it/argo-greek-comfort-food-ancona';
+  window.open(url,'_blank');
+  closeOrderModal();
+}
+
+// ========== BOOKING ==========
+function submitBooking(){
+  const name=document.getElementById('book-name').value.trim();
+  const date=document.getElementById('book-date').value;
+  const time=document.getElementById('book-time').value;
+  const guests=document.getElementById('book-guests').value;
+  const notes=document.getElementById('book-notes').value.trim();
+  if(!name||!date){alert('Inserisci il tuo nome e la data della prenotazione.');return;}
+  const d=new Date(date);
+  if(d.getDay()===3){alert('Siamo chiusi il mercoledì. Scegli un altro giorno!');return;}
+  const msg=encodeURIComponent(`Ciao Argo! Vorrei prenotare un tavolo:\n👤 Nome: ${name}\n📅 Data: ${date}\n⏰ Orario: ${time}\n👥 Persone: ${guests}${notes?'\n📝 Note: '+notes:''}`);
+  window.open(`https://wa.me/390710000000?text=${msg}`,'_blank');
+}
+
+// ========== GALLERY LIGHTBOX ==========
+const galleryImgs=[
+  {src:'https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80',caption:'Mix Grill Argo — La nostra selezione'},
+  {src:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=1200&q=80',caption:'Pita Gyros — Il nostro best seller'},
+  {src:'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=1200&q=80',caption:'Baklava — Fatto in casa ogni giorno'},
+  {src:'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1200&q=80',caption:'Insalata Greca — Fresca e autentica'},
+  {src:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=1200&q=80',caption:'Souvlaki alla griglia'}
+];
+let lbIdx=0;
+function openLightbox(i){lbIdx=i;document.getElementById('lb-img').src=galleryImgs[i].src;document.getElementById('lb-caption').textContent=galleryImgs[i].caption;document.getElementById('lightbox').classList.add('open')}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+function lbNav(d){lbIdx=(lbIdx+d+galleryImgs.length)%galleryImgs.length;openLightbox(lbIdx)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1)});
+
+// ========== FAQ ==========
+function toggleFaq(el){
+  const ans=el.nextElementSibling;
+  const isOpen=ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  if(!isOpen){ans.classList.add('open');el.classList.add('open')}
+}
+
+// ========== NEWSLETTER ==========
+function subscribeNewsletter(){
+  const email=document.getElementById('nl-email').value.trim();
+  if(!email||!email.includes('@')){alert('Inserisci un\'email valida.');return;}
+  const subs=JSON.parse(localStorage.getItem('nl_subs')||'[]');
+  if(!subs.includes(email)){subs.push(email);localStorage.setItem('nl_subs',JSON.stringify(subs));}
+  document.getElementById('nl-success').style.display='block';
+  document.getElementById('nl-email').value='';
+}
+
+// ========== EXIT POPUP ==========
+let popupShown=false;
+function showExitPopup(){
+  if(popupShown||sessionStorage.getItem('popup_shown'))return;
+  document.getElementById('exit-popup').classList.add('open');
+  popupShown=true;sessionStorage.setItem('popup_shown','1');
+}
+function closeExitPopup(){document.getElementById('exit-popup').classList.remove('open')}
+function goToPienissimo(){window.open('https://www.pienissimo.it/argo-greek-comfort-food-ancona','_blank');closeExitPopup()}
+document.addEventListener('mouseleave',e=>{if(e.clientY<20)showExitPopup()});
+setTimeout(()=>showExitPopup(),40000);
+
+// ========== CHATBOT ==========
+let chatOpen=false;
+const SYSTEM_PROMPT=`Sei l'assistente virtuale di Argo Greek Comfort Food, un ristorante greco autentico ad Ancona (Via Marconi 27).
+
+INFORMAZIONI CHIAVE:
+- Orari: Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab, Dom: 18:00–23:00. Mercoledì: CHIUSO.
+- Delivery: solo tramite Deliveroo (consegna a domicilio)
+- Asporto: Pienissimo o WhatsApp (ritiro in negozio)
+- Prenotazioni: tramite WhatsApp o il form sul sito
+- Menu: Pite (Gyros, Souvlaki da €5.50), Piatti (Mix Grill €14, Moussaka €12), Antipasti, Dolci (Baklava €4.50)
+- Rating: 4.4/5 Google, Top 10% TripAdvisor
+- Specialità: Pita Gyros Double (best seller), Mix Grill Argo (chef's choice)
+
+Rispondi sempre in italiano, in modo amichevole e conciso. Spingi gentilmente verso l'ordine o la prenotazione. Usa emoji con moderazione.`;
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-window').classList.toggle('open',chatOpen);
+  document.getElementById('chat-btn').textContent=chatOpen?'✕':'💬';
+}
+function sendSugg(text){
+  document.getElementById('chat-input').value=text;
+  sendMsg();
+}
+async function sendMsg(){
+  const input=document.getElementById('chat-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  document.getElementById('chat-suggestions').style.display='none';
+  addMsg(text,'user');
+  const typing=addMsg('<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>','bot typing');
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        system:SYSTEM_PROMPT,
+        messages:[{role:'user',content:text}]
+      })
+    });
+    const data=await r.json();
+    typing.remove();
+    addMsg(data.content[0].text,'bot');
+  }catch(e){
+    typing.remove();
+    addMsg('Ciao! Per info immediate chiama o scrivi su WhatsApp. Siamo in Via Marconi 27, Ancona! 🇬🇷','bot');
+  }
+}
+function addMsg(text,cls){
+  const el=document.createElement('div');
+  el.className=`chat-msg ${cls}`;
+  el.innerHTML=text;
+  const msgs=document.getElementById('chat-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+  return el;
+}
+
+// ========== COOKIES ==========
+function acceptCookies(){document.getElementById('cookie-banner').style.display='none';localStorage.setItem('cookies','accepted')}
+function rejectCookies(){document.getElementById('cookie-banner').style.display='none';localStorage.setItem('cookies','rejected')}
+if(!localStorage.getItem('cookies')){
+  setTimeout(()=>document.getElementById('cookie-banner').style.display='block',2000);
+}
+
+// ========== SET MIN BOOKING DATE ==========
+const dateInput=document.getElementById('book-date');
+if(dateInput){
+  const today=new Date();
+  dateInput.min=today.toISOString().split('T')[0];
+  const tomorrow=new Date(today);tomorrow.setDate(tomorrow.getDate()+1);
+  dateInput.value=tomorrow.toISOString().split('T')[0];
+}
+</script>
+</body>
+</html>

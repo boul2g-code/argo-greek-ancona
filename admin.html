@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argo Admin Dashboard</title>
+<script>
+// Auth check
+const auth=sessionStorage.getItem('admin_auth');
+if(!auth||Date.now()>parseInt(auth)){window.location.href='/login.html'}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1a3a6b;--blue-mid:#2456a4;--blue-light:#3b82f6;--gold:#f59e0b;--green:#22c55e;--red:#ef4444;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-600:#4b5563;--white:#fff;--radius:12px;--shadow:0 4px 20px rgba(26,58,107,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--gray-50);color:#1f2937;display:flex;min-height:100vh}
+/* SIDEBAR */
+.sidebar{width:240px;background:var(--blue);min-height:100vh;padding:0;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sidebar-logo .name{font-family:'Playfair Display',serif;color:#fff;font-size:18px}
+.sidebar-logo .name span{color:var(--gold)}
+.sidebar-logo .sub{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
+.sidebar-nav{padding:16px 12px;flex:1}
+.sidebar-section{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);padding:16px 8px 8px;font-weight:700}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:8px;color:rgba(255,255,255,.75);cursor:pointer;transition:.2s;margin-bottom:2px;font-size:14px;font-weight:500;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-item.active{background:rgba(245,158,11,.2);color:var(--gold);border:1px solid rgba(245,158,11,.3)}
+.nav-item .icon{font-size:18px;width:24px;text-align:center}
+.sidebar-footer{padding:16px 12px;border-top:1px solid rgba(255,255,255,.1)}
+.logout-btn{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.6);cursor:pointer;font-size:14px;padding:8px 12px;border-radius:8px;transition:.2s;background:none;border:none;width:100%}
+.logout-btn:hover{color:#fff;background:rgba(255,255,255,.1)}
+/* MAIN */
+.main{flex:1;overflow:hidden}
+.topbar{background:var(--white);border-bottom:1px solid #e5e7eb;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-size:20px;font-weight:700;color:var(--blue)}
+.topbar-actions{display:flex;gap:12px;align-items:center}
+.btn{padding:8px 18px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;border:none;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-mid)}
+.btn-gold{background:var(--gold);color:var(--blue)}
+.btn-gold:hover{background:#d97706}
+.btn-outline{background:#fff;color:var(--blue);border:1.5px solid #e5e7eb}
+.btn-outline:hover{border-color:var(--blue)}
+.content{padding:28px;max-width:1200px}
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+/* CARDS */
+.card{background:#fff;border-radius:var(--radius);border:1px solid #e5e7eb;padding:24px;box-shadow:var(--shadow)}
+.card-title{font-size:16px;font-weight:700;color:var(--blue);margin-bottom:16px}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:var(--radius);padding:24px;border:1px solid #e5e7eb;box-shadow:var(--shadow)}
+.stat-label{font-size:12px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
+.stat-value{font-size:2rem;font-weight:800;color:var(--blue);font-family:'Playfair Display',serif;line-height:1}
+.stat-change{font-size:12px;margin-top:6px}
+.stat-change.up{color:var(--green)}
+.stat-change.down{color:var(--red)}
+/* QUICK LINKS */
+.quick-links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.quick-link{background:#fff;border:1.5px solid #e5e7eb;border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:.2s;text-decoration:none;display:block}
+.quick-link:hover{border-color:var(--blue);box-shadow:var(--shadow)}
+.quick-link .ql-icon{font-size:28px;margin-bottom:8px}
+.quick-link .ql-name{font-weight:700;font-size:14px;color:var(--blue)}
+.quick-link .ql-desc{font-size:12px;color:var(--gray-600)}
+/* MENU MANAGEMENT */
+.menu-toolbar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.menu-toolbar input{flex:1;min-width:200px;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px}
+.menu-table{width:100%;border-collapse:collapse}
+.menu-table th{background:var(--gray-50);padding:12px 16px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-600);font-weight:700;border-bottom:2px solid #e5e7eb}
+.menu-table td{padding:14px 16px;border-bottom:1px solid #f3f4f6;font-size:14px;vertical-align:middle}
+.menu-table tr:hover td{background:#fafafa}
+.menu-img-thumb{width:56px;height:44px;object-fit:cover;border-radius:6px}
+.badge-chip{background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px}
+.status-toggle{cursor:pointer;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;border:none}
+.status-on{background:#dcfce7;color:#166534}
+.status-off{background:#fee2e2;color:#991b1b}
+.action-btns{display:flex;gap:6px}
+.action-btn{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.action-btn.edit{background:#dbeafe;color:var(--blue-mid)}
+.action-btn.edit:hover{background:#bfdbfe}
+.action-btn.del{background:#fee2e2;color:var(--red)}
+.action-btn.del:hover{background:#fca5a5}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:16px;padding:36px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal h2{font-family:'Playfair Display',serif;color:var(--blue);font-size:1.5rem;margin-bottom:24px}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:#9ca3af}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--blue);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;transition:.2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.badge-selector{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.badge-opt{padding:5px 12px;border-radius:20px;background:var(--gray-100);border:1.5px solid transparent;cursor:pointer;font-size:12px;font-weight:600;transition:.2s}
+.badge-opt:hover,.badge-opt.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.img-preview{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
+/* OFFER TYPES */
+.offer-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.offer-type-btn{padding:12px 8px;border:2px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;font-size:12px;font-weight:600;text-align:center;transition:.2s}
+.offer-type-btn:hover{border-color:var(--blue)}
+.offer-type-btn.selected{border-color:var(--blue);background:#dbeafe;color:var(--blue)}
+.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.template-btn{padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:12px;text-align:left;transition:.2s;color:var(--gray-600)}
+.template-btn:hover{border-color:var(--gold);background:#fffbeb}
+/* CAMPAIGN */
+.channel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.channel-btn{padding:14px;border:2px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;font-size:13px;font-weight:600;text-align:center;transition:.2s}
+.channel-btn:hover{border-color:var(--blue-mid)}
+.channel-btn.selected{border-color:var(--blue);background:#dbeafe;color:var(--blue)}
+.channel-btn .ch-desc{font-size:11px;color:var(--gray-600);font-weight:400;margin-top:3px}
+.channel-help{background:var(--gray-50);border-radius:8px;padding:14px;font-size:13px;color:var(--gray-600);margin-bottom:16px;border-left:3px solid var(--blue-light)}
+/* ACTIVITY FEED */
+.activity-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f3f4f6}
+.activity-item:last-child{border:none}
+.activity-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.activity-content{flex:1}
+.activity-title{font-size:14px;font-weight:600;color:#1f2937}
+.activity-time{font-size:12px;color:var(--gray-600);margin-top:2px}
+/* TOGGLE */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f3f4f6}
+.toggle-row:last-child{border:none}
+.toggle-info h4{font-size:14px;font-weight:600;color:#1f2937}
+.toggle-info p{font-size:12px;color:var(--gray-600);margin-top:2px}
+.toggle{position:relative;width:48px;height:26px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#e5e7eb;border-radius:13px;cursor:pointer;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;height:20px;width:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked+.toggle-slider{background:var(--green)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(22px)}
+/* ANALYTICS */
+.analytics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.analytics-card{background:#fff;border-radius:var(--radius);padding:24px;border:1px solid #e5e7eb}
+.analytics-card h3{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:16px}
+.analytics-link{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f3f4f6;text-decoration:none;color:inherit}
+.analytics-link:last-child{border:none}
+.analytics-link:hover .al-name{color:var(--blue-mid)}
+.al-icon{font-size:24px}
+.al-info{flex:1;margin-left:12px}
+.al-name{font-size:14px;font-weight:600;color:#1f2937}
+.al-desc{font-size:12px;color:var(--gray-600)}
+.al-arrow{color:var(--gray-600);font-size:18px}
+/* PHOTO MANAGEMENT */
+.photo-tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid #e5e7eb;padding-bottom:0}
+.photo-tab{padding:10px 20px;background:none;border:none;font-size:14px;font-weight:600;cursor:pointer;color:var(--gray-600);border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s}
+.photo-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.photo-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;border:2px solid transparent;cursor:pointer;transition:.2s;group}
+.photo-item:hover{border-color:var(--blue);box-shadow:var(--shadow)}
+.photo-item img{width:100%;height:100%;object-fit:cover}
+.photo-item-overlay{position:absolute;inset:0;background:rgba(26,58,107,.7);display:none;align-items:center;justify-content:center;gap:8px}
+.photo-item:hover .photo-item-overlay{display:flex}
+.photo-action{background:rgba(255,255,255,.9);border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;color:var(--blue);transition:.2s}
+.photo-action:hover{background:#fff}
+.upload-area{border:2px dashed #d1d5db;border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:.2s;background:var(--gray-50)}
+.upload-area:hover{border-color:var(--blue);background:#dbeafe}
+.upload-area input[type=file]{display:none}
+.upload-area .ua-icon{font-size:40px;margin-bottom:12px}
+.upload-area h3{font-size:16px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.upload-area p{font-size:13px;color:var(--gray-600)}
+/* RESPONSIVE */
+@media(max-width:900px){.sidebar{width:60px;padding:0}.sidebar-logo{display:none}.nav-item span{display:none}.nav-item .icon{margin:0}.sidebar-section{display:none}.stats-row{grid-template-columns:1fr 1fr}.analytics-grid{grid-template-columns:1fr}.photo-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr}.quick-links{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.offer-type-grid,.channel-grid,.template-grid{grid-template-columns:1fr}.menu-table{font-size:12px}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="name">ARGO <span>ADMIN</span></div>
+    <div class="sub">Pannello di controllo</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">Principale</div>
+    <a class="nav-item active" onclick="showPage('dashboard')"><span class="icon">📊</span><span>Dashboard</span></a>
+    <a class="nav-item" onclick="showPage('menu')"><span class="icon">🍽️</span><span>Menu</span></a>
+    <a class="nav-item" onclick="showPage('photos')"><span class="icon">🖼️</span><span>Foto</span></a>
+    <div class="sidebar-section">Marketing</div>
+    <a class="nav-item" onclick="showPage('offers')"><span class="icon">🏷️</span><span>Offerte</span></a>
+    <a class="nav-item" onclick="showPage('campaigns')"><span class="icon">📣</span><span>Campagne</span></a>
+    <a class="nav-item" onclick="showPage('reviews')"><span class="icon">⭐</span><span>Recensioni</span></a>
+    <div class="sidebar-section">Sistema</div>
+    <a class="nav-item" onclick="showPage('integrations')"><span class="icon">🔌</span><span>Integrazioni</span></a>
+    <a class="nav-item" onclick="showPage('settings')"><span class="icon">⚙️</span><span>Impostazioni</span></a>
+    <a class="nav-item" onclick="showPage('analytics')"><span class="icon">📈</span><span>Analytics</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="logout()"><span>🚪</span><span>Logout</span></button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">📊 Dashboard</div>
+    <div class="topbar-actions">
+      <span id="live-status-badge" style="font-size:13px;font-weight:600"></span>
+      <a href="/" target="_blank" class="btn btn-outline">👁️ Vedi sito</a>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Ordini Oggi (stimato)</div>
+          <div class="stat-value" id="stat-orders">--</div>
+          <div class="stat-change up">↑ Dati da piattaforme</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Rating Google</div>
+          <div class="stat-value">4.4★</div>
+          <div class="stat-change up">↑ 240+ recensioni</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">TripAdvisor</div>
+          <div class="stat-value">Top 10%</div>
+          <div class="stat-change up">↑ Ancona</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Stato locale</div>
+          <div class="stat-value" id="stat-status" style="font-size:1.2rem">--</div>
+          <div class="stat-change" id="stat-next">--</div>
+        </div>
+      </div>
+
+      <div class="quick-links">
+        <a href="https://restaurant-hub.deliveroo.com" target="_blank" class="quick-link">
+          <div class="ql-icon">🛵</div>
+          <div class="ql-name">Deliveroo Hub</div>
+          <div class="ql-desc">Ordini delivery in tempo reale</div>
+        </a>
+        <a href="https://www.pienissimo.it/dashboard" target="_blank" class="quick-link">
+          <div class="ql-icon">📱</div>
+          <div class="ql-name">Pienissimo</div>
+          <div class="ql-desc">Ordini asporto e prenotazioni</div>
+        </a>
+        <a href="https://www.tripadvisor.it/RestaurantOwner-g187895-d14176518" target="_blank" class="quick-link">
+          <div class="ql-icon">🟢</div>
+          <div class="ql-name">TripAdvisor Owner</div>
+          <div class="ql-desc">Rispondi alle recensioni</div>
+        </a>
+        <a href="https://business.google.com" target="_blank" class="quick-link">
+          <div class="ql-icon">🔵</div>
+          <div class="ql-name">Google Business</div>
+          <div class="ql-desc">Gestisci scheda Google</div>
+        </a>
+        <a href="https://analytics.google.com" target="_blank" class="quick-link">
+          <div class="ql-icon">📊</div>
+          <div class="ql-name">Google Analytics</div>
+          <div class="ql-desc">Traffico e conversioni</div>
+        </a>
+        <a href="https://wa.me/390710000000" target="_blank" class="quick-link">
+          <div class="ql-icon">💬</div>
+          <div class="ql-name">WhatsApp Business</div>
+          <div class="ql-desc">Messaggi e ordini diretti</div>
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🕐 Attività Recente</div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#dcfce7">⭐</div>
+          <div class="activity-content">
+            <div class="activity-title">Nuova recensione 5★ su Google</div>
+            <div class="activity-time">Oggi · "Pita gyros imperdibile!"</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#dbeafe">🛵</div>
+          <div class="activity-content">
+            <div class="activity-title">Ordine Deliveroo confermato</div>
+            <div class="activity-time">Oggi · Mix Grill + 2x Pita Gyros</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#fef3c7">📅</div>
+          <div class="activity-content">
+            <div class="activity-title">Prenotazione: 4 persone stasera 20:00</div>
+            <div class="activity-time">Oggi · Richiesta via WhatsApp</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon" style="background:#f3e8ff">📧</div>
+          <div class="activity-content">
+            <div class="activity-title">3 nuovi iscritti newsletter</div>
+            <div class="activity-time">Ieri · Totale: 47 iscritti</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU MANAGEMENT -->
+    <div class="page" id="page-menu">
+      <div class="card">
+        <div class="menu-toolbar">
+          <input type="text" placeholder="🔍 Cerca piatto..." oninput="filterMenuTable(this.value)">
+          <select id="cat-filter" onchange="filterMenuTable()" style="padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:14px">
+            <option value="">Tutte le categorie</option>
+          </select>
+          <button class="btn btn-primary" onclick="openAddModal()">+ Aggiungi Piatto</button>
+          <button class="btn btn-gold" onclick="exportMenu()">💾 Esporta menu.json</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="menu-table">
+            <thead>
+              <tr>
+                <th>Foto</th><th>Nome</th><th>Categoria</th><th>Prezzo</th><th>Badge</th><th>Stato</th><th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="menu-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHOTO MANAGEMENT -->
+    <div class="page" id="page-photos">
+      <div class="card">
+        <div class="photo-tabs">
+          <button class="photo-tab active" onclick="switchPhotoTab('gallery')">🖼️ Galleria</button>
+          <button class="photo-tab" onclick="switchPhotoTab('upload')">📤 Carica Foto</button>
+          <button class="photo-tab" onclick="switchPhotoTab('url')">🔗 Aggiungi da URL</button>
+        </div>
+        <div id="photo-gallery-tab">
+          <div class="photo-grid" id="photo-grid"></div>
+        </div>
+        <div id="photo-upload-tab" style="display:none">
+          <div class="upload-area" onclick="document.getElementById('file-upload').click()">
+            <input type="file" id="file-upload" accept="image/*" multiple onchange="handleFileUpload(this.files)">
+            <div class="ua-icon">📸</div>
+            <h3>Trascina le foto qui o clicca per selezionare</h3>
+            <p>JPG, PNG, WEBP · Max 5MB per foto · Più foto alla volta</p>
+          </div>
+          <div id="upload-preview" style="margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
+        </div>
+        <div id="photo-url-tab" style="display:none">
+          <div class="form-group">
+            <label>URL foto (da Unsplash, Google Drive, ecc.)</label>
+            <input type="url" id="photo-url-input" placeholder="https://images.unsplash.com/photo-...?w=800" oninput="previewPhotoUrl()">
+          </div>
+          <img id="photo-url-preview" class="img-preview" style="display:none;max-height:200px;width:auto;border-radius:8px;margin-bottom:12px">
+          <div class="form-group">
+            <label>Descrizione (per accessibilità)</label>
+            <input type="text" id="photo-url-desc" placeholder="Es. Mix Grill Argo — la nostra selezione di carni">
+          </div>
+          <button class="btn btn-primary" onclick="addPhotoFromUrl()">✅ Aggiungi alla galleria</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFERS -->
+    <div class="page" id="page-offers">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h2 style="font-size:18px;font-weight:700;color:var(--blue)">Offerte Attive</h2>
+        <button class="btn btn-primary" onclick="document.getElementById('offer-modal').classList.add('open')">+ Nuova Offerta</button>
+      </div>
+      <div id="offers-list" style="display:grid;gap:16px">
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-weight:700;color:var(--blue);font-size:16px">🕕 Happy Hour</div>
+            <div style="font-size:13px;color:var(--gray-600);margin-top:4px">10% sconto asporto · 18:00–18:30 · Codice: HAPPY10</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">● Attiva</span>
+            <button class="action-btn edit">Modifica</button>
+            <button class="action-btn del">Elimina</button>
+          </div>
+        </div>
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-weight:700;color:var(--blue);font-size:16px">🍽️ Mix Grill Promo</div>
+            <div style="font-size:13px;color:var(--gray-600);margin-top:4px">Prezzo ridotto €14 (era €20) · Risparmio €6</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">● Attiva</span>
+            <button class="action-btn edit">Modifica</button>
+            <button class="action-btn del">Elimina</button>
+          </div>
+        </div>
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-weight:700;color:var(--blue);font-size:16px">📦 Exit Discount</div>
+            <div style="font-size:13px;color:var(--gray-600);margin-top:4px">Popup uscita · 10% su Pienissimo · Codice: ARGO10</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">● Attiva</span>
+            <button class="action-btn edit">Modifica</button>
+            <button class="action-btn del">Elimina</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMPAIGNS -->
+    <div class="page" id="page-campaigns">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h2 style="font-size:18px;font-weight:700;color:var(--blue)">Campagne Pubblicitarie</h2>
+        <button class="btn btn-primary" onclick="document.getElementById('campaign-modal').classList.add('open')">+ Nuova Campagna</button>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 Consigli rapidi per aumentare gli incassi</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="background:var(--gray-50);border-radius:10px;padding:16px">
+            <div style="font-weight:700;font-size:14px;color:var(--blue);margin-bottom:6px">📸 Instagram Story</div>
+            <div style="font-size:13px;color:var(--gray-600)">Posta una story con il piatto del giorno ogni mattina. ROI stimato: +15% ordini nel weekend.</div>
+          </div>
+          <div style="background:var(--gray-50);border-radius:10px;padding:16px">
+            <div style="font-weight:700;font-size:14px;color:var(--blue);margin-bottom:6px">💬 WhatsApp Broadcast</div>
+            <div style="font-size:13px;color:var(--gray-600)">Invia promozione serale ai contatti WhatsApp. Tasso apertura: 95%. ROI stimato: +20% giovedì sera.</div>
+          </div>
+          <div style="background:var(--gray-50);border-radius:10px;padding:16px">
+            <div style="font-weight:700;font-size:14px;color:var(--blue);margin-bottom:6px">🗺️ Google Ads Locale</div>
+            <div style="font-size:13px;color:var(--gray-600)">Annuncio locale "ristorante greco ancona". Budget €5/giorno. Risultati visibili in 48h.</div>
+          </div>
+          <div style="background:var(--gray-50);border-radius:10px;padding:16px">
+            <div style="font-weight:700;font-size:14px;color:var(--blue);margin-bottom:6px">⭐ Stimola Recensioni</div>
+            <div style="font-size:13px;color:var(--gray-600)">Chiedi ai clienti soddisfatti di lasciare una recensione su Google. Ogni 10 recensioni = +5% visibilità.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="page" id="page-reviews">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">📣 Gestisci le Recensioni</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <a href="https://g.page/r/argo-ancona/review" target="_blank" style="text-decoration:none">
+            <div style="background:#dbeafe;border-radius:10px;padding:20px;text-align:center">
+              <div style="font-size:28px">🔵</div>
+              <div style="font-weight:700;color:var(--blue);margin:8px 0 4px">Google (180 rec.)</div>
+              <div style="font-size:12px;color:var(--gray-600)">4.4/5 → Rispondi ora</div>
+            </div>
+          </a>
+          <a href="https://www.tripadvisor.it/Restaurant_Review-g187895-d14176518" target="_blank" style="text-decoration:none">
+            <div style="background:#dcfce7;border-radius:10px;padding:20px;text-align:center">
+              <div style="font-size:28px">🟢</div>
+              <div style="font-weight:700;color:#166534;margin:8px 0 4px">TripAdvisor</div>
+              <div style="font-size:12px;color:var(--gray-600)">4.5/5 · Top 10% Ancona</div>
+            </div>
+          </a>
+          <a href="https://restaurant-hub.deliveroo.com" target="_blank" style="text-decoration:none">
+            <div style="background:#fee2e2;border-radius:10px;padding:20px;text-align:center">
+              <div style="font-size:28px">🔴</div>
+              <div style="font-weight:700;color:#991b1b;margin:8px 0 4px">Deliveroo</div>
+              <div style="font-size:12px;color:var(--gray-600)">4.3/5 · Delivery</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Strategia per aumentare le recensioni</div>
+        <div style="font-size:14px;color:var(--gray-600);line-height:1.8">
+          <p>1. 🖨️ <strong>Stampa il QR code</strong> da questa pagina e mettilo su ogni tavolo</p>
+          <p>2. 💬 <strong>Chiedi verbalmente</strong> ai clienti soddisfatti: "Le è piaciuto? Ci farebbe un grande favore con una recensione su Google!"</p>
+          <p>3. 📱 <strong>Rispondi entro 24h</strong> a tutte le recensioni, positive e negative</p>
+          <p>4. 🔗 <strong>Condividi il link</strong> diretto su WhatsApp: g.page/r/argo-ancona/review</p>
+        </div>
+        <div style="margin-top:20px;text-align:center">
+          <svg width="140" height="140" viewBox="0 0 140 140" style="border:3px solid var(--blue);border-radius:8px;padding:8px">
+            <rect width="140" height="140" fill="white"/>
+            <!-- QR code placeholder SVG -->
+            <g fill="var(--blue)">
+              <rect x="10" y="10" width="40" height="40" rx="4"/><rect x="17" y="17" width="26" height="26" rx="2" fill="white"/><rect x="22" y="22" width="16" height="16" rx="1"/>
+              <rect x="90" y="10" width="40" height="40" rx="4"/><rect x="97" y="17" width="26" height="26" rx="2" fill="white"/><rect x="102" y="22" width="16" height="16" rx="1"/>
+              <rect x="10" y="90" width="40" height="40" rx="4"/><rect x="17" y="97" width="26" height="26" rx="2" fill="white"/><rect x="22" y="102" width="16" height="16" rx="1"/>
+              <rect x="60" y="10" width="8" height="8"/><rect x="72" y="10" width="8" height="8"/><rect x="60" y="22" width="8" height="8"/><rect x="72" y="22" width="8" height="8"/>
+              <rect x="60" y="60" width="8" height="8"/><rect x="72" y="60" width="8" height="8"/><rect x="84" y="60" width="8" height="8"/><rect x="60" y="72" width="8" height="8"/>
+              <rect x="84" y="72" width="8" height="8"/><rect x="96" y="72" width="8" height="8"/><rect x="60" y="84" width="8" height="8"/><rect x="72" y="84" width="8" height="8"/>
+              <rect x="96" y="84" width="8" height="8"/><rect x="108" y="84" width="8" height="8"/><rect x="60" y="96" width="8" height="8"/><rect x="84" y="96" width="8" height="8"/>
+              <rect x="108" y="96" width="8" height="8"/><rect x="120" y="96" width="8" height="8"/><rect x="60" y="108" width="8" height="8"/><rect x="72" y="108" width="8" height="8"/>
+              <rect x="96" y="108" width="8" height="8"/><rect x="108" y="108" width="8" height="8"/><rect x="60" y="120" width="8" height="8"/><rect x="84" y="120" width="8" height="8"/>
+            </g>
+          </svg>
+          <div style="font-size:11px;color:var(--gray-600);margin-top:8px">QR → Google Reviews<br>Stampa e metti sui tavoli!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTEGRATIONS -->
+    <div class="page" id="page-integrations">
+      <div class="card">
+        <div class="card-title">🔌 Piattaforme Collegate</div>
+        <div class="toggle-row"><div class="toggle-info"><h4>🛵 Deliveroo</h4><p>Consegna a domicilio — connesso e attivo</p></div><label class="toggle"><input type="checkbox" checked onchange="saveToggle('deliveroo',this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>📱 Pienissimo</h4><p>Asporto e prenotazioni — connesso e attivo</p></div><label class="toggle"><input type="checkbox" checked onchange="saveToggle('pienissimo',this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>💳 Tilby (POS)</h4><p>Cassa e gestione ordini al banco</p></div><label class="toggle"><input type="checkbox" onchange="saveToggle('tilby',this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>🟢 TripAdvisor</h4><p>Recensioni e visibilità turistica</p></div><label class="toggle"><input type="checkbox" checked onchange="saveToggle('tripadvisor',this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>📊 Google Analytics (GA4)</h4><p>ID: G-XXXXXXXXXX — inserisci il tuo ID reale</p></div><label class="toggle"><input type="checkbox" onchange="saveToggle('ga4',this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><div class="toggle-info"><h4>📧 Newsletter</h4><p>Form iscrizione attivo sul sito · 47 iscritti</p></div><label class="toggle"><input type="checkbox" checked onchange="saveToggle('newsletter',this.checked)"><span class="toggle-slider"></span></label></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">⚙️ Impostazioni Generali</div>
+        <div class="form-group"><label>Nome del locale</label><input type="text" value="Argo Greek Comfort Food"></div>
+        <div class="form-group"><label>Indirizzo</label><input type="text" value="Via Marconi 27, 60121 Ancona AN"></div>
+        <div class="form-group"><label>Telefono / WhatsApp</label><input type="text" value="+39 071 000 0000" placeholder="Es. +39 071 123 4567"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="argo@example.com"></div>
+        <div class="form-group"><label>PIN Admin (attuale: 2727)</label><input type="password" placeholder="Nuovo PIN a 4+ cifre"></div>
+        <div class="form-group"><label>Testo Hero (titolo principale)</label><textarea rows="2">Autentico Sapore Greco ad Ancona</textarea></div>
+        <div class="form-group"><label>Google Analytics ID</label><input type="text" placeholder="G-XXXXXXXXXX"></div>
+        <button class="btn btn-primary" onclick="alert('✅ Impostazioni salvate!\n\nRicorda di ri-caricare index.html su Netlify/Vercel per applicare le modifiche.')">💾 Salva Impostazioni</button>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="page" id="page-analytics">
+      <div class="analytics-grid">
+        <div class="analytics-card">
+          <h3>📊 Traffico Sito</h3>
+          <a href="https://analytics.google.com" target="_blank" class="analytics-link"><span class="al-icon">🔵</span><div class="al-info"><div class="al-name">Google Analytics (GA4)</div><div class="al-desc">Visite, sorgenti traffico, conversioni</div></div><span class="al-arrow">→</span></a>
+        </div>
+        <div class="analytics-card">
+          <h3>🛵 Performance Delivery</h3>
+          <a href="https://restaurant-hub.deliveroo.com" target="_blank" class="analytics-link"><span class="al-icon">🔴</span><div class="al-info"><div class="al-name">Deliveroo Restaurant Hub</div><div class="al-desc">Ordini, ricavi, rating delivery</div></div><span class="al-arrow">→</span></a>
+          <a href="https://www.pienissimo.it/dashboard" target="_blank" class="analytics-link"><span class="al-icon">📱</span><div class="al-info"><div class="al-name">Pienissimo Dashboard</div><div class="al-desc">Asporto, prenotazioni, storico</div></div><span class="al-arrow">→</span></a>
+        </div>
+        <div class="analytics-card">
+          <h3>⭐ Recensioni</h3>
+          <a href="https://business.google.com" target="_blank" class="analytics-link"><span class="al-icon">🔵</span><div class="al-info"><div class="al-name">Google Business Profile</div><div class="al-desc">Recensioni, visualizzazioni scheda</div></div><span class="al-arrow">→</span></a>
+          <a href="https://www.tripadvisor.it/RestaurantOwner" target="_blank" class="analytics-link"><span class="al-icon">🟢</span><div class="al-info"><div class="al-name">TripAdvisor Management</div><div class="al-desc">Recensioni e risposte</div></div><span class="al-arrow">→</span></a>
+        </div>
+        <div class="analytics-card">
+          <h3>📱 Social Media</h3>
+          <a href="https://business.facebook.com" target="_blank" class="analytics-link"><span class="al-icon">👥</span><div class="al-info"><div class="al-name">Facebook/Instagram Insights</div><div class="al-desc">Reach, engagement, follower</div></div><span class="al-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD DISH MODAL -->
+<div class="modal-overlay" id="add-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('add-modal').classList.remove('open')">✕</button>
+    <h2 id="modal-title">➕ Aggiungi Piatto</h2>
+    <input type="hidden" id="edit-id">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nome piatto *</label>
+        <input type="text" id="dish-name" placeholder="Es. Pita Gyros Maiale">
+      </div>
+      <div class="form-group">
+        <label>Prezzo (€) *</label>
+        <input type="number" id="dish-price" step="0.50" min="0" placeholder="Es. 7.50">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prezzo originale (se in offerta)</label>
+        <input type="number" id="dish-original-price" step="0.50" min="0" placeholder="Es. 14.00">
+      </div>
+      <div class="form-group">
+        <label>Categoria *</label>
+        <select id="dish-category">
+          <option>Pite</option><option>Piatti</option><option>Antipasti</option>
+          <option>Vegetariano</option><option>Dolci</option><option>Bevande</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Descrizione</label>
+      <textarea id="dish-desc" rows="2" placeholder="Es. Pita morbida con gyros di maiale, pomodoro, cipolla, salsa tzatziki fatta in casa"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Badge</label>
+      <div class="badge-selector">
+        <span class="badge-opt" onclick="selectBadge(this,'⭐ Best Seller')">⭐ Best Seller</span>
+        <span class="badge-opt" onclick="selectBadge(this,'🔥 Più ordinato')">🔥 Più ordinato</span>
+        <span class="badge-opt" onclick="selectBadge(this,'👨‍🍳 Chef\'s Choice')">👨‍🍳 Chef</span>
+        <span class="badge-opt" onclick="selectBadge(this,'🆕 Nuovo')">🆕 Nuovo</span>
+        <span class="badge-opt" onclick="selectBadge(this,'🌿 Veg')">🌿 Veg</span>
+        <span class="badge-opt" onclick="selectBadge(this,'')">Nessuno</span>
+      </div>
+      <input type="hidden" id="dish-badge">
+    </div>
+    <div class="form-group">
+      <label>URL Foto</label>
+      <input type="url" id="dish-image" placeholder="https://images.unsplash.com/..." oninput="previewDishImage()">
+      <img id="dish-img-preview" class="img-preview">
+    </div>
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <button class="btn btn-primary" onclick="saveDish()" style="flex:1">💾 Salva Piatto</button>
+      <button class="btn btn-outline" onclick="document.getElementById('add-modal').classList.remove('open')">Annulla</button>
+    </div>
+    <p style="font-size:12px;color:#999;margin-top:12px;text-align:center">Dopo aver modificato il menu, clicca "Esporta menu.json" e ricarica il file su Vercel.</p>
+  </div>
+</div>
+
+<!-- OFFER MODAL -->
+<div class="modal-overlay" id="offer-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('offer-modal').classList.remove('open')">✕</button>
+    <h2>🏷️ Crea Nuova Offerta</h2>
+    <div class="offer-type-grid">
+      <button class="offer-type-btn selected" onclick="selectOfferType(this,'happy_hour')">🕕 Happy Hour</button>
+      <button class="offer-type-btn" onclick="selectOfferType(this,'combo')">🍽️ Combo</button>
+      <button class="offer-type-btn" onclick="selectOfferType(this,'sconto')">% Sconto</button>
+      <button class="offer-type-btn" onclick="selectOfferType(this,'fedelta')">🎁 Fedeltà</button>
+      <button class="offer-type-btn" onclick="selectOfferType(this,'delivery')">🛵 Delivery</button>
+      <button class="offer-type-btn" onclick="selectOfferType(this,'stagionale')">🌟 Stagionale</button>
+    </div>
+    <p style="font-size:12px;color:var(--gray-600);margin-bottom:16px">Template rapidi:</p>
+    <div class="template-grid">
+      <button class="template-btn" onclick="fillOfferTemplate('happy')">🕕 Happy Hour 18-18:30</button>
+      <button class="template-btn" onclick="fillOfferTemplate('combo')">👨‍👩‍👧 Combo Famiglia</button>
+      <button class="template-btn" onclick="fillOfferTemplate('fedelta')">🎁 5ª Pita Gratis</button>
+      <button class="template-btn" onclick="fillOfferTemplate('asporto')">🥡 Sconto Asporto</button>
+    </div>
+    <div class="form-group"><label>Titolo Offerta *</label><input type="text" id="offer-title" placeholder="Es. Happy Hour Serale"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Sconto (%)</label><input type="number" id="offer-pct" min="0" max="100" placeholder="Es. 10"></div>
+      <div class="form-group"><label>Codice Sconto</label><input type="text" id="offer-code" placeholder="Es. HAPPY10" style="text-transform:uppercase"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Valida dal</label><input type="datetime-local" id="offer-start"></div>
+      <div class="form-group"><label>Valida fino al</label><input type="datetime-local" id="offer-end"></div>
+    </div>
+    <div class="form-group"><label>Descrizione per clienti</label><textarea id="offer-desc" rows="2" placeholder="Es. 10% di sconto su tutti gli ordini asporto dalle 18:00 alle 18:30"></textarea></div>
+    <div class="form-group">
+      <label>Stato</label>
+      <select id="offer-status"><option value="active">● Attiva subito</option><option value="draft">📝 Bozza</option><option value="scheduled">📅 Programmata</option></select>
+    </div>
+    <button class="btn btn-primary" onclick="saveOffer()" style="width:100%">✅ Crea Offerta</button>
+  </div>
+</div>
+
+<!-- CAMPAIGN MODAL -->
+<div class="modal-overlay" id="campaign-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('campaign-modal').classList.remove('open')">✕</button>
+    <h2>📣 Nuova Campagna</h2>
+    <div class="form-group"><label>Titolo campagna</label><input type="text" id="camp-title" placeholder="Es. Promo Weekend Luglio"></div>
+    <p style="font-size:13px;font-weight:600;color:var(--blue);margin-bottom:10px">Seleziona canale:</p>
+    <div class="channel-grid">
+      <button class="channel-btn selected" onclick="selectChannel(this,'whatsapp')">💬 WhatsApp<div class="ch-desc">Apertura 95% · Gratuito</div></button>
+      <button class="channel-btn" onclick="selectChannel(this,'instagram')">📸 Instagram<div class="ch-desc">Reach organico · Gratuito</div></button>
+      <button class="channel-btn" onclick="selectChannel(this,'google')">🗺️ Google Ads<div class="ch-desc">Da €5/giorno · Locale</div></button>
+      <button class="channel-btn" onclick="selectChannel(this,'email')">📧 Email<div class="ch-desc">Newsletter · 47 iscritti</div></button>
+    </div>
+    <div class="channel-help" id="channel-help">💬 <strong>WhatsApp Broadcast:</strong> Invia a tutti i contatti salvati. Orario ottimale: 17:30–18:30 (prima di cena). Tasso apertura medio: 95%.</div>
+    <div class="form-group"><label>Messaggio / Testo annuncio</label><textarea id="camp-msg" rows="4" placeholder="Es. 🇬🇷 Ciao! Stasera al ristorante Argo abbiamo il piatto del giorno speciale: Mix Grill a soli €14! Prenota subito → argoancona.vercel.app"></textarea></div>
+    <div class="form-row">
+      <div class="form-group"><label>Data invio</label><input type="date" id="camp-date"></div>
+      <div class="form-group"><label>Orario</label><select id="camp-time"><option>17:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>12:00</option><option>13:00</option></select></div>
+    </div>
+    <div class="form-group"><label>Budget (se pagato)</label><input type="text" id="camp-budget" placeholder="Es. €20 totali · €5/giorno per 4 giorni · Solo Google/FB Ads"></div>
+    <button class="btn btn-primary" onclick="saveCampaign()" style="width:100%">🚀 Salva Campagna</button>
+  </div>
+</div>
+
+<script>
+// ========== NAVIGATION ==========
+let menuItems=[];
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  event&&event.currentTarget&&event.currentTarget.classList.add('active');
+  const titles={dashboard:'📊 Dashboard',menu:'🍽️ Gestione Menu',photos:'🖼️ Gestione Foto',offers:'🏷️ Offerte',campaigns:'📣 Campagne',reviews:'⭐ Recensioni',integrations:'🔌 Integrazioni',settings:'⚙️ Impostazioni',analytics:'📈 Analytics'};
+  document.getElementById('page-title').textContent=titles[p]||p;
+}
+function logout(){sessionStorage.removeItem('admin_auth');window.location.href='/login.html'}
+
+// ========== STATUS ==========
+function updateAdminStatus(){
+  const now=new Date();
+  const day=now.getDay();
+  const t=now.getHours()*60+now.getMinutes();
+  const lunch=t>=720&&t<900;const dinner=t>=1080&&t<1380;
+  const hasPranzo=[1,2,4,5].includes(day);
+  const badge=document.getElementById('live-status-badge');
+  const stat=document.getElementById('stat-status');
+  const next=document.getElementById('stat-next');
+  if(day===3){badge.innerHTML='🔴 Mercoledì chiuso';if(stat){stat.textContent='CHIUSO';stat.style.color='var(--red)'}if(next)next.textContent='Riapre giovedì 12:00';}
+  else if((hasPranzo&&lunch)||dinner){badge.innerHTML='🟢 Aperto ora';if(stat){stat.textContent='APERTO';stat.style.color='var(--green)'}if(next){next.className='stat-change up';next.textContent='↑ Cucina attiva'}}
+  else{badge.innerHTML='⏰ Chiuso ora';if(stat){stat.textContent='CHIUSO';stat.style.color='var(--gray-600)'}if(next){next.className='stat-change';next.textContent='Prossima apertura: 18:00'}}
+}
+updateAdminStatus();
+
+// ========== MENU ==========
+async function loadMenuAdmin(){
+  try{
+    const r=await fetch('menu.json');
+    const data=await r.json();
+    menuItems=data.items||[];
+    const cats=[...new Set(menuItems.map(i=>i.category))];
+    const sel=document.getElementById('cat-filter');
+    cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});
+    renderMenuTable();
+  }catch(e){document.getElementById('menu-tbody').innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:#999">Carica il file menu.json nella stessa cartella del sito.</td></tr>'}
+}
+function renderMenuTable(filter='',catFilter=''){
+  const tbody=document.getElementById('menu-tbody');
+  const items=menuItems.filter(i=>{
+    const matchText=!filter||i.name.toLowerCase().includes(filter.toLowerCase())||i.description.toLowerCase().includes(filter.toLowerCase());
+    const matchCat=!catFilter||i.category===catFilter;
+    return matchText&&matchCat;
+  });
+  tbody.innerHTML=items.map(item=>`
+    <tr>
+      <td><img src="${item.image}" alt="${item.name}" class="menu-img-thumb" onerror="this.style.display='none'"></td>
+      <td><strong>${item.name}</strong></td>
+      <td>${item.category}</td>
+      <td><strong>€${item.price.toFixed(2)}</strong>${item.originalPrice?`<br><small style="color:#999;text-decoration:line-through">€${item.originalPrice.toFixed(2)}</small>`:''}</td>
+      <td>${item.badge?`<span class="badge-chip">${item.badge}</span>`:'-'}</td>
+      <td><button class="status-toggle ${item.available!==false?'status-on':'status-off'}" onclick="toggleAvail(${item.id})">${item.available!==false?'Attivo':'Nascosto'}</button></td>
+      <td><div class="action-btns"><button class="action-btn edit" onclick="editDish(${item.id})">✏️</button><button class="action-btn del" onclick="deleteDish(${item.id})">🗑️</button></div></td>
+    </tr>
+  `).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:#999">Nessun piatto trovato</td></tr>';
+}
+function filterMenuTable(val){
+  const search=typeof val==='string'?val:document.getElementById('menu-tbody').previousElementSibling?.querySelector('input')?.value||'';
+  const cat=document.getElementById('cat-filter').value;
+  renderMenuTable(search,cat);
+}
+function toggleAvail(id){
+  const item=menuItems.find(i=>i.id===id);
+  if(item){item.available=!(item.available!==false);renderMenuTable();}
+}
+let editingId=null;
+function openAddModal(){
+  editingId=null;
+  document.getElementById('modal-title').textContent='➕ Aggiungi Piatto';
+  ['dish-name','dish-price','dish-original-price','dish-desc','dish-image','dish-badge'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('dish-category').value='Pite';
+  document.getElementById('dish-img-preview').style.display='none';
+  document.querySelectorAll('.badge-opt').forEach(el=>el.classList.remove('active'));
+  document.getElementById('add-modal').classList.add('open');
+}
+function editDish(id){
+  const item=menuItems.find(i=>i.id===id);if(!item)return;
+  editingId=id;
+  document.getElementById('modal-title').textContent='✏️ Modifica Piatto';
+  document.getElementById('dish-name').value=item.name;
+  document.getElementById('dish-price').value=item.price;
+  document.getElementById('dish-original-price').value=item.originalPrice||'';
+  document.getElementById('dish-desc').value=item.description;
+  document.getElementById('dish-category').value=item.category;
+  document.getElementById('dish-badge').value=item.badge||'';
+  document.getElementById('dish-image').value=item.image||'';
+  const prev=document.getElementById('dish-img-preview');
+  if(item.image){prev.src=item.image;prev.style.display='block';}
+  document.querySelectorAll('.badge-opt').forEach(el=>el.classList.toggle('active',el.getAttribute('onclick')?.includes(item.badge)));
+  document.getElementById('add-modal').classList.add('open');
+}
+function deleteDish(id){
+  if(!confirm('Eliminare questo piatto dal menu?'))return;
+  menuItems=menuItems.filter(i=>i.id!==id);
+  renderMenuTable();
+}
+function selectBadge(el,val){
+  document.querySelectorAll('.badge-opt').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('dish-badge').value=val;
+}
+function saveDish(){
+  const name=document.getElementById('dish-name').value.trim();
+  const price=parseFloat(document.getElementById('dish-price').value);
+  if(!name||isNaN(price)){alert('Inserisci almeno nome e prezzo.');return;}
+  const dish={
+    id:editingId||Date.now(),
+    name,price,
+    originalPrice:parseFloat(document.getElementById('dish-original-price').value)||undefined,
+    description:document.getElementById('dish-desc').value.trim(),
+    category:document.getElementById('dish-category').value,
+    badge:document.getElementById('dish-badge').value||'',
+    image:document.getElementById('dish-image').value.trim(),
+    available:true
+  };
+  if(editingId){const idx=menuItems.findIndex(i=>i.id===editingId);menuItems[idx]=dish;}
+  else{menuItems.push(dish);}
+  renderMenuTable();
+  document.getElementById('add-modal').classList.remove('open');
+  alert('✅ Piatto salvato!\n\nClicca "Esporta menu.json" per scaricare il file aggiornato, poi ricaricalo su Vercel.');
+}
+function previewDishImage(){
+  const url=document.getElementById('dish-image').value;
+  const prev=document.getElementById('dish-img-preview');
+  if(url){prev.src=url;prev.style.display='block';}else{prev.style.display='none';}
+}
+function exportMenu(){
+  const data={categories:['Tutte','Pite','Piatti','Antipasti','Vegetariano','Dolci','Bevande'],items:menuItems};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='menu.json';a.click();
+  alert('✅ menu.json scaricato!\n\nOra caricalo su Vercel nella stessa cartella degli altri file.\nIl sito si aggiorna automaticamente in ~30 secondi.');
+}
+loadMenuAdmin();
+
+// ========== PHOTOS ==========
+let galleryPhotos=[
+  {src:'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80',caption:'Mix Grill Argo'},
+  {src:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&q=80',caption:'Pita Gyros'},
+  {src:'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=400&q=80',caption:'Baklava'},
+  {src:'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80',caption:'Insalata Greca'},
+  {src:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80',caption:'Souvlaki'},
+];
+function renderPhotoGrid(){
+  const grid=document.getElementById('photo-grid');
+  grid.innerHTML=galleryPhotos.map((p,i)=>`
+    <div class="photo-item">
+      <img src="${p.src}" alt="${p.caption}" loading="lazy">
+      <div class="photo-item-overlay">
+        <button class="photo-action" onclick="removePhoto(${i})">🗑️ Rimuovi</button>
+      </div>
+    </div>
+  `).join('');
+}
+function removePhoto(i){
+  if(confirm('Rimuovere questa foto?')){galleryPhotos.splice(i,1);renderPhotoGrid();}
+}
+function switchPhotoTab(tab){
+  document.querySelectorAll('.photo-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('photo-gallery-tab').style.display=tab==='gallery'?'block':'none';
+  document.getElementById('photo-upload-tab').style.display=tab==='upload'?'block':'none';
+  document.getElementById('photo-url-tab').style.display=tab==='url'?'block':'none';
+}
+function handleFileUpload(files){
+  const preview=document.getElementById('upload-preview');
+  Array.from(files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const div=document.createElement('div');
+      div.innerHTML=`<div style="border-radius:8px;overflow:hidden;aspect-ratio:4/3"><img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover"></div><p style="font-size:12px;color:#666;margin-top:4px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap">${file.name}</p>`;
+      preview.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function previewPhotoUrl(){
+  const url=document.getElementById('photo-url-input').value;
+  const prev=document.getElementById('photo-url-preview');
+  if(url){prev.src=url;prev.style.display='block';}else{prev.style.display='none';}
+}
+function addPhotoFromUrl(){
+  const url=document.getElementById('photo-url-input').value.trim();
+  const desc=document.getElementById('photo-url-desc').value.trim()||'Foto Argo';
+  if(!url){alert('Inserisci un URL valido.');return;}
+  galleryPhotos.push({src:url,caption:desc});
+  switchPhotoTab('gallery');
+  renderPhotoGrid();
+  document.getElementById('photo-url-input').value='';
+  document.getElementById('photo-url-desc').value='';
+  document.getElementById('photo-url-preview').style.display='none';
+}
+renderPhotoGrid();
+
+// ========== OFFERS ==========
+let selectedOfferType='happy_hour';
+function selectOfferType(el,type){
+  selectedOfferType=type;
+  document.querySelectorAll('.offer-type-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function fillOfferTemplate(tpl){
+  const templates={
+    happy:{title:'Happy Hour Serale',pct:10,code:'HAPPY10',desc:'10% sconto su tutti gli ordini asporto dalle 18:00 alle 18:30'},
+    combo:{title:'Combo Famiglia 4 persone',pct:15,code:'COMBO4',desc:'15% sconto per ordini da 4+ persone. Include pite + piatti + bevande'},
+    fedelta:{title:'5ª Pita Gratis',pct:100,code:'FEDELE5',desc:'Ogni 4 pite ordinate, la 5ª è gratis! Mostra questo messaggio alla cassa'},
+    asporto:{title:'Sconto Asporto Weekend',pct:10,code:'WEEKEND10',desc:'10% di sconto su tutti gli asporti del sabato e domenica'},
+  };
+  const t=templates[tpl];if(!t)return;
+  document.getElementById('offer-title').value=t.title;
+  document.getElementById('offer-pct').value=t.pct;
+  document.getElementById('offer-code').value=t.code;
+  document.getElementById('offer-desc').value=t.desc;
+}
+function saveOffer(){
+  const title=document.getElementById('offer-title').value.trim();
+  if(!title){alert('Inserisci un titolo per l\'offerta.');return;}
+  alert(`✅ Offerta "${title}" salvata!\n\nPer applicarla al sito, modifica il testo nel file index.html nella sezione urgency bar o popup.`);
+  document.getElementById('offer-modal').classList.remove('open');
+}
+
+// ========== CAMPAIGNS ==========
+let selectedChannel='whatsapp';
+const channelHelp={
+  whatsapp:'💬 <strong>WhatsApp Broadcast:</strong> Invia a tutti i contatti. Orario ottimale: 17:30–18:30. Apertura: 95%.',
+  instagram:'📸 <strong>Instagram Story/Post:</strong> Pubblica manualmente dall\'app Instagram. Orario ottimale: 12:00 o 19:00.',
+  google:'🗺️ <strong>Google Ads Locale:</strong> Richiede account Google Ads. Budget minimo €5/giorno. Visibile in 48h.',
+  email:'📧 <strong>Email Newsletter:</strong> Inviata ai 47 iscritti. Usa Mailchimp o invia manualmente da Gmail.',
+};
+function selectChannel(el,ch){
+  selectedChannel=ch;
+  document.querySelectorAll('.channel-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('channel-help').innerHTML=channelHelp[ch];
+}
+function saveCampaign(){
+  const title=document.getElementById('camp-title').value.trim();
+  if(!title){alert('Inserisci un titolo per la campagna.');return;}
+  alert(`✅ Campagna "${title}" salvata!\n\nCanale: ${selectedChannel.toUpperCase()}\n\nSegui le istruzioni nella guida per inviarla alla data programmata.`);
+  document.getElementById('campaign-modal').classList.remove('open');
+}
+
+// ========== TOGGLES ==========
+function saveToggle(key,val){
+  localStorage.setItem('toggle_'+key,val);
+  console.log(`Integrazione ${key}: ${val?'attiva':'disattiva'}`);
+}
+
+// Close modals on outside click
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+});
+</script>
+</body>
+</html>

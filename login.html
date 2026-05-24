@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argo Admin — Accesso</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#1a3a6b,#2456a4);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:#fff;border-radius:20px;padding:48px 40px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{font-family:'Playfair Display',serif;font-size:28px;color:#1a3a6b;margin-bottom:8px}
+.login-logo span{color:#f59e0b}
+.login-sub{color:#6b7280;font-size:14px;margin-bottom:36px}
+.pin-display{font-size:32px;letter-spacing:16px;color:#1a3a6b;height:52px;margin-bottom:28px;font-weight:700;background:#dbeafe;border-radius:12px;display:flex;align-items:center;justify-content:center;min-width:200px;margin-left:auto;margin-right:auto}
+.pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:260px;margin:0 auto 24px}
+.pin-btn{background:#f3f4f6;border:2px solid #e5e7eb;border-radius:12px;padding:18px;font-size:22px;font-weight:700;color:#1a3a6b;cursor:pointer;transition:.2s}
+.pin-btn:hover{background:#dbeafe;border-color:#3b82f6}
+.pin-btn:active{transform:scale(.95)}
+.pin-btn.del{background:#fee2e2;border-color:#fca5a5;color:#ef4444}
+.pin-btn.del:hover{background:#fca5a5}
+.login-btn{background:#1a3a6b;color:#fff;border:none;width:100%;padding:16px;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;transition:.2s;margin-bottom:12px}
+.login-btn:hover{background:#2456a4}
+#error-msg{color:#ef4444;font-size:14px;font-weight:600;display:none;margin-bottom:12px}
+#blocked-msg{color:#ef4444;font-size:13px;display:none}
+.back-link{color:#6b7280;font-size:13px;text-decoration:none;margin-top:12px;display:inline-block}
+.back-link:hover{color:#1a3a6b}
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="login-logo">ARGO <span>ADMIN</span></div>
+  <div class="login-sub">Inserisci il PIN per accedere al pannello di controllo</div>
+  <div class="pin-display" id="pin-display">——</div>
+  <div class="pin-grid">
+    <button class="pin-btn" onclick="addPin('1')">1</button>
+    <button class="pin-btn" onclick="addPin('2')">2</button>
+    <button class="pin-btn" onclick="addPin('3')">3</button>
+    <button class="pin-btn" onclick="addPin('4')">4</button>
+    <button class="pin-btn" onclick="addPin('5')">5</button>
+    <button class="pin-btn" onclick="addPin('6')">6</button>
+    <button class="pin-btn" onclick="addPin('7')">7</button>
+    <button class="pin-btn" onclick="addPin('8')">8</button>
+    <button class="pin-btn" onclick="addPin('9')">9</button>
+    <button class="pin-btn" onclick="clearPin()">C</button>
+    <button class="pin-btn" onclick="addPin('0')">0</button>
+    <button class="pin-btn del" onclick="delPin()">⌫</button>
+  </div>
+  <div id="error-msg">PIN errato. Riprova.</div>
+  <div id="blocked-msg">⛔ Troppi tentativi. Riprova tra 15 minuti.</div>
+  <button class="login-btn" onclick="checkPin()">🔓 Accedi</button>
+  <a href="/" class="back-link">← Torna al sito</a>
+</div>
+<script>
+const ADMIN_PIN='2727';
+const MAX_ATTEMPTS=5;
+const BLOCK_MS=15*60*1000;
+let pin='';
+function addPin(d){if(pin.length<6){pin+=d;updateDisplay()}}
+function delPin(){pin=pin.slice(0,-1);updateDisplay()}
+function clearPin(){pin='';updateDisplay()}
+function updateDisplay(){
+  const el=document.getElementById('pin-display');
+  el.textContent=pin?'●'.repeat(pin.length)+'—'.repeat(Math.max(0,4-pin.length)):'——';
+}
+function checkPin(){
+  const blocked=localStorage.getItem('admin_blocked');
+  if(blocked&&Date.now()<parseInt(blocked)){
+    document.getElementById('blocked-msg').style.display='block';
+    document.getElementById('error-msg').style.display='none';
+    return;
+  }
+  if(pin===ADMIN_PIN){
+    sessionStorage.setItem('admin_auth',Date.now()+8*3600000);
+    localStorage.removeItem('admin_attempts');
+    localStorage.removeItem('admin_blocked');
+    window.location.href='/admin.html';
+  } else {
+    let attempts=parseInt(localStorage.getItem('admin_attempts')||'0')+1;
+    localStorage.setItem('admin_attempts',attempts);
+    if(attempts>=MAX_ATTEMPTS){
+      localStorage.setItem('admin_blocked',Date.now()+BLOCK_MS);
+      document.getElementById('blocked-msg').style.display='block';
+      document.getElementById('error-msg').style.display='none';
+    } else {
+      document.getElementById('error-msg').style.display='block';
+      document.getElementById('error-msg').textContent=`PIN errato. Tentativi rimasti: ${MAX_ATTEMPTS-attempts}`;
+      document.getElementById('blocked-msg').style.display='none';
+    }
+    pin='';updateDisplay();
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key>='0'&&e.key<='9')addPin(e.key);
+  else if(e.key==='Backspace')delPin();
+  else if(e.key==='Enter')checkPin();
+  else if(e.key==='Escape')clearPin();
+});
+// Check if already logged in
+if(sessionStorage.getItem('admin_auth')&&Date.now()<parseInt(sessionStorage.getItem('admin_auth'))){
+  window.location.href='/admin.html';
+}
+</script>
+</body>
+</html>

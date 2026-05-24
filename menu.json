@@ -1,0 +1,226 @@
+{
+  "categories": ["Tutte", "Pite", "Piatti", "Antipasti", "Vegetariano", "Dolci", "Bevande"],
+  "items": [
+    {
+      "id": 1,
+      "name": "Pita Gyros Maiale",
+      "description": "Pita morbida con gyros di maiale, pomodoro, cipolla, salsa tzatziki fatta in casa",
+      "price": 5.50,
+      "category": "Pite",
+      "badge": "🔥 Più ordinato",
+      "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Pita Gyros Double",
+      "description": "Doppia porzione di gyros di maiale con tzatziki, pomodoro e cipolla",
+      "price": 7.50,
+      "category": "Pite",
+      "badge": "⭐ Best Seller",
+      "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Pita Gyros Pollo",
+      "description": "Pita con gyros di pollo, tzatziki fresco, pomodoro e cipolla rossa",
+      "price": 5.50,
+      "category": "Pite",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Pita Souvlaki",
+      "description": "Pita con spiedino di maiale alla griglia, tzatziki, pomodoro, cipolla",
+      "price": 5.50,
+      "category": "Pite",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Pita Dolmas",
+      "description": "Pita con involtini di riso, foglie di vite, limone e olio d'oliva",
+      "price": 5.00,
+      "category": "Pite",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Mix Grill Argo",
+      "description": "Selezione di carni alla griglia: souvlaki, gyros, lukanika — il piatto forte della casa",
+      "price": 14.00,
+      "originalPrice": 20.00,
+      "category": "Piatti",
+      "badge": "👨‍🍳 Chef's Choice",
+      "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "Souvlaki (3 pz)",
+      "description": "Tre spiedini di maiale marinato alla griglia con pita, tzatziki e patate",
+      "price": 11.50,
+      "category": "Piatti",
+      "badge": "⭐ Best Seller",
+      "image": "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Sutzukakia",
+      "description": "Polpette greche al forno in salsa di pomodoro con cumino e spezie tradizionali",
+      "price": 10.00,
+      "category": "Piatti",
+      "badge": "🆕 Nuovo",
+      "image": "https://images.unsplash.com/photo-1529042410759-befb1204b468?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "Lukanika di Trikala",
+      "description": "Salsicce greche tradizionali di Trikala alla griglia con spezie aromatiche",
+      "price": 9.00,
+      "category": "Piatti",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "Moussaka",
+      "description": "Il classico greco: strati di melanzane, carne macinata e besciamella al forno",
+      "price": 12.00,
+      "category": "Piatti",
+      "badge": "🔥 Più ordinato",
+      "image": "https://images.unsplash.com/photo-1621501103258-9a4dc2b14007?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 11,
+      "name": "Insalata Greca",
+      "description": "Pomodori, cetrioli, olive Kalamata, feta, cipolla rossa e origano con olio EVO",
+      "price": 7.00,
+      "category": "Antipasti",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 12,
+      "name": "Saganaki",
+      "description": "Formaggio halloumi fritto croccante con limone e origano — irresistibile",
+      "price": 7.00,
+      "category": "Antipasti",
+      "badge": "🔥",
+      "image": "https://images.unsplash.com/photo-1559574326-b36c4b074604?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 13,
+      "name": "Dakos",
+      "description": "Pane di orzo croccante con pomodoro fresco, feta sbriciolata e olio d'oliva",
+      "price": 6.00,
+      "category": "Antipasti",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 14,
+      "name": "Tzatziki",
+      "description": "Yogurt greco con cetriolo, aglio, aneto e olio d'oliva — fatto ogni giorno",
+      "price": 4.00,
+      "category": "Antipasti",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1571197119738-9f0fb49e7c2e?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 15,
+      "name": "Spanakopita",
+      "description": "Torta di spinaci e feta avvolta in pasta fillo croccante, ricetta tradizionale",
+      "price": 5.50,
+      "category": "Vegetariano",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 16,
+      "name": "Tiropita",
+      "description": "Torta di feta e formaggi misti in pasta fillo — semplice e deliziosa",
+      "price": 5.00,
+      "category": "Vegetariano",
+      "badge": "🌿 Veg",
+      "image": "https://images.unsplash.com/photo-1517244683847-7456b63c5969?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 17,
+      "name": "Baklava",
+      "description": "Dolce tradizionale greco con noci, miele e pasta fillo — fatto in casa",
+      "price": 4.50,
+      "category": "Dolci",
+      "badge": "⭐ Best Seller",
+      "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 18,
+      "name": "Kataifi",
+      "description": "Pasta kataifi con noci e sciroppo di miele — croccante fuori, morbido dentro",
+      "price": 4.50,
+      "category": "Dolci",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 19,
+      "name": "Loukoumades",
+      "description": "Frittelle greche calde con miele, cannella e noci — il comfort food per eccellenza",
+      "price": 5.00,
+      "category": "Dolci",
+      "badge": "🔥",
+      "image": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 20,
+      "name": "Retsina",
+      "description": "Vino bianco greco tradizionale aromatizzato alla resina di pino — autentico",
+      "price": 4.00,
+      "category": "Bevande",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 21,
+      "name": "Mythos Beer",
+      "description": "Birra greca Mythos — fresca e leggera, perfetta con il gyros",
+      "price": 3.50,
+      "category": "Bevande",
+      "badge": "",
+      "image": "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&q=80",
+      "available": true
+    },
+    {
+      "id": 22,
+      "name": "Frappe Greco",
+      "description": "Il caffè greco per eccellenza: schiuma cremosa, freddo e intenso",
+      "price": 3.00,
+      "category": "Bevande",
+      "badge": "🆕",
+      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80",
+      "available": true
+    }
+  ]
+}
