@@ -360,6 +360,15 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 #lb-p{left:20px}
 #lb-n{right:20px}
 
+
+/* LANGUAGE SWITCHER */
+.lang-switcher{position:relative}
+.lang-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:4px}
+.lang-btn:hover{background:rgba(255,255,255,.2)}
+.lang-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#1a2a3a;border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:600}
+.lang-menu.open{display:block}
+.lang-menu button{display:block;width:100%;padding:10px 16px;background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:.2s;font-family:'Inter',sans-serif}
+.lang-menu button:hover{background:rgba(255,255,255,.08);color:#fff}
 /* RESPONSIVE */
 @media(max-width:900px){
   .catering-grid,.booking-grid{grid-template-columns:1fr}
@@ -393,12 +402,23 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <div class="nav-inner">
     <a href="#" class="logo">ARGO <span>GREEK</span></a>
     <div class="nav-links">
-      <a href="#menu">Menu</a>
-      <a href="#ordina">Delivery</a>
+      <a href="#menu" data-i18n="nav_menu">Menu</a>
+      <a href="#ordina" data-i18n="nav_delivery">Delivery</a>
       <a href="#catering">Catering</a>
-      <a href="#prenota">Prenota</a>
-      <a href="#contatti">Contatti</a>
-      <a href="#ordina" class="nav-cta">ORDINA ORA</a>
+      <a href="#prenota" data-i18n="nav_book">Prenota</a>
+      <a href="#contatti" data-i18n="nav_contacts">Contatti</a>
+      <div class="lang-switcher">
+        <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="current-lang">IT</span> ▾</button>
+        <div class="lang-menu" id="lang-menu">
+          <button onclick="setLang('it')">🇮🇹 Italiano</button>
+          <button onclick="setLang('el')">🇬🇷 Ελληνικά</button>
+          <button onclick="setLang('en')">🇬🇧 English</button>
+          <button onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button onclick="setLang('fr')">🇫🇷 Français</button>
+          <button onclick="setLang('es')">🇪🇸 Español</button>
+        </div>
+      </div>
+      <a href="#ordina" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>
     </div>
     <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
   </div>
@@ -411,7 +431,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <a href="#catering" onclick="closeMobileNav()">CATERING</a>
   <a href="#prenota" onclick="closeMobileNav()">PRENOTA</a>
   <a href="#contatti" onclick="closeMobileNav()">CONTATTI</a>
-  <a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)">ORDINA ORA →</a>
+  <a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>
 </div>
 
 <!-- HERO -->
@@ -419,13 +439,13 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">🇬🇷 Street Food Greco Autentico · Ancona · FlixBus a 50mt</div>
-    <h1 class="hero-h1">FEED<br><span class="accent">YOUR MYTH</span></h1>
+    <div class="hero-eyebrow" data-i18n="hero_badge">🇬🇷 Street Food Greco Autentico · Ancona · FlixBus a 50mt</div>
+    <h1 class="hero-h1" data-i18n="hero_h1">FEED<br><span class="accent" data-i18n="hero_accent">YOUR MYTH</span></h1>
     <p class="hero-sub"><strong>Pita. Gyros. Souvlaki.</strong><br>Street food greco autentico nel cuore di Ancona.</p>
     <div class="hero-ctas">
-      <a href="#ordina" class="btn-hero-primary">⚡ ORDINA ORA</a>
-      <a href="#menu" class="btn-hero-secondary">📋 MENU</a>
-      <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="btn-hero-secondary">💬 WHATSAPP</a>
+      <a href="#ordina" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>
+      <a href="#menu" class="btn-hero-secondary" data-i18n="btn_menu">📋 MENU</a>
+      <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="btn-hero-secondary" data-i18n="btn_wa">💬 WHATSAPP</a>
     </div>
   </div>
   <div class="hero-scroll">scroll<span></span></div>
@@ -470,7 +490,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 <!-- WHY -->
 <section class="section why">
   <div class="container">
-    <span class="section-tag">Perché ARGO</span>
+    <span class="section-tag" data-i18n="why_tag">Perché ARGO</span>
     <h2 class="section-title">AUTHENTIC<br><span class="sand">GREEK STREET FOOD</span></h2>
     <div class="why-grid">
       <div class="why-card"><div class="wc-icon">🥩</div><h3>Ricette Originali</h3><p>Ogni piatto segue ricette greche autentiche. Niente compromessi, niente imitazioni.</p></div>
@@ -544,7 +564,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
           <div class="catering-use"><span>🎪</span> Street food event</div>
           <div class="catering-use"><span>💍</span> Matrimoni & ricevimenti</div>
         </div>
-        <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20un%20preventivo%20per%20catering%20ARGO" target="_blank" class="btn-catering">Richiedi Preventivo →</a>
+        <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20un%20preventivo%20per%20catering%20ARGO" target="_blank" class="btn-catering" data-i18n="cat_btn">Richiedi Preventivo →</a>
       </div>
       <div class="catering-img" style="background:linear-gradient(135deg,#1a1a1a,#0D3B66);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;min-height:400px">
         <div style="font-size:80px">🎪</div>
@@ -587,8 +607,8 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
           </select>
         </div>
         <div class="form-group"><label>Note</label><textarea id="b-notes" rows="2" placeholder="Allergie, compleanno, tavolo esterno..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#fff;padding:13px 16px;width:100%;resize:none"></textarea></div>
-        <p style="font-size:12px;color:var(--red);font-weight:600;margin-bottom:12px">⚠️ Il mercoledì siamo chiusi</p>
-        <button class="btn-book" onclick="doBooking()">📅 Prenota via WhatsApp</button>
+        <p style="font-size:12px;color:var(--red);font-weight:600;margin-bottom:12px" data-i18n="closed_wed">⚠️ Il mercoledì siamo chiusi</p>
+        <button class="btn-book" onclick="doBooking()" data-i18n="book_btn">📅 Prenota via WhatsApp</button>
       </div>
     </div>
   </div>
@@ -627,12 +647,33 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <span class="section-tag">Galleria</span>
     <h2 class="section-title">I NOSTRI<br><span class="sand">PIATTI</span></h2>
   </div>
-  <div class="gallery-grid" style="margin-top:48px">
-    <div class="gallery-item" onclick="openLb(0)"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=85" alt="Mix Grill Argo"><div class="gallery-overlay"><span>MIX GRILL ARGO</span></div></div>
-    <div class="gallery-item" onclick="openLb(1)"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&q=85" alt="Pita Gyros"><div class="gallery-overlay"><span>PITA GYROS</span></div></div>
-    <div class="gallery-item" onclick="openLb(2)"><img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=85" alt="Souvlaki"><div class="gallery-overlay"><span>SOUVLAKI</span></div></div>
-    <div class="gallery-item" onclick="openLb(3)"><img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=85" alt="Baklava"><div class="gallery-overlay"><span>BAKLAVA</span></div></div>
-    <div class="gallery-item" onclick="openLb(4)"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=85" alt="Insalata Greca"><div class="gallery-overlay"><span>INSALATA GRECA</span></div></div>
+  <div style="max-width:900px;margin:48px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 24px">
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <span style="font-size:40px">🥙</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(217,199,163,.5);letter-spacing:1px">PITA GYROS</span>
+    </div>
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <span style="font-size:40px">🍽️</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(217,199,163,.5);letter-spacing:1px">MIX GRILL</span>
+    </div>
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <span style="font-size:40px">🫒</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(217,199,163,.5);letter-spacing:1px">ANTIPASTI</span>
+    </div>
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <span style="font-size:40px">🍯</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(217,199,163,.5);letter-spacing:1px">BAKLAVA</span>
+    </div>
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <span style="font-size:40px">📸</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(217,199,163,.4);letter-spacing:1px;text-align:center;padding:0 12px">FOTO REALI<br>IN ARRIVO</span>
+    </div>
+    <div style="aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#0D3B66);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(255,255,255,.1)">
+      <a href="https://instagram.com/argoancona" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none">
+        <span style="font-size:40px">📱</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:rgba(217,199,163,.5);letter-spacing:1px;text-align:center">@ARGOANCONA</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -649,7 +690,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       <div class="howto-item"><div class="howto-icon">🚗</div><h4>In Auto</h4><p>Parcheggio libero in Via Marconi e strade adiacenti.</p></div>
       <div class="howto-item"><div class="howto-icon">🚶</div><h4>A Piedi</h4><p>5 minuti dal centro storico, vicino alla stazione.</p></div>
     </div>
-    <div class="map-cta"><a href="https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona" target="_blank" class="btn-map">📍 Apri in Google Maps</a></div>
+    <div class="map-cta"><a href="https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona" target="_blank" class="btn-map" data-i18n="map_btn">📍 Apri in Google Maps</a></div>
   </div>
 </section>
 
@@ -671,10 +712,10 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 
 <!-- NEWSLETTER -->
 <div class="newsletter">
-  <h2>STAY <span>GREEK</span></h2>
+  <h2><span data-i18n="nl_title">STAY</span> <span data-i18n="nl_title2">GREEK</span></h2>
   <p>Iscriviti e ricevi offerte esclusive, il piatto del giorno e le novità del menu.</p>
   <div class="nl-form">
-    <input type="email" id="nl-email" placeholder="La tua email">
+    <input type="email" id="nl-email" placeholder="La tua email" data-i18n-ph="nl_ph">
     <button onclick="doNewsletter()">ISCRIVITI</button>
   </div>
   <div id="nl-ok">✅ Benvenuto nella famiglia ARGO!</div>
@@ -739,7 +780,281 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 <div id="cookie"><div class="cookie-inner"><p>🍪 Usiamo cookie per migliorare l'esperienza.</p><div class="cookie-btns"><button class="ck-no" onclick="closeCookie()">Solo necessari</button><button class="ck-ok" onclick="acceptCookie()">Accetta</button></div></div></div>
 
 <script>
-// ========== NAV SCROLL ==========
+// ========== i18n TRANSLATIONS ==========
+const LANGS={
+  it:{
+    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Prenota',nav_contacts:'Contatti',nav_order:'ORDINA ORA',
+    hero_badge:'🇬🇷 Street Food Greco Autentico · Ancona · FlixBus a 50mt',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food greco autentico nel cuore di Ancona.',
+    btn_order:'⚡ ORDINA ORA',btn_menu:'📋 MENU',btn_wa:'💬 WHATSAPP',
+    why_tag:'Perché ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Ricette Originali',why1_desc:'Ogni piatto segue ricette greche autentiche. Niente compromessi, niente imitazioni.',
+    why2_title:'Pronto in 2 min',why2_desc:'Gyros e pite pronte in circa 2 minuti. Street food vero: veloce, caldo, buono.',
+    why3_title:'Fresh Every Day',why3_desc:'Tzatziki fatto ogni mattina. Ingredienti freschi, olio d\'oliva greco, niente di confezionato.',
+    why4_title:'Cuore di Ancona',why4_desc:'A 10 minuti dal porto. Il posto giusto prima del traghetto o dopo una lunga giornata.',
+    menu_tag:'Il Menu',menu_title:'ORDER',menu_title2:'LIKE A GREEK',
+    ord_tag:'Ordina Ora',ord_title:'SCEGLI',ord_title2:'COME VUOI',ord_sub:'Delivery a casa, asporto veloce o prenota il tuo tavolo.',
+    del_name:'Deliveroo',del_desc:'Consegna a domicilio. Porta il gusto greco direttamente a casa tua.',del_tag:'DELIVERY',
+    je_name:'Just Eat',je_desc:'Un altro modo per ordinare a domicilio.',je_tag:'DELIVERY',
+    pie_name:'Pienissimo',pie_desc:'Ordina online e ritira in Via Marconi 27. Zero attesa.',pie_tag:'ASPORTO · PRENOTA',
+    wa_name:'WhatsApp',wa_desc:'Scrivi direttamente. Rispondiamo subito.',wa_tag:'DIRETTO',
+    cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'Portiamo il comfort food greco al tuo evento. Dal compleanno all\'evento aziendale, dalla festa universitaria al gruppo traghetto.',
+    cat_btn:'Richiedi Preventivo →',
+    book_tag:'Prenota',book_title:'RISERVA',book_title2:'IL TUO TAVOLO',
+    book_desc:'Siamo spesso al completo la sera. Prenota in anticipo.',
+    book_name:'Nome e Cognome',book_date:'Data',book_time:'Orario',book_guests:'Persone',book_notes:'Note',
+    book_btn:'📅 Prenota via WhatsApp',book_warn:'⚠️ Il mercoledì siamo chiusi',
+    rev_tag:'Recensioni',rev_title:'COSA DICONO',rev_title2:'I NOSTRI CLIENTI',
+    gal_tag:'Galleria',gal_title:'I NOSTRI',gal_title2:'PIATTI',
+    how_tag:'Come Arrivare',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · A 10 minuti dal porto di Ancona',
+    how1_title:'FlixBus',how1_desc:'Fermata a soli 50 metri. Scendi dal bus e sei già da noi.',
+    how2_title:'Dal Porto',how2_desc:'10 minuti a piedi o 3 in taxi.',
+    how3_title:'In Bus',how3_desc:'Linee 1, 2, 4 — fermata Marconi.',
+    how4_title:'In Auto',how4_desc:'Parcheggio libero in Via Marconi.',
+    how5_title:'A Piedi',how5_desc:'5 minuti dal centro storico.',
+    map_btn:'📍 Apri in Google Maps',
+    faq_tag:'FAQ',faq_title:'DOMANDE',faq_title2:'FREQUENTI',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Iscriviti e ricevi offerte esclusive, il piatto del giorno e le novità.',
+    nl_ph:'La tua email',nl_btn:'ISCRIVITI',
+    footer_tag:'Authentic Greek Street Food ad Ancona dal 2017.',
+    closed_wed:'⚠️ Il mercoledì siamo chiusi',
+  },
+  el:{
+    nav_menu:'Μενού',nav_delivery:'Delivery',nav_book:'Κράτηση',nav_contacts:'Επικοινωνία',nav_order:'ΠΑΡΑΓΓΕΙΛΕ ΤΩΡΑ',
+    hero_badge:'🇬🇷 Αυθεντικό Ελληνικό Street Food · Αnkona · FlixBus 50μ',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Πίτα. Γύρος. Σουβλάκι.</strong><br>Αυθεντικό ελληνικό street food στην καρδιά της Ανκόνα.',
+    btn_order:'⚡ ΠΑΡΑΓΓΕΙΛΕ ΤΩΡΑ',btn_menu:'📋 ΜΕΝΟΥ',btn_wa:'💬 WHATSAPP',
+    why_tag:'Γιατί ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Αυθεντικές Συνταγές',why1_desc:'Κάθε πιάτο ακολουθεί αυθεντικές ελληνικές συνταγές. Χωρίς συμβιβασμούς.',
+    why2_title:'Έτοιμο σε 2 λεπτά',why2_desc:'Γύρος και πίτες έτοιμες σε 2 λεπτά. Γρήγορο, ζεστό, νόστιμο.',
+    why3_title:'Φρέσκο Κάθε Μέρα',why3_desc:'Τζατζίκι φτιαγμένο κάθε πρωί. Φρέσκα υλικά, ελληνικό ελαιόλαδο.',
+    why4_title:'Καρδιά της Ανκόνα',why4_desc:'10 λεπτά από το λιμάνι. Ιδανικό πριν ή μετά το φέρι.',
+    menu_tag:'Το Μενού',menu_title:'ORDER',menu_title2:'LIKE A GREEK',
+    ord_tag:'Παραγγελία',ord_title:'ΔΙΑΛΕΞΕ',ord_title2:'ΠΩΣ ΘΕΛΕΙΣ',ord_sub:'Delivery στο σπίτι, takeaway ή κράτηση τραπεζιού.',
+    del_name:'Deliveroo',del_desc:'Delivery στο σπίτι σου. Γεύση Ελλάδας στην πόρτα σου.',del_tag:'DELIVERY',
+    je_name:'Just Eat',je_desc:'Άλλος τρόπος για delivery στο σπίτι.',je_tag:'DELIVERY',
+    pie_name:'Pienissimo',pie_desc:'Παραγγείλε online και παραλαβή στην Via Marconi 27.',pie_tag:'TAKEAWAY · ΚΡΑΤΗΣΗ',
+    wa_name:'WhatsApp',wa_desc:'Γράψε μας άμεσα. Απαντάμε αμέσως.',wa_tag:'ΑΜΕΣΑ',
+    cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'Φέρνουμε το ελληνικό comfort food στην εκδήλωσή σου. Από γενέθλια έως εταιρικά events.',
+    cat_btn:'Ζήτησε Προσφορά →',
+    book_tag:'Κράτηση',book_title:'ΚΡΑΤΗΣΕ',book_title2:'ΤΟ ΤΡΑΠΕΖΙ ΣΟΥ',
+    book_desc:'Συχνά είμαστε πλήρεις το βράδυ. Κράτησε εκ των προτέρων.',
+    book_name:'Ονοματεπώνυμο',book_date:'Ημερομηνία',book_time:'Ώρα',book_guests:'Άτομα',book_notes:'Σημειώσεις',
+    book_btn:'📅 Κράτηση via WhatsApp',book_warn:'⚠️ Τετάρτη είμαστε κλειστά',
+    rev_tag:'Κριτικές',rev_title:'ΤΙ ΛΕΝΕ',rev_title2:'ΟΙ ΠΕΛΑΤΕΣ ΜΑΣ',
+    gal_tag:'Γκαλερί',gal_title:'ΤΑ ΠΙΑΤΑ',gal_title2:'ΜΑΣ',
+    how_tag:'Πώς να έρθεις',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · 10 λεπτά από το λιμάνι της Ανκόνα',
+    how1_title:'FlixBus',how1_desc:'Στάση μόλις 50 μέτρα. Κατέβα και είσαι ήδη εδώ.',
+    how2_title:'Από το Λιμάνι',how2_desc:'10 λεπτά με τα πόδια ή 3 με ταξί.',
+    how3_title:'Με Λεωφορείο',how3_desc:'Γραμμές 1, 2, 4 — στάση Marconi.',
+    how4_title:'Με Αυτοκίνητο',how4_desc:'Ελεύθερος χώρος στάθμευσης.',
+    how5_title:'Με τα Πόδια',how5_desc:'5 λεπτά από το ιστορικό κέντρο.',
+    map_btn:'📍 Άνοιγμα στο Google Maps',
+    faq_tag:'FAQ',faq_title:'ΣΥΧΝΕΣ',faq_title2:'ΕΡΩΤΗΣΕΙΣ',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Εγγράψου και λάβε αποκλειστικές προσφορές και νέα.',
+    nl_ph:'Το email σου',nl_btn:'ΕΓΓΡΑΦΗ',
+    footer_tag:'Αυθεντικό Ελληνικό Street Food στην Ανκόνα από το 2017.',
+    closed_wed:'⚠️ Τετάρτη είμαστε κλειστά',
+  },
+  en:{
+    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Book',nav_contacts:'Contact',nav_order:'ORDER NOW',
+    hero_badge:'🇬🇷 Authentic Greek Street Food · Ancona · FlixBus 50m away',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Authentic Greek street food in the heart of Ancona.',
+    btn_order:'⚡ ORDER NOW',btn_menu:'📋 MENU',btn_wa:'💬 WHATSAPP',
+    why_tag:'Why ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Original Recipes',why1_desc:'Every dish follows authentic Greek recipes. No compromises, no imitations.',
+    why2_title:'Ready in 2 min',why2_desc:'Gyros and pitas ready in about 2 minutes. Real street food: fast, hot, delicious.',
+    why3_title:'Fresh Every Day',why3_desc:'Tzatziki made every morning. Fresh ingredients, Greek olive oil.',
+    why4_title:'Heart of Ancona',why4_desc:'10 minutes from the port. The right place before or after the ferry.',
+    menu_tag:'Our Menu',menu_title:'ORDER',menu_title2:'LIKE A GREEK',
+    ord_tag:'Order Now',ord_title:'CHOOSE',ord_title2:'HOW YOU WANT',ord_sub:'Home delivery, quick takeaway or book your table.',
+    del_name:'Deliveroo',del_desc:'Home delivery. Greek flavour straight to your door.',del_tag:'DELIVERY',
+    je_name:'Just Eat',je_desc:'Another way to order home delivery.',je_tag:'DELIVERY',
+    pie_name:'Pienissimo',pie_desc:'Order online and pick up at Via Marconi 27. Zero wait.',pie_tag:'TAKEAWAY · BOOK',
+    wa_name:'WhatsApp',wa_desc:'Write directly. We reply immediately.',wa_tag:'DIRECT',
+    cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'We bring Greek comfort food to your event. From birthdays to corporate events, from university parties to ferry groups.',
+    cat_btn:'Request a Quote →',
+    book_tag:'Book',book_title:'RESERVE',book_title2:'YOUR TABLE',
+    book_desc:'We are often full in the evenings. Book in advance.',
+    book_name:'Full Name',book_date:'Date',book_time:'Time',book_guests:'Guests',book_notes:'Notes',
+    book_btn:'📅 Book via WhatsApp',book_warn:'⚠️ We are closed on Wednesdays',
+    rev_tag:'Reviews',rev_title:'WHAT OUR',rev_title2:'CUSTOMERS SAY',
+    gal_tag:'Gallery',gal_title:'OUR',gal_title2:'DISHES',
+    how_tag:'How to Find Us',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · 10 minutes from Ancona port',
+    how1_title:'FlixBus',how1_desc:'Bus stop only 50 metres away. Step off and you\'re here.',
+    how2_title:'From Port',how2_desc:'10 min walk or 3 min by taxi. Perfect before/after ferry.',
+    how3_title:'By Bus',how3_desc:'Lines 1, 2, 4 — Marconi stop.',
+    how4_title:'By Car',how4_desc:'Free parking on Via Marconi.',
+    how5_title:'On Foot',how5_desc:'5 minutes from the historic centre.',
+    map_btn:'📍 Open in Google Maps',
+    faq_tag:'FAQ',faq_title:'FREQUENTLY',faq_title2:'ASKED QUESTIONS',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Subscribe and receive exclusive offers and daily specials.',
+    nl_ph:'Your email',nl_btn:'SUBSCRIBE',
+    footer_tag:'Authentic Greek Street Food in Ancona since 2017.',
+    closed_wed:'⚠️ Closed on Wednesdays',
+  },
+  de:{
+    nav_menu:'Menü',nav_delivery:'Lieferung',nav_book:'Reservieren',nav_contacts:'Kontakt',nav_order:'JETZT BESTELLEN',
+    hero_badge:'🇬🇷 Authentisches Griechisches Street Food · Ancona · FlixBus 50m',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Authentisches griechisches Street Food im Herzen von Ancona.',
+    btn_order:'⚡ JETZT BESTELLEN',btn_menu:'📋 MENÜ',btn_wa:'💬 WHATSAPP',
+    why_tag:'Warum ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Originalrezepte',why1_desc:'Jedes Gericht folgt echten griechischen Rezepten. Keine Kompromisse.',
+    why2_title:'Fertig in 2 Min',why2_desc:'Gyros und Pitas in ca. 2 Minuten. Echtes Street Food: schnell, heiß, lecker.',
+    why3_title:'Täglich Frisch',why3_desc:'Jeden Morgen frisch gemachtes Tzatziki. Frische Zutaten, griechisches Olivenöl.',
+    why4_title:'Herz von Ancona',why4_desc:'10 Minuten vom Hafen. Der richtige Ort vor oder nach der Fähre.',
+    menu_tag:'Unsere Speisekarte',menu_title:'BESTELL',menu_title2:'WIE EIN GRIECHE',
+    ord_tag:'Jetzt Bestellen',ord_title:'WÄHLE',ord_title2:'WIE DU MÖCHTEST',ord_sub:'Lieferung, Abholung oder Tischreservierung.',
+    del_name:'Deliveroo',del_desc:'Lieferung nach Hause. Griechischer Geschmack direkt zu dir.',del_tag:'LIEFERUNG',
+    je_name:'Just Eat',je_desc:'Eine weitere Möglichkeit für Lieferung.',je_tag:'LIEFERUNG',
+    pie_name:'Pienissimo',pie_desc:'Online bestellen und in der Via Marconi 27 abholen.',pie_tag:'ABHOLUNG',
+    wa_name:'WhatsApp',wa_desc:'Schreib uns direkt. Wir antworten sofort.',wa_tag:'DIREKT',
+    cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'Wir bringen griechisches Comfort Food zu deiner Veranstaltung. Von Geburtstagen bis Firmenevents.',
+    cat_btn:'Angebot Anfragen →',
+    book_tag:'Reservierung',book_title:'RESERVIERE',book_title2:'DEINEN TISCH',
+    book_desc:'Abends sind wir oft ausgebucht. Reserviere im Voraus.',
+    book_name:'Vollständiger Name',book_date:'Datum',book_time:'Uhrzeit',book_guests:'Personen',book_notes:'Anmerkungen',
+    book_btn:'📅 Via WhatsApp reservieren',book_warn:'⚠️ Mittwochs geschlossen',
+    rev_tag:'Bewertungen',rev_title:'WAS UNSERE',rev_title2:'KUNDEN SAGEN',
+    gal_tag:'Galerie',gal_title:'UNSERE',gal_title2:'GERICHTE',
+    how_tag:'So findet Ihr uns',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · 10 Minuten vom Hafen Ancona',
+    how1_title:'FlixBus',how1_desc:'Haltestelle nur 50 Meter entfernt.',
+    how2_title:'Vom Hafen',how2_desc:'10 Min. zu Fuß oder 3 Min. mit Taxi.',
+    how3_title:'Mit Bus',how3_desc:'Linien 1, 2, 4 — Haltestelle Marconi.',
+    how4_title:'Mit Auto',how4_desc:'Kostenlose Parkplätze auf Via Marconi.',
+    how5_title:'Zu Fuß',how5_desc:'5 Minuten vom historischen Zentrum.',
+    map_btn:'📍 In Google Maps öffnen',
+    faq_tag:'FAQ',faq_title:'HÄUFIG',faq_title2:'GESTELLTE FRAGEN',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Abonniere und erhalte exklusive Angebote und Neuigkeiten.',
+    nl_ph:'Deine E-Mail',nl_btn:'ABONNIEREN',
+    footer_tag:'Authentisches Griechisches Street Food in Ancona seit 2017.',
+    closed_wed:'⚠️ Mittwochs geschlossen',
+  },
+  fr:{
+    nav_menu:'Menu',nav_delivery:'Livraison',nav_book:'Réserver',nav_contacts:'Contact',nav_order:'COMMANDER',
+    hero_badge:'🇬🇷 Street Food Grec Authentique · Ancône · FlixBus à 50m',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food grec authentique au cœur d\'Ancône.',
+    btn_order:'⚡ COMMANDER',btn_menu:'📋 MENU',btn_wa:'💬 WHATSAPP',
+    why_tag:'Pourquoi ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Recettes Originales',why1_desc:'Chaque plat suit des recettes grecques authentiques. Sans compromis.',
+    why2_title:'Prêt en 2 min',why2_desc:'Gyros et pitas prêts en 2 minutes. Street food vrai: rapide, chaud, délicieux.',
+    why3_title:'Frais Chaque Jour',why3_desc:'Tzatziki fait chaque matin. Ingrédients frais, huile d\'olive grecque.',
+    why4_title:'Cœur d\'Ancône',why4_desc:'À 10 minutes du port. L\'endroit idéal avant ou après le ferry.',
+    menu_tag:'Notre Menu',menu_title:'COMMANDEZ',menu_title2:'COMME UN GREC',
+    ord_tag:'Commander',ord_title:'CHOISISSEZ',ord_title2:'COMMENT VOUS VOULEZ',ord_sub:'Livraison, à emporter ou réservation de table.',
+    del_name:'Deliveroo',del_desc:'Livraison à domicile. La saveur grecque directement chez vous.',del_tag:'LIVRAISON',
+    je_name:'Just Eat',je_desc:'Une autre façon de commander en livraison.',je_tag:'LIVRAISON',
+    pie_name:'Pienissimo',pie_desc:'Commandez en ligne et récupérez au Via Marconi 27.',pie_tag:'À EMPORTER',
+    wa_name:'WhatsApp',wa_desc:'Écrivez-nous directement. Réponse immédiate.',wa_tag:'DIRECT',
+    cat_tag:'Traiteur',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'Nous apportons le comfort food grec à votre événement. Des anniversaires aux événements d\'entreprise.',
+    cat_btn:'Demander un Devis →',
+    book_tag:'Réservation',book_title:'RÉSERVEZ',book_title2:'VOTRE TABLE',
+    book_desc:'Nous sommes souvent complets le soir. Réservez à l\'avance.',
+    book_name:'Nom et Prénom',book_date:'Date',book_time:'Heure',book_guests:'Personnes',book_notes:'Notes',
+    book_btn:'📅 Réserver via WhatsApp',book_warn:'⚠️ Fermé le mercredi',
+    rev_tag:'Avis',rev_title:'CE QUE DISENT',rev_title2:'NOS CLIENTS',
+    gal_tag:'Galerie',gal_title:'NOS',gal_title2:'PLATS',
+    how_tag:'Comment nous trouver',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · À 10 minutes du port d\'Ancône',
+    how1_title:'FlixBus',how1_desc:'Arrêt à seulement 50 mètres.',
+    how2_title:'Du Port',how2_desc:'10 min à pied ou 3 min en taxi.',
+    how3_title:'En Bus',how3_desc:'Lignes 1, 2, 4 — arrêt Marconi.',
+    how4_title:'En Voiture',how4_desc:'Parking gratuit sur Via Marconi.',
+    how5_title:'À Pied',how5_desc:'5 minutes du centre historique.',
+    map_btn:'📍 Ouvrir dans Google Maps',
+    faq_tag:'FAQ',faq_title:'QUESTIONS',faq_title2:'FRÉQUENTES',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Inscrivez-vous pour recevoir des offres exclusives et les spécialités du jour.',
+    nl_ph:'Votre email',nl_btn:'S\'INSCRIRE',
+    footer_tag:'Street Food Grec Authentique à Ancône depuis 2017.',
+    closed_wed:'⚠️ Fermé le mercredi',
+  },
+  es:{
+    nav_menu:'Menú',nav_delivery:'Delivery',nav_book:'Reservar',nav_contacts:'Contacto',nav_order:'PEDIR AHORA',
+    hero_badge:'🇬🇷 Street Food Griego Auténtico · Ancona · FlixBus a 50m',
+    hero_h1:'FEED',hero_accent:'YOUR MYTH',
+    hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food griego auténtico en el corazón de Ancona.',
+    btn_order:'⚡ PEDIR AHORA',btn_menu:'📋 MENÚ',btn_wa:'💬 WHATSAPP',
+    why_tag:'Por qué ARGO',why_title:'AUTHENTIC',why_title2:'GREEK STREET FOOD',
+    why1_title:'Recetas Originales',why1_desc:'Cada plato sigue recetas griegas auténticas. Sin compromisos.',
+    why2_title:'Listo en 2 min',why2_desc:'Gyros y pitas listas en 2 minutos. Street food real: rápido, caliente, delicioso.',
+    why3_title:'Fresco Cada Día',why3_desc:'Tzatziki hecho cada mañana. Ingredientes frescos, aceite de oliva griego.',
+    why4_title:'Corazón de Ancona',why4_desc:'A 10 minutos del puerto. El lugar ideal antes o después del ferry.',
+    menu_tag:'Nuestro Menú',menu_title:'PIDE',menu_title2:'COMO UN GRIEGO',
+    ord_tag:'Pedir',ord_title:'ELIGE',ord_title2:'CÓMO QUIERES',ord_sub:'Delivery, para llevar o reserva tu mesa.',
+    del_name:'Deliveroo',del_desc:'Delivery a domicilio. Sabor griego directamente a tu puerta.',del_tag:'DELIVERY',
+    je_name:'Just Eat',je_desc:'Otra forma de pedir delivery a domicilio.',je_tag:'DELIVERY',
+    pie_name:'Pienissimo',pie_desc:'Pide online y recoge en Via Marconi 27.',pie_tag:'PARA LLEVAR',
+    wa_name:'WhatsApp',wa_desc:'Escríbenos directamente. Respondemos enseguida.',wa_tag:'DIRECTO',
+    cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
+    cat_desc:'Llevamos el comfort food griego a tu evento. Desde cumpleaños hasta eventos corporativos.',
+    cat_btn:'Solicitar Presupuesto →',
+    book_tag:'Reservar',book_title:'RESERVA',book_title2:'TU MESA',
+    book_desc:'A menudo estamos llenos por la noche. Reserva con antelación.',
+    book_name:'Nombre y Apellido',book_date:'Fecha',book_time:'Hora',book_guests:'Personas',book_notes:'Notas',
+    book_btn:'📅 Reservar vía WhatsApp',book_warn:'⚠️ Cerramos los miércoles',
+    rev_tag:'Reseñas',rev_title:'LO QUE DICEN',rev_title2:'NUESTROS CLIENTES',
+    gal_tag:'Galería',gal_title:'NUESTROS',gal_title2:'PLATOS',
+    how_tag:'Cómo Llegar',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
+    how_sub:'Via Marconi 27 · A 10 minutos del puerto de Ancona',
+    how1_title:'FlixBus',how1_desc:'Parada a solo 50 metros.',
+    how2_title:'Desde el Puerto',how2_desc:'10 min a pie o 3 min en taxi.',
+    how3_title:'En Autobús',how3_desc:'Líneas 1, 2, 4 — parada Marconi.',
+    how4_title:'En Coche',how4_desc:'Aparcamiento gratuito en Via Marconi.',
+    how5_title:'A Pie',how5_desc:'5 minutos del centro histórico.',
+    map_btn:'📍 Abrir en Google Maps',
+    faq_tag:'FAQ',faq_title:'PREGUNTAS',faq_title2:'FRECUENTES',
+    nl_title:'STAY',nl_title2:'GREEK',nl_sub:'Suscríbete y recibe ofertas exclusivas y novedades.',
+    nl_ph:'Tu email',nl_btn:'SUSCRIBIRSE',
+    footer_tag:'Street Food Griego Auténtico en Ancona desde 2017.',
+    closed_wed:'⚠️ Cerramos los miércoles',
+  }
+};
+
+let currentLang=localStorage.getItem('argo_lang')||'it';
+
+function setLang(lang){
+  currentLang=lang;
+  localStorage.setItem('argo_lang',lang);
+  applyLang();
+  document.getElementById('current-lang').textContent=lang.toUpperCase();
+  document.getElementById('lang-menu').classList.remove('open');
+  // Update html lang attribute
+  document.documentElement.lang=lang;
+}
+
+function applyLang(){
+  const t=LANGS[currentLang]||LANGS.it;
+  // Apply all data-i18n attributes
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(t[key]!==undefined) el.innerHTML=t[key];
+  });
+  document.getElementById('current-lang').textContent=currentLang.toUpperCase();
+}
+
+function toggleLangMenu(){
+  document.getElementById('lang-menu').classList.toggle('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.lang-switcher')) document.getElementById('lang-menu')?.classList.remove('open');
+});
+
+// Apply on load
+document.addEventListener('DOMContentLoaded',()=>applyLang());
 window.addEventListener('scroll',()=>{
   document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>50);
 });
