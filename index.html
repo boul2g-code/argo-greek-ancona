@@ -1033,8 +1033,8 @@ function setLang(lang){
   document.getElementById('current-lang').textContent=lang.toUpperCase();
   document.getElementById('lang-menu').classList.remove('open');
   document.documentElement.lang=lang;
-  // Re-render menu in new language
-  if(menuData.length>0) renderMenu();
+  // Re-render menu and filters in new language
+  if(menuData.length>0){renderFilters();renderMenu();}
 }
 
 function applyLang(){
@@ -1096,13 +1096,25 @@ async function loadMenu(){
     menuData=d.items||[];renderFilters();renderMenu();
   }catch(e){document.getElementById('menu-grid').innerHTML='<p style="color:rgba(255,255,255,.3);padding:40px;text-align:center;grid-column:1/-1">Menu in caricamento...</p>'}
 }
+const CAT_TRANSLATIONS={
+  it:{'Tutte':'Tutte','Pita Carne':'Pita Carne','Pita Vegetariana':'Pita Vegetariana','Piatti':'Piatti','Antipasti':'Antipasti','Salse':'Salse','Dolci':'Dolci','Bevande':'Bevande'},
+  el:{'Tutte':'Όλα','Pita Carne':'Πίτα Κρέας','Pita Vegetariana':'Χορτοφαγική Πίτα','Piatti':'Πιάτα','Antipasti':'Ορεκτικά','Salse':'Σάλτσες','Dolci':'Γλυκά','Bevande':'Ποτά'},
+  en:{'Tutte':'All','Pita Carne':'Meat Pita','Pita Vegetariana':'Vegetarian Pita','Piatti':'Dishes','Antipasti':'Starters','Salse':'Sauces','Dolci':'Desserts','Bevande':'Drinks'},
+  de:{'Tutte':'Alle','Pita Carne':'Fleisch Pita','Pita Vegetariana':'Vegetarische Pita','Piatti':'Gerichte','Antipasti':'Vorspeisen','Salse':'Saucen','Dolci':'Desserts','Bevande':'Getränke'},
+  fr:{'Tutte':'Tout','Pita Carne':'Pita Viande','Pita Vegetariana':'Pita Végétarienne','Piatti':'Plats','Antipasti':'Entrées','Salse':'Sauces','Dolci':'Desserts','Bevande':'Boissons'},
+  es:{'Tutte':'Todo','Pita Carne':'Pita Carne','Pita Vegetariana':'Pita Vegetariana','Piatti':'Platos','Antipasti':'Entrantes','Salse':'Salsas','Dolci':'Postres','Bevande':'Bebidas'},
+};
+function getCatLabel(cat){
+  const t=CAT_TRANSLATIONS[currentLang]||CAT_TRANSLATIONS.it;
+  return t[cat]||cat;
+}
 function renderFilters(){
   const cats=['Tutte',...new Set(menuData.map(i=>i.category))];
-  document.getElementById('menu-filters').innerHTML=cats.map(c=>`<button class="filter-btn${c===activeFilter?' active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+  document.getElementById('menu-filters').innerHTML=cats.map(c=>`<button class="filter-btn${c===activeFilter?' active':''}" onclick="setFilter('${c}')">${getCatLabel(c)}</button>`).join('');
 }
 function setFilter(c){
   activeFilter=c;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===c));
+  renderFilters();
   renderMenu();
 }
 const catEmoji={'Pita Carne':'🥙','Pita Vegetariana':'🌿','Piatti':'🍽️','Antipasti':'🫒','Salse':'🥣','Dolci':'🍯','Bevande':'🍺'};
