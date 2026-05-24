@@ -142,7 +142,7 @@ nav.scrolled{background:rgba(13,59,102,.92);backdrop-filter:blur(16px);-webkit-b
 
 /* PLATFORMS */
 .platforms{background:linear-gradient(135deg,#0a2d52,#0D3B66)}
-.platforms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:900px;margin:56px auto 0}
+.platforms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:1100px;margin:56px auto 0}
 .platform-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:32px 24px;text-align:center;text-decoration:none;transition:.3s;display:block}
 .platform-card:hover{background:rgba(255,255,255,.12);border-color:var(--sand);transform:translateY(-4px)}
 .platform-card .p-icon{font-size:40px;margin-bottom:14px}
@@ -502,14 +502,20 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="platform-card">
         <div class="p-icon">🛵</div>
         <div class="p-name">Deliveroo</div>
-        <div class="p-desc">Consegna a domicilio. Porta il gusto greco direttamente a casa tua.</div>
+        <div class="p-desc">Consegna a domicilio veloce. Porta il gusto greco direttamente a casa tua.</div>
+        <span class="p-tag">DELIVERY</span>
+      </a>
+      <a href="https://www.justeat.it/restaurants-argo-greek-comfort-food-ancona" target="_blank" class="platform-card">
+        <div class="p-icon">🍽️</div>
+        <div class="p-name">Just Eat</div>
+        <div class="p-desc">Un altro modo per ordinare a domicilio. Scegli la piattaforma che preferisci.</div>
         <span class="p-tag">DELIVERY</span>
       </a>
       <a href="https://www.pienissimo.it/argo-greek-comfort-food-ancona" target="_blank" class="platform-card">
         <div class="p-icon">📱</div>
         <div class="p-name">Pienissimo</div>
         <div class="p-desc">Ordina online e ritira in Via Marconi 27. Zero attesa, tutto pronto per te.</div>
-        <span class="p-tag">ASPORTO</span>
+        <span class="p-tag">ASPORTO · PRENOTA</span>
       </a>
       <a href="https://wa.me/390710000000?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="platform-card">
         <div class="p-icon">💬</div>
@@ -651,7 +657,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <h2 class="section-title" style="text-align:center">DOMANDE<br><span class="sand">FREQUENTI</span></h2>
     <div class="faq-list">
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Come ordino in asporto?<span class="fq-icon">+</span></div><div class="faq-a"><p>Tramite Pienissimo (app o sito) oppure direttamente su WhatsApp. Ritiro in Via Marconi 27.</p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate consegna a domicilio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, tramite Deliveroo nell'area di Ancona. Cerca "Argo Greek" sull'app Deliveroo.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate consegna a domicilio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, tramite Deliveroo e Just Eat nell'area di Ancona. Cerca "Argo Greek" su entrambe le app.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quando siete aperti?<span class="fq-icon">+</span></div><div class="faq-a"><p>Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Avete opzioni vegetariane?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Spanakopita, Tiropita, Dakos, Insalata Greca, Tzatziki, Pita Dolmas — tutti segnati con 🌿.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate catering per eventi?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Organizziamo catering per feste, aziende, eventi universitari, gruppi traghetto e molto altro. Scrivici su WhatsApp per un preventivo.</p></div></div>
@@ -686,7 +692,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
         </div>
       </div>
       <div class="footer-col"><h4>Menu</h4><ul><li><a href="#menu">Pite</a></li><li><a href="#menu">Gyros</a></li><li><a href="#menu">Souvlaki</a></li><li><a href="#menu">Mezedes</a></li><li><a href="#menu">Dolci</a></li></ul></div>
-      <div class="footer-col"><h4>Ordina</h4><ul><li><a href="https://deliveroo.it" target="_blank">🛵 Deliveroo</a></li><li><a href="https://www.pienissimo.it" target="_blank">📱 Pienissimo</a></li><li><a href="https://wa.me/390710000000" target="_blank">💬 WhatsApp</a></li><li><a href="#prenota">📅 Prenota</a></li><li><a href="#catering">🎪 Catering</a></li></ul></div>
+      <div class="footer-col"><h4>Ordina</h4><ul><li><a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank">🛵 Deliveroo</a></li><li><a href="https://www.justeat.it/restaurants-argo-greek-comfort-food-ancona" target="_blank">🍽️ Just Eat</a></li><li><a href="https://www.pienissimo.it/argo-greek-comfort-food-ancona" target="_blank">📱 Pienissimo</a></li><li><a href="https://wa.me/390710000000" target="_blank">💬 WhatsApp</a></li><li><a href="#catering">🎪 Catering</a></li></ul></div>
       <div class="footer-col"><h4>Info</h4><ul><li><a href="#">📍 Via Marconi 27, Ancona</a></li><li><a href="#">🕐 Lun-Mar, Gio-Ven: 12-15, 18-23</a></li><li><a href="#">🌙 Sab-Dom: 18:00–23:00</a></li><li><a href="#">❌ Mercoledì: chiuso</a></li><li><a href="/login.html">⚙️ Admin</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2025 ARGO Greek Comfort Food · Via Marconi 27, Ancona</span><span>From Athens to Ancona 🇬🇷</span></div>
@@ -718,7 +724,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 <div id="cart-bar"><div id="cart-count">0</div><span id="cart-lbl">0 articoli</span><button class="cart-go" onclick="openOrderModal()">Ordina →</button></div>
 
 <!-- ORDER MODAL -->
-<div id="order-modal"><div class="om-box"><button class="om-close" onclick="document.getElementById('order-modal').classList.remove('open')">✕</button><h2>IL TUO ORDINE</h2><div id="om-items"></div><div class="om-total" id="om-total"></div><div class="om-types"><button class="om-type sel" id="ot-del" onclick="selType('del')">🛵 Delivery<br><small>Deliveroo</small></button><button class="om-type" id="ot-tak" onclick="selType('tak')">🥡 Asporto<br><small>Pienissimo</small></button></div><button class="om-confirm" onclick="confirmOrder()">VAI ALLA PIATTAFORMA →</button></div></div>
+<div id="order-modal"><div class="om-box"><button class="om-close" onclick="document.getElementById('order-modal').classList.remove('open')">✕</button><h2>IL TUO ORDINE</h2><div id="om-items"></div><div class="om-total" id="om-total"></div><div class="om-types"><button class="om-type sel" id="ot-del" onclick="selType('del')">🛵 Deliveroo<br><small>Delivery</small></button><button class="om-type" id="ot-je" onclick="selType('je')">🍽️ Just Eat<br><small>Delivery</small></button><button class="om-type" id="ot-tak" onclick="selType('tak')">📱 Pienissimo<br><small>Asporto</small></button></div><button class="om-confirm" onclick="confirmOrder()">VAI ALLA PIATTAFORMA →</button></div></div>
 
 <!-- EXIT POPUP -->
 <div id="exit-popup"><div class="ep-box"><button class="ep-close" onclick="document.getElementById('exit-popup').classList.remove('open')">✕</button><h2>UN REGALO PER TE</h2><p>Prima di andare, usa questo codice per il tuo prossimo ordine asporto su Pienissimo:</p><div class="ep-code">ARGO10</div><p style="font-size:12px;color:rgba(255,255,255,.35);margin-bottom:16px">10% di sconto · Valido oggi</p><button class="ep-cta" onclick="window.open('https://www.pienissimo.it/argo-greek-ancona','_blank');document.getElementById('exit-popup').classList.remove('open')">ORDINA CON SCONTO →</button><span class="ep-skip" onclick="document.getElementById('exit-popup').classList.remove('open')">No grazie</span></div></div>
@@ -747,7 +753,7 @@ function updateStatus(){
   const dot=document.getElementById('live-dot'),txt=document.getElementById('live-text');
   const urgEl=document.getElementById('urg-text');
   if(day===3){dot.className='closed-dot';txt.textContent='Oggi siamo chiusi · Riapriamo Giovedì';if(urgEl)urgEl.textContent='Oggi chiusi · Riapriamo Giovedì 12:00 · Prenota in anticipo'}
-  else if((hasPranzo&&lunch)||dinner){dot.className='';txt.textContent='Aperto ora · Cucina attiva · Ordini in corso';if(urgEl)urgEl.textContent='🔥 Aperto ora · Ordina su Deliveroo o Pienissimo · Via Marconi 27'}
+  else if((hasPranzo&&lunch)||dinner){dot.className='';txt.textContent='Aperto ora · Cucina attiva · Ordini in corso';if(urgEl)urgEl.textContent='🔥 Aperto ora · Ordina su Deliveroo o Just Eat · Via Marconi 27'}
   else{dot.className='closed-dot';const next=t<720&&hasPranzo?'12:00':'18:00';txt.textContent=`Chiuso · Riapriamo alle ${next}`;if(urgEl)urgEl.textContent=`Chiusi ora · Riapriamo alle ${next} · Prenota il tuo tavolo!`}
 }
 updateStatus();setInterval(updateStatus,60000);
@@ -814,12 +820,11 @@ function openOrderModal(){
 }
 function selType(t){
   orderType=t;
-  document.getElementById('ot-del').classList.toggle('sel',t==='del');
-  document.getElementById('ot-tak').classList.toggle('sel',t==='tak');
+  ['del','je','tak'].forEach(x=>{const el=document.getElementById('ot-'+x);if(el)el.classList.toggle('sel',x===t)});
 }
 function confirmOrder(){
-  const url=orderType==='del'?'https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food':'https://www.pienissimo.it/argo-greek-comfort-food-ancona';
-  window.open(url,'_blank');
+  const urls={del:'https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food',je:'https://www.justeat.it/restaurants-argo-greek-comfort-food-ancona',tak:'https://www.pienissimo.it/argo-greek-comfort-food-ancona'};
+  window.open(urls[orderType]||urls.del,'_blank');
   document.getElementById('order-modal').classList.remove('open');
 }
 
@@ -874,7 +879,7 @@ function doNewsletter(){
 let chatOpen=false;
 const SYS=`Sei l'assistente ARGO Greek Comfort Food, Ancona Via Marconi 27. Rispondi in italiano, breve e diretto.
 Orari: Lun/Mar/Gio/Ven 12-15 e 18-23. Sab/Dom solo 18-23. Mercoledì CHIUSO.
-Delivery: Deliveroo. Asporto: Pienissimo o WhatsApp. Catering: disponibile per eventi.
+Delivery: Deliveroo o Just Eat. Asporto: Pienissimo o WhatsApp. Catering: disponibile per eventi.
 Menu bestseller: Pita Gyros Double (€7.50), Mix Grill (€14), Baklava (€4.50). Rating 4.4/5 Google.
 Spingi verso ordine o prenotazione. Max 2-3 frasi per risposta.`;
 function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-win').classList.toggle('open',chatOpen);document.getElementById('chat-btn').textContent=chatOpen?'✕':'🤖'}
