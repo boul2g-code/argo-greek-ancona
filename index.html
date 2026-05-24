@@ -120,13 +120,14 @@ nav.scrolled{background:rgba(13,59,102,.92);backdrop-filter:blur(16px);-webkit-b
 .menu-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
 .filter-btn{padding:9px 22px;border-radius:20px;border:1.5px solid rgba(255,255,255,.12);background:transparent;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;color:rgba(255,255,255,.6);letter-spacing:.3px}
 .filter-btn.active,.filter-btn:hover{background:var(--sand);border-color:var(--sand);color:var(--navy)}
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.menu-card{background:#181818;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:.3s;cursor:pointer;display:flex;flex-direction:column}
-.menu-card:hover{border-color:rgba(217,199,163,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.menu-card{background:#181818;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:.3s;cursor:pointer;display:flex;flex-direction:column}
+.menu-card:hover{border-color:rgba(217,199,163,.35);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
 .menu-card-img{position:relative;height:200px;overflow:hidden}
 .menu-card-img img{width:100%;height:100%;object-fit:cover;transition:.5s;filter:brightness(.9)}
 .menu-card:hover .menu-card-img img{transform:scale(1.08);filter:brightness(1)}
-.menu-card-noimg{height:100px;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#1e1e1e,#252525);position:relative}
+.menu-card-noimg{height:120px;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,#1e1e1e,#0d2540);position:relative;overflow:hidden}
+.menu-card-noimg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(29,112,255,.08),rgba(217,199,163,.05));pointer-events:none}
 .menu-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:800;padding:4px 10px;border-radius:6px;letter-spacing:.5px;text-transform:uppercase}
 .badge-hot{background:#ef4444;color:#fff}
 .badge-best{background:var(--sand);color:var(--navy)}
@@ -135,11 +136,11 @@ nav.scrolled{background:rgba(13,59,102,.92);backdrop-filter:blur(16px);-webkit-b
 .menu-card-body{padding:20px;flex:1;display:flex;flex-direction:column}
 .menu-card-body h3{font-weight:700;font-size:16px;color:#fff;margin-bottom:6px}
 .menu-card-body p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:16px;flex:1}
-.menu-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.price{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--sand);line-height:1}
-.price small{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through;margin-right:4px;font-weight:400}
-.add-btn{background:var(--neon);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;letter-spacing:.3px}
-.add-btn:hover{background:#1558cc;transform:scale(1.05)}
+.menu-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.05)}
+.price{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--sand);line-height:1}
+.price small{font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.3);text-decoration:line-through;margin-right:4px;font-weight:400;display:block}
+.add-btn{background:rgba(29,112,255,.2);color:var(--neon);border:1.5px solid rgba(29,112,255,.3);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;transition:.2s;letter-spacing:.5px;white-space:nowrap}
+.add-btn:hover{background:var(--neon);color:#fff;border-color:var(--neon)}
 
 /* PLATFORMS */
 .platforms{background:linear-gradient(135deg,#0a2d52,#0D3B66)}
@@ -783,7 +784,8 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
 // ========== i18n TRANSLATIONS ==========
 const LANGS={
   it:{
-    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Prenota',nav_contacts:'Contatti',nav_order:'ORDINA ORA',
+    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Prenota',nav_contacts:'Contatti',nav_order:'ORDINA ORA'
+    btn_add:'+ AGGIUNGI',btn_added:'✓ Aggiunto',
     hero_badge:'🇬🇷 Street Food Greco Autentico · Ancona · FlixBus a 50mt',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food greco autentico nel cuore di Ancona.',
@@ -834,7 +836,8 @@ const LANGS={
     urg_closed:'Chiusi ora · Riapriamo alle',
   },
   el:{
-    nav_menu:'Μενού',nav_delivery:'Delivery',nav_book:'Κράτηση',nav_contacts:'Επικοινωνία',nav_order:'ΠΑΡΑΓΓΕΙΛΕ ΤΩΡΑ',
+    nav_menu:'Μενού',nav_delivery:'Delivery',nav_book:'Κράτηση',nav_contacts:'Επικοινωνία',nav_order:'ΠΑΡΑΓΓΕΙΛΕ ΤΩΡΑ'
+    btn_add:'+ ΠΡΟΣΘΗΚΗ',btn_added:'✓ Προστέθηκε',
     hero_badge:'🇬🇷 Αυθεντικό Ελληνικό Street Food · Αnkona · FlixBus 50μ',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Πίτα. Γύρος. Σουβλάκι.</strong><br>Αυθεντικό ελληνικό street food στην καρδιά της Ανκόνα.',
@@ -885,7 +888,8 @@ const LANGS={
     urg_closed:'Κλειστά τώρα · Ανοίγουμε στις',
   },
   en:{
-    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Book',nav_contacts:'Contact',nav_order:'ORDER NOW',
+    nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Book',nav_contacts:'Contact',nav_order:'ORDER NOW'
+    btn_add:'+ ADD',btn_added:'✓ Added',
     hero_badge:'🇬🇷 Authentic Greek Street Food · Ancona · FlixBus 50m away',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Authentic Greek street food in the heart of Ancona.',
@@ -936,7 +940,8 @@ const LANGS={
     urg_closed:'Closed now · Reopening at',
   },
   de:{
-    nav_menu:'Menü',nav_delivery:'Lieferung',nav_book:'Reservieren',nav_contacts:'Kontakt',nav_order:'JETZT BESTELLEN',
+    nav_menu:'Menü',nav_delivery:'Lieferung',nav_book:'Reservieren',nav_contacts:'Kontakt',nav_order:'JETZT BESTELLEN'
+    btn_add:'+ HINZUFÜGEN',btn_added:'✓ Hinzugefügt',
     hero_badge:'🇬🇷 Authentisches Griechisches Street Food · Ancona · FlixBus 50m',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Authentisches griechisches Street Food im Herzen von Ancona.',
@@ -987,7 +992,8 @@ const LANGS={
     urg_closed:'Jetzt geschlossen · Öffnet wieder um',
   },
   fr:{
-    nav_menu:'Menu',nav_delivery:'Livraison',nav_book:'Réserver',nav_contacts:'Contact',nav_order:'COMMANDER',
+    nav_menu:'Menu',nav_delivery:'Livraison',nav_book:'Réserver',nav_contacts:'Contact',nav_order:'COMMANDER'
+    btn_add:'+ AJOUTER',btn_added:'✓ Ajouté',
     hero_badge:'🇬🇷 Street Food Grec Authentique · Ancône · FlixBus à 50m',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food grec authentique au cœur d\'Ancône.',
@@ -1038,7 +1044,8 @@ const LANGS={
     urg_closed:'Fermé maintenant · Réouverture à',
   },
   es:{
-    nav_menu:'Menú',nav_delivery:'Delivery',nav_book:'Reservar',nav_contacts:'Contacto',nav_order:'PEDIR AHORA',
+    nav_menu:'Menú',nav_delivery:'Delivery',nav_book:'Reservar',nav_contacts:'Contacto',nav_order:'PEDIR AHORA'
+    btn_add:'+ AÑADIR',btn_added:'✓ Añadido',
     hero_badge:'🇬🇷 Street Food Griego Auténtico · Ancona · FlixBus a 50m',
     hero_h1:'FEED',hero_accent:'YOUR MYTH',
     hero_sub:'<strong>Pita. Gyros. Souvlaki.</strong><br>Street food griego auténtico en el corazón de Ancona.',
@@ -1229,7 +1236,7 @@ function renderMenu(){
         <p>${txt.desc}</p>
         <div class="menu-card-footer">
           <div class="price">${item.originalPrice?`<small>€${item.originalPrice.toFixed(2)}</small> `:''}€${item.price.toFixed(2)}</div>
-          <button class="add-btn" onclick="addCart(${item.id},'${txt.name.replace(/'/g,"\\'")}',${item.price})">+ AGGIUNGI</button>
+          <button class="add-btn" onclick="addCart(${item.id},'${txt.name.replace(/'/g,"\\'")}',${item.price})">${(LANGS[currentLang]||LANGS.it).btn_add||'+ ADD'}</button>
         </div>
       </div>
     </div>`;
@@ -1242,8 +1249,8 @@ function addCart(id,name,price){
   const ex=cart.find(i=>i.id===id);
   if(ex)ex.qty++;else cart.push({id,name,price,qty:1});
   updateCartBar();
-  const btn=event.target;btn.textContent='✓';btn.style.background='#22c55e';
-  setTimeout(()=>{btn.textContent='+ AGGIUNGI';btn.style.background='';},700);
+  const btn=event.target;btn.textContent=(LANGS[currentLang]||LANGS.it).btn_added||'✓';btn.style.background='#22c55e';
+  setTimeout(()=>{btn.textContent=(LANGS[currentLang]||LANGS.it).btn_add||'+ ADD';btn.style.background='';},700);
 }
 function updateCartBar(){
   const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
