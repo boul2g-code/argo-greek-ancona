@@ -17,7 +17,29 @@
       "category": "Pita Carne",
       "badge": "🔥 Più ordinato",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Γύρος",
+          "desc": "Χειροποίητη πίτα με χοιρινό γύρο, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα της επιλογής σας"
+        },
+        "en": {
+          "name": "Pita Gyros Pork",
+          "desc": "Homemade pita with pork gyros, fried potatoes, fresh tomato, lettuce, red onion and sauce of your choice"
+        },
+        "de": {
+          "name": "Pita Gyros Schwein",
+          "desc": "Hausgemachte Pita mit Schweinefleisch-Gyros, Pommes, frischer Tomate, Salat, roten Zwiebeln und Sauce nach Wahl"
+        },
+        "fr": {
+          "name": "Pita Gyros Porc",
+          "desc": "Pita maison avec gyros de porc, frites, tomate fraîche, salade, oignon rouge et sauce au choix"
+        },
+        "es": {
+          "name": "Pita Gyros Cerdo",
+          "desc": "Pita artesanal con gyros de cerdo, patatas fritas, tomate fresco, lechuga, cebolla roja y salsa a elegir"
+        }
+      }
     },
     {
       "id": 2,
@@ -27,7 +49,29 @@
       "category": "Pita Carne",
       "badge": "⭐ Best Seller",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Γύρος Maxi",
+          "desc": "Χειροποίητη πίτα με διπλή μερίδα χοιρινού γύρου, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Pita Gyros Maxi",
+          "desc": "Homemade pita with double pork gyros, fried potatoes, fresh tomato, lettuce, red onion and sauce of your choice"
+        },
+        "de": {
+          "name": "Pita Gyros Maxi",
+          "desc": "Hausgemachte Pita mit doppelter Portion Schweinefleisch-Gyros, Pommes, Tomate, Salat und Sauce"
+        },
+        "fr": {
+          "name": "Pita Gyros Maxi",
+          "desc": "Pita maison avec double portion de gyros de porc, frites, tomate, salade et sauce au choix"
+        },
+        "es": {
+          "name": "Pita Gyros Maxi",
+          "desc": "Pita artesanal con doble porción de gyros de cerdo, patatas fritas, tomate, lechuga y salsa"
+        }
+      }
     },
     {
       "id": 3,
@@ -37,7 +81,29 @@
       "category": "Pita Carne",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Κοτόπουλο",
+          "desc": "Χειροποίητη πίτα με κοτόπουλο, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Chicken Pita",
+          "desc": "Homemade pita with chicken, fried potatoes, fresh tomato, lettuce, red onion and sauce of your choice"
+        },
+        "de": {
+          "name": "Hähnchen Pita",
+          "desc": "Hausgemachte Pita mit Hähnchen, Pommes, frischer Tomate, Salat und Sauce nach Wahl"
+        },
+        "fr": {
+          "name": "Pita Poulet",
+          "desc": "Pita maison avec poulet, frites, tomate fraîche, salade et sauce au choix"
+        },
+        "es": {
+          "name": "Pita Pollo",
+          "desc": "Pita artesanal con pollo, patatas fritas, tomate fresco, lechuga y salsa a elegir"
+        }
+      }
     },
     {
       "id": 4,
@@ -47,7 +113,29 @@
       "category": "Pita Carne",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Κοτόπουλο Maxi",
+          "desc": "Χειροποίητη πίτα με διπλή μερίδα κοτόπουλου, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Chicken Pita Maxi",
+          "desc": "Homemade pita with double chicken, fried potatoes, fresh tomato, lettuce, red onion and sauce"
+        },
+        "de": {
+          "name": "Hähnchen Pita Maxi",
+          "desc": "Hausgemachte Pita mit doppelter Hähnchen-Portion, Pommes, Tomate und Sauce"
+        },
+        "fr": {
+          "name": "Pita Poulet Maxi",
+          "desc": "Pita maison avec double portion de poulet, frites, tomate et sauce au choix"
+        },
+        "es": {
+          "name": "Pita Pollo Maxi",
+          "desc": "Pita artesanal con doble porción de pollo, patatas fritas, tomate y salsa"
+        }
+      }
     },
     {
       "id": 5,
@@ -57,7 +145,29 @@
       "category": "Pita Carne",
       "badge": "🆕",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Αρνί",
+          "desc": "Χειροποίητη πίτα με αρνί, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Lamb Pita",
+          "desc": "Homemade pita with lamb, fried potatoes, fresh tomato, lettuce, red onion and sauce"
+        },
+        "de": {
+          "name": "Lamm Pita",
+          "desc": "Hausgemachte Pita mit Lammfleisch, Pommes, Tomate, Salat und Sauce"
+        },
+        "fr": {
+          "name": "Pita Agneau",
+          "desc": "Pita maison avec agneau, frites, tomate fraîche, salade et sauce au choix"
+        },
+        "es": {
+          "name": "Pita Cordero",
+          "desc": "Pita artesanal con cordero, patatas fritas, tomate fresco, lechuga y salsa"
+        }
+      }
     },
     {
       "id": 6,
@@ -67,7 +177,29 @@
       "category": "Pita Carne",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Μπιφτέκι",
+          "desc": "Χειροποίητη πίτα με κεφτέδες από αρνί και μοσχάρι, πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Bifteki Pita",
+          "desc": "Homemade pita with minced lamb and beef patties, potatoes, tomato, lettuce, onion and sauce"
+        },
+        "de": {
+          "name": "Bifteki Pita",
+          "desc": "Hausgemachte Pita mit Lamm-Rind-Frikadellen, Pommes, Tomate und Sauce"
+        },
+        "fr": {
+          "name": "Pita Bifteki",
+          "desc": "Pita maison avec boulettes de viande d'agneau et bœuf, frites, tomate et sauce"
+        },
+        "es": {
+          "name": "Pita Bifteki",
+          "desc": "Pita artesanal con albóndigas de cordero y ternera, patatas, tomate y salsa"
+        }
+      }
     },
     {
       "id": 7,
@@ -77,7 +209,29 @@
       "category": "Pita Carne",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Λουκάνικο",
+          "desc": "Χειροποίητη πίτα με ελληνικό λουκάνικο με μυρωδικά, πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Lukanika Pita",
+          "desc": "Homemade pita with Greek herb sausage, potatoes, tomato, lettuce, onion and sauce"
+        },
+        "de": {
+          "name": "Lukanika Pita",
+          "desc": "Hausgemachte Pita mit griechischer Kräuterwurst, Pommes, Tomate und Sauce"
+        },
+        "fr": {
+          "name": "Pita Loukánika",
+          "desc": "Pita maison avec saucisse grecque aux herbes, frites, tomate et sauce"
+        },
+        "es": {
+          "name": "Pita Lukanika",
+          "desc": "Pita artesanal con salchicha griega con hierbas, patatas, tomate y salsa"
+        }
+      }
     },
     {
       "id": 8,
@@ -87,7 +241,29 @@
       "category": "Pita Vegetariana",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Φέτα",
+          "desc": "Χειροποίητη πίτα με φέτα ΠΟΠ, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Feta Pita",
+          "desc": "Homemade pita with PDO Feta cheese, fried potatoes, fresh tomato, lettuce, onion and sauce"
+        },
+        "de": {
+          "name": "Feta Pita",
+          "desc": "Hausgemachte Pita mit g.U. Feta-Käse, Pommes, Tomate, Salat und Sauce"
+        },
+        "fr": {
+          "name": "Pita Feta",
+          "desc": "Pita maison avec fromage Feta AOP, frites, tomate fraîche, salade et sauce"
+        },
+        "es": {
+          "name": "Pita Feta",
+          "desc": "Pita artesanal con queso Feta DOP, patatas fritas, tomate fresco, lechuga y salsa"
+        }
+      }
     },
     {
       "id": 9,
@@ -97,7 +273,29 @@
       "category": "Pita Vegetariana",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πίτα Χαλούμι",
+          "desc": "Χειροποίητη πίτα με ψητό κυπριακό χαλούμι, τηγανητές πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Halloumi Pita",
+          "desc": "Homemade pita with grilled Cypriot halloumi cheese, potatoes, tomato, lettuce, onion and sauce"
+        },
+        "de": {
+          "name": "Halloumi Pita",
+          "desc": "Hausgemachte Pita mit gegrilltem zypriotischen Halloumi, Pommes, Tomate und Sauce"
+        },
+        "fr": {
+          "name": "Pita Halloumi",
+          "desc": "Pita maison avec halloumi chypriote grillé, frites, tomate, salade et sauce"
+        },
+        "es": {
+          "name": "Pita Halloumi",
+          "desc": "Pita artesanal con halloumi chipriota a la plancha, patatas, tomate y salsa"
+        }
+      }
     },
     {
       "id": 10,
@@ -107,7 +305,29 @@
       "category": "Pita Vegetariana",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Χορτοφαγική Πίτα",
+          "desc": "Χειροποίητη πίτα με χορτοφαγικά κεφτεδάκια, πατάτες, ντομάτα, μαρούλι, κρεμμύδι και σάλτσα"
+        },
+        "en": {
+          "name": "Vegetarian Pita",
+          "desc": "Homemade pita with vegetarian patties, fried potatoes, tomato, lettuce, onion and sauce"
+        },
+        "de": {
+          "name": "Vegetarische Pita",
+          "desc": "Hausgemachte Pita mit vegetarischen Frikadellen, Pommes, Tomate und Sauce"
+        },
+        "fr": {
+          "name": "Pita Végétarienne",
+          "desc": "Pita maison avec boulettes végétariennes, frites, tomate, salade et sauce"
+        },
+        "es": {
+          "name": "Pita Vegetariana",
+          "desc": "Pita artesanal con albóndigas vegetarianas, patatas fritas, tomate y salsa"
+        }
+      }
     },
     {
       "id": 11,
@@ -117,7 +337,29 @@
       "category": "Pita Vegetariana",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Άδεια Πίτα",
+          "desc": "Χειροποίητη πίτα χωρίς γέμιση — ιδανική για συνοδεία πιάτων"
+        },
+        "en": {
+          "name": "Plain Pita",
+          "desc": "Homemade plain pita bread — ideal as a side dish"
+        },
+        "de": {
+          "name": "Leere Pita",
+          "desc": "Hausgemachtes Pitabrot ohne Füllung — als Beilage"
+        },
+        "fr": {
+          "name": "Pita Nature",
+          "desc": "Pita maison sans garniture — idéale en accompagnement"
+        },
+        "es": {
+          "name": "Pita Sola",
+          "desc": "Pita artesanal sin relleno — ideal como acompañamiento"
+        }
+      }
     },
     {
       "id": 12,
@@ -127,7 +369,29 @@
       "category": "Piatti",
       "badge": "👨‍🍳 Chef's Choice",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Mix Grill",
+          "desc": "Χοιρινός γύρος, φιλέτο κοτόπουλου, λουκάνικο, μπιφτέκι — με πίτα και τζατζίκι"
+        },
+        "en": {
+          "name": "Mix Grill",
+          "desc": "Pork gyros, chicken fillet, Greek sausage, bifteki patty — served with pita and tzatziki"
+        },
+        "de": {
+          "name": "Mix Grill",
+          "desc": "Schweinegyros, Hähnchenfilet, griechische Wurst, Bifteki — mit Pita und Tzatziki"
+        },
+        "fr": {
+          "name": "Mix Grill",
+          "desc": "Gyros de porc, filet de poulet, saucisse grecque, bifteki — avec pita et tzatziki"
+        },
+        "es": {
+          "name": "Mix Grill",
+          "desc": "Gyros de cerdo, filete de pollo, salchicha griega, bifteki — con pita y tzatziki"
+        }
+      }
     },
     {
       "id": 13,
@@ -137,7 +401,29 @@
       "category": "Piatti",
       "badge": "⭐ Best Seller",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Γύρος στο Πιάτο",
+          "desc": "Χοιρινός γύρος με τηγανητές πατάτες, μαρούλι, ντομάτα, κρεμμύδι, τζατζίκι και πίτα"
+        },
+        "en": {
+          "name": "Plate Gyros",
+          "desc": "Pork gyros with fried potatoes, lettuce, tomato, onion, tzatziki and pita"
+        },
+        "de": {
+          "name": "Gyros-Teller",
+          "desc": "Schweinegyros mit Pommes, Salat, Tomate, Zwiebeln, Tzatziki und Pita"
+        },
+        "fr": {
+          "name": "Gyros en Assiette",
+          "desc": "Gyros de porc avec frites, salade, tomate, oignon, tzatziki et pita"
+        },
+        "es": {
+          "name": "Gyros en Plato",
+          "desc": "Gyros de cerdo con patatas fritas, lechuga, tomate, cebolla, tzatziki y pita"
+        }
+      }
     },
     {
       "id": 14,
@@ -147,7 +433,29 @@
       "category": "Piatti",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Σουβλάκι στο Πιάτο",
+          "desc": "3 σουβλάκια χοιρινού ή κοτόπουλου με πατάτες, ντομάτα, κρεμμύδι, τζατζίκι και πίτα"
+        },
+        "en": {
+          "name": "Plate Souvlaki",
+          "desc": "3 pork or chicken skewers with fried potatoes, tomato, onion, tzatziki and pita"
+        },
+        "de": {
+          "name": "Souvlaki-Teller",
+          "desc": "3 Schweine- oder Hähnchenschaschlik mit Pommes, Tomate, Tzatziki und Pita"
+        },
+        "fr": {
+          "name": "Souvlaki en Assiette",
+          "desc": "3 brochettes de porc ou poulet avec frites, tomate, tzatziki et pita"
+        },
+        "es": {
+          "name": "Souvlaki en Plato",
+          "desc": "3 pinchos de cerdo o pollo con patatas fritas, tomate, tzatziki y pita"
+        }
+      }
     },
     {
       "id": 15,
@@ -157,7 +465,29 @@
       "category": "Piatti",
       "badge": "🔥",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Μουσακάς",
+          "desc": "Πατάτες, μελιτζάνες, κιμάς, μπεσαμέλ και τυρί σε στρώσεις, ψητό στο φούρνο — με σαλάτα, πίτα και τζατζίκι"
+        },
+        "en": {
+          "name": "Moussaka",
+          "desc": "Layers of potatoes, aubergine, minced meat, béchamel and cheese, oven-baked — with salad, pita and tzatziki"
+        },
+        "de": {
+          "name": "Moussaka",
+          "desc": "Schichten aus Kartoffeln, Auberginen, Hackfleisch, Béchamel und Käse, überbacken — mit Salat und Pita"
+        },
+        "fr": {
+          "name": "Moussaka",
+          "desc": "Couches de pommes de terre, aubergines, viande hachée, béchamel et fromage, gratiné — avec salade et pita"
+        },
+        "es": {
+          "name": "Musaka",
+          "desc": "Capas de patatas, berenjena, carne picada, bechamel y queso, horneado — con ensalada y pita"
+        }
+      }
     },
     {
       "id": 16,
@@ -167,7 +497,29 @@
       "category": "Antipasti",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Ελληνική Σαλάτα",
+          "desc": "Ντομάτες, πιπεριά, αγγούρι, ελιές Καλαμών, κρεμμύδι, φέτα ΠΟΠ και ρίγανη με εξαιρετικό παρθένο ελαιόλαδο"
+        },
+        "en": {
+          "name": "Greek Salad",
+          "desc": "Tomatoes, peppers, cucumber, Kalamata olives, onion, PDO feta and oregano with extra virgin olive oil"
+        },
+        "de": {
+          "name": "Griechischer Salat",
+          "desc": "Tomaten, Paprika, Gurke, Kalamata-Oliven, Zwiebeln, g.U.-Feta und Oregano mit Olivenöl"
+        },
+        "fr": {
+          "name": "Salade Grecque",
+          "desc": "Tomates, poivron, concombre, olives de Kalamata, oignon, Feta AOP et origan à l'huile d'olive"
+        },
+        "es": {
+          "name": "Ensalada Griega",
+          "desc": "Tomates, pimiento, pepino, aceitunas de Kalamata, cebolla, feta DOP y orégano con aceite de oliva"
+        }
+      }
     },
     {
       "id": 17,
@@ -177,7 +529,29 @@
       "category": "Antipasti",
       "badge": "🔥",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Ψητό Χαλούμι",
+          "desc": "Κυπριακό τυρί από πρόβειο και κατσικίσιο γάλα, ψητό στη σχάρα — τραγανό έξω, μαλακό μέσα"
+        },
+        "en": {
+          "name": "Grilled Halloumi",
+          "desc": "Cypriot sheep and goat milk cheese, grilled — crispy outside, soft inside"
+        },
+        "de": {
+          "name": "Gegrillter Halloumi",
+          "desc": "Zypriotischer Schaf- und Ziegenkäse, gegrillt — außen knusprig, innen weich"
+        },
+        "fr": {
+          "name": "Halloumi Grillé",
+          "desc": "Fromage chypriote de brebis et chèvre, grillé — croustillant dehors, fondant dedans"
+        },
+        "es": {
+          "name": "Halloumi a la Plancha",
+          "desc": "Queso chipriota de oveja y cabra, a la plancha — crujiente por fuera, suave por dentro"
+        }
+      }
     },
     {
       "id": 18,
@@ -187,7 +561,29 @@
       "category": "Antipasti",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Φέτα στη Λαδόκολλα",
+          "desc": "Φέτα ΠΟΠ με κρεμμύδι και ντομάτα, ψητή σε χαρτί"
+        },
+        "en": {
+          "name": "Baked Feta",
+          "desc": "PDO Feta cheese with onion and tomato, baked in paper"
+        },
+        "de": {
+          "name": "Gebackener Feta",
+          "desc": "g.U.-Feta mit Zwiebeln und Tomate, im Papier gebacken"
+        },
+        "fr": {
+          "name": "Feta en Papillote",
+          "desc": "Feta AOP avec oignon et tomate, cuite en papillote"
+        },
+        "es": {
+          "name": "Feta al Horno",
+          "desc": "Feta DOP con cebolla y tomate, horneada en papel"
+        }
+      }
     },
     {
       "id": 19,
@@ -197,7 +593,29 @@
       "category": "Antipasti",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Φέτα με Ελιές",
+          "desc": "Φέτα ΠΟΠ με ελιές Καλαμών"
+        },
+        "en": {
+          "name": "Feta with Olives",
+          "desc": "PDO Feta cheese with Kalamata olives"
+        },
+        "de": {
+          "name": "Feta mit Oliven",
+          "desc": "g.U.-Feta-Käse mit Kalamata-Oliven"
+        },
+        "fr": {
+          "name": "Feta aux Olives",
+          "desc": "Fromage Feta AOP avec olives de Kalamata"
+        },
+        "es": {
+          "name": "Feta con Aceitunas",
+          "desc": "Queso Feta DOP con aceitunas de Kalamata"
+        }
+      }
     },
     {
       "id": 20,
@@ -207,7 +625,29 @@
       "category": "Antipasti",
       "badge": "🔥",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Μπουγιουρντί",
+          "desc": "Ντομάτα, φέτα και καυτερή πιπεριά σε πήλινο — με 1 άδεια πίτα"
+        },
+        "en": {
+          "name": "Bouyiourdi",
+          "desc": "Tomato, feta and chilli pepper in terracotta — served with 1 plain pita"
+        },
+        "de": {
+          "name": "Bouyiourdi",
+          "desc": "Tomate, Feta und Peperoni im Tontopf — mit 1 leerer Pita"
+        },
+        "fr": {
+          "name": "Bouyiourdi",
+          "desc": "Tomate, feta et piment en terracotta — avec 1 pita nature"
+        },
+        "es": {
+          "name": "Bouyiourdi",
+          "desc": "Tomate, feta y chile en terracota — con 1 pita sola"
+        }
+      }
     },
     {
       "id": 21,
@@ -217,7 +657,29 @@
       "category": "Antipasti",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Κεφτεδάκια Ρεβυθιών",
+          "desc": "4 τηγανητά κεφτεδάκια ρεβυθιών — με τζατζίκι"
+        },
+        "en": {
+          "name": "Chickpea Fritters",
+          "desc": "4 fried chickpea patties — served with tzatziki"
+        },
+        "de": {
+          "name": "Kichererbsen-Frikadellen",
+          "desc": "4 frittierte Kichererbsen-Patties — mit Tzatziki"
+        },
+        "fr": {
+          "name": "Boulettes de Pois Chiches",
+          "desc": "4 boulettes de pois chiches frites — avec tzatziki"
+        },
+        "es": {
+          "name": "Buñuelos de Garbanzos",
+          "desc": "4 buñuelos de garbanzos fritos — con tzatziki"
+        }
+      }
     },
     {
       "id": 22,
@@ -227,7 +689,29 @@
       "category": "Antipasti",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Κεφτεδάκια Μελιτζάνας",
+          "desc": "4 τηγανητά κεφτεδάκια μελιτζάνας — με τζατζίκι"
+        },
+        "en": {
+          "name": "Aubergine Fritters",
+          "desc": "4 fried aubergine patties — served with tzatziki"
+        },
+        "de": {
+          "name": "Auberginen-Frikadellen",
+          "desc": "4 frittierte Auberginen-Patties — mit Tzatziki"
+        },
+        "fr": {
+          "name": "Boulettes d'Aubergine",
+          "desc": "4 boulettes d'aubergine frites — avec tzatziki"
+        },
+        "es": {
+          "name": "Buñuelos de Berenjena",
+          "desc": "4 buñuelos de berenjena fritos — con tzatziki"
+        }
+      }
     },
     {
       "id": 23,
@@ -237,7 +721,29 @@
       "category": "Antipasti",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Τηγανητές Πατάτες",
+          "desc": "Τραγανές τηγανητές πατάτες"
+        },
+        "en": {
+          "name": "Fried Potatoes",
+          "desc": "Crispy fried potatoes"
+        },
+        "de": {
+          "name": "Pommes Frites",
+          "desc": "Knusprige Pommes Frites"
+        },
+        "fr": {
+          "name": "Frites",
+          "desc": "Frites croustillantes"
+        },
+        "es": {
+          "name": "Patatas Fritas",
+          "desc": "Patatas fritas crujientes"
+        }
+      }
     },
     {
       "id": 24,
@@ -247,7 +753,29 @@
       "category": "Salse",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Τζατζίκι",
+          "desc": "Σάλτσα με ελληνικό γιαούρτι, αγγούρι και σκόρδο — φτιαγμένη κάθε μέρα"
+        },
+        "en": {
+          "name": "Tzatziki",
+          "desc": "Sauce with Greek yogurt, cucumber and garlic — made fresh every day"
+        },
+        "de": {
+          "name": "Tzatziki",
+          "desc": "Sauce aus griechischem Joghurt, Gurke und Knoblauch — täglich frisch zubereitet"
+        },
+        "fr": {
+          "name": "Tzatziki",
+          "desc": "Sauce au yaourt grec, concombre et ail — préparée chaque jour"
+        },
+        "es": {
+          "name": "Tzatziki",
+          "desc": "Salsa con yogur griego, pepino y ajo — preparada cada día"
+        }
+      }
     },
     {
       "id": 25,
@@ -257,7 +785,29 @@
       "category": "Salse",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Τυροκαυτερή",
+          "desc": "Σάλτσα με φέτα και καυτερή πιπεριά — καυτερή και κρεμώδης"
+        },
+        "en": {
+          "name": "Tirokafteri",
+          "desc": "Spicy feta and chilli pepper sauce — hot and creamy"
+        },
+        "de": {
+          "name": "Tirokafteri",
+          "desc": "Scharfe Feta-Peperoni-Sauce — scharf und cremig"
+        },
+        "fr": {
+          "name": "Tirokafteri",
+          "desc": "Sauce épicée à la feta et au piment — piquante et crémeuse"
+        },
+        "es": {
+          "name": "Tirokafteri",
+          "desc": "Salsa picante de feta y guindilla — picante y cremosa"
+        }
+      }
     },
     {
       "id": 26,
@@ -267,7 +817,29 @@
       "category": "Salse",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Χούμους",
+          "desc": "Σάλτσα από ρεβύθια και ταχίνι"
+        },
+        "en": {
+          "name": "Hummus",
+          "desc": "Chickpea and tahini sauce"
+        },
+        "de": {
+          "name": "Hummus",
+          "desc": "Kichererbsen- und Tahini-Sauce"
+        },
+        "fr": {
+          "name": "Houmous",
+          "desc": "Sauce aux pois chiches et tahini"
+        },
+        "es": {
+          "name": "Hummus",
+          "desc": "Salsa de garbanzos y tahini"
+        }
+      }
     },
     {
       "id": 27,
@@ -277,7 +849,29 @@
       "category": "Salse",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Μελιτζανοσαλάτα",
+          "desc": "Σάλτσα με μελιτζάνες — παραδοσιακή ελληνική συνταγή"
+        },
+        "en": {
+          "name": "Melitzanosalata",
+          "desc": "Aubergine dip — traditional Greek recipe"
+        },
+        "de": {
+          "name": "Melitzanosalata",
+          "desc": "Auberginen-Dip — traditionelles griechisches Rezept"
+        },
+        "fr": {
+          "name": "Mélitzanosalata",
+          "desc": "Caviar d'aubergine — recette grecque traditionnelle"
+        },
+        "es": {
+          "name": "Melitzanosalata",
+          "desc": "Crema de berenjena — receta griega tradicional"
+        }
+      }
     },
     {
       "id": 28,
@@ -287,7 +881,29 @@
       "category": "Dolci",
       "badge": "⭐ Best Seller",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Μπακλαβάς",
+          "desc": "Παραδοσιακό γλυκό με φύλλο κρούστας γεμιστό με καρύδια, μπαχαρικά και μέλι — σπιτικό"
+        },
+        "en": {
+          "name": "Baklava",
+          "desc": "Traditional pastry with filo filled with walnuts, spices and honey — homemade"
+        },
+        "de": {
+          "name": "Baklava",
+          "desc": "Traditionelles Gebäck mit Filoteig, Walnüssen, Gewürzen und Honig — hausgemacht"
+        },
+        "fr": {
+          "name": "Baklava",
+          "desc": "Pâtisserie traditionnelle en filo avec noix, épices et miel — fait maison"
+        },
+        "es": {
+          "name": "Baklava",
+          "desc": "Dulce tradicional de masa filo rellena de nueces, especias y miel — casero"
+        }
+      }
     },
     {
       "id": 29,
@@ -297,7 +913,29 @@
       "category": "Dolci",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Καταΐφι",
+          "desc": "Ρολάκια κανταΐφι με καρύδια, μπαχαρικά, μέλι και βανίλια"
+        },
+        "en": {
+          "name": "Kataifi",
+          "desc": "Kataifi rolls with walnuts, spices, honey and vanilla"
+        },
+        "de": {
+          "name": "Kataifi",
+          "desc": "Kataifi-Röllchen mit Walnüssen, Gewürzen, Honig und Vanille"
+        },
+        "fr": {
+          "name": "Kataifi",
+          "desc": "Roulés de kataifi avec noix, épices, miel et vanille"
+        },
+        "es": {
+          "name": "Kataifi",
+          "desc": "Rollitos de kataifi con nueces, especias, miel y vainilla"
+        }
+      }
     },
     {
       "id": 30,
@@ -307,7 +945,29 @@
       "category": "Dolci",
       "badge": "🆕",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Πορτοκαλόπιτα",
+          "desc": "Παραδοσιακή ελληνική πορτοκαλόπιτα με φύλλο κρούστας, φρέσκο πορτοκάλι και βανίλια"
+        },
+        "en": {
+          "name": "Portokalopita",
+          "desc": "Traditional Greek orange cake with filo pastry, fresh orange and vanilla"
+        },
+        "de": {
+          "name": "Portokalopita",
+          "desc": "Traditioneller griechischer Orangenkuchen mit Filoteig, frischer Orange und Vanille"
+        },
+        "fr": {
+          "name": "Portokalopita",
+          "desc": "Gâteau grec à l'orange avec pâte filo, orange fraîche et vanille"
+        },
+        "es": {
+          "name": "Portokalopita",
+          "desc": "Pastel griego de naranja con masa filo, naranja fresca y vainilla"
+        }
+      }
     },
     {
       "id": 31,
@@ -317,7 +977,29 @@
       "category": "Dolci",
       "badge": "",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Σοκολατόπιτα",
+          "desc": "Ελληνική σοκολατόπιτα — πυκνή, υγρή και ανεπανάληπτη"
+        },
+        "en": {
+          "name": "Sokolatopita",
+          "desc": "Greek chocolate cake — dense, moist and irresistible"
+        },
+        "de": {
+          "name": "Sokolatopita",
+          "desc": "Griechischer Schokoladenkuchen — dicht, saftig und unwiderstehlich"
+        },
+        "fr": {
+          "name": "Sokolatopita",
+          "desc": "Gâteau au chocolat grec — dense, moelleux et irrésistible"
+        },
+        "es": {
+          "name": "Sokolatopita",
+          "desc": "Tarta de chocolate griega — densa, húmeda e irresistible"
+        }
+      }
     },
     {
       "id": 32,
@@ -327,7 +1009,29 @@
       "category": "Dolci",
       "badge": "🌿 Veg",
       "image": "",
-      "available": true
+      "available": true,
+      "translations": {
+        "el": {
+          "name": "Γιαούρτι με Μέλι και Καρύδια",
+          "desc": "Ελληνικό γιαούρτι με μέλι και καρύδια — το ελληνικό επιδόρπιο κατεξοχήν"
+        },
+        "en": {
+          "name": "Yogurt with Honey & Walnuts",
+          "desc": "Greek yogurt with honey and walnuts — the quintessential Greek dessert"
+        },
+        "de": {
+          "name": "Joghurt mit Honig & Nüssen",
+          "desc": "Griechischer Joghurt mit Honig und Walnüssen — das griechische Dessert schlechthin"
+        },
+        "fr": {
+          "name": "Yaourt Miel & Noix",
+          "desc": "Yaourt grec avec miel et noix — le dessert grec par excellence"
+        },
+        "es": {
+          "name": "Yogur con Miel y Nueces",
+          "desc": "Yogur griego con miel y nueces — el postre griego por excelencia"
+        }
+      }
     }
   ]
 }

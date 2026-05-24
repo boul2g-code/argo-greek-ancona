@@ -1032,8 +1032,9 @@ function setLang(lang){
   applyLang();
   document.getElementById('current-lang').textContent=lang.toUpperCase();
   document.getElementById('lang-menu').classList.remove('open');
-  // Update html lang attribute
   document.documentElement.lang=lang;
+  // Re-render menu in new language
+  if(menuData.length>0) renderMenu();
 }
 
 function applyLang(){
@@ -1095,23 +1096,36 @@ function setFilter(c){
 }
 const catEmoji={'Pita Carne':'🥙','Pita Vegetariana':'🌿','Piatti':'🍽️','Antipasti':'🫒','Salse':'🥣','Dolci':'🍯','Bevande':'🍺'};
 const badgeClass={'⭐ Best Seller':'badge-best','🔥 Più ordinato':'badge-hot','🆕 Nuovo':'badge-new','🌿 Veg':'badge-veg','🔥':'badge-hot','👨‍🍳 Chef\'s Choice':'badge-best','🆕':'badge-new'};
+function getItemText(item, lang){
+  if(lang==='it' || !item.translations || !item.translations[lang]){
+    return {name: item.name, desc: item.description};
+  }
+  return {
+    name: item.translations[lang].name || item.name,
+    desc: item.translations[lang].desc || item.description
+  };
+}
 function renderMenu(){
+  const lang = currentLang || 'it';
   const items=activeFilter==='Tutte'?menuData:menuData.filter(i=>i.category===activeFilter&&i.available!==false);
-  document.getElementById('menu-grid').innerHTML=items.map(item=>`
+  document.getElementById('menu-grid').innerHTML=items.map(item=>{
+    const txt = getItemText(item, lang);
+    return `
     <div class="menu-card">
       ${item.image
-        ? `<div class="menu-card-img"><img src="${item.image}" alt="${item.name}" loading="lazy">${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}</div>`
+        ? `<div class="menu-card-img"><img src="${item.image}" alt="${txt.name}" loading="lazy">${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}</div>`
         : `<div class="menu-card-noimg">${catEmoji[item.category]||'🇬🇷'}${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}" style="top:8px;left:8px">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}</div>`
       }
       <div class="menu-card-body">
-        <h3>${item.name}</h3>
-        <p>${item.description}</p>
+        <h3>${txt.name}</h3>
+        <p>${txt.desc}</p>
         <div class="menu-card-footer">
           <div class="price">${item.originalPrice?`<small>€${item.originalPrice.toFixed(2)}</small> `:''}€${item.price.toFixed(2)}</div>
-          <button class="add-btn" onclick="addCart(${item.id},'${item.name.replace(/'/g,"\\'")}',${item.price})">+ AGGIUNGI</button>
+          <button class="add-btn" onclick="addCart(${item.id},'${txt.name.replace(/'/g,"\\'")}',${item.price})">+ AGGIUNGI</button>
         </div>
       </div>
-    </div>`).join('')||'<p style="color:rgba(255,255,255,.3);padding:40px;text-align:center;grid-column:1/-1">Nessun piatto trovato</p>';
+    </div>`;
+  }).join('')||'<p style="color:rgba(255,255,255,.3);padding:40px;text-align:center;grid-column:1/-1">Nessun piatto trovato</p>';
 }
 loadMenu();
 
