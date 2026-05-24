@@ -583,11 +583,11 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       <div>
         <p style="color:rgba(255,255,255,.55);margin-bottom:28px;font-size:15px;line-height:1.7" data-i18n="book_desc">Siamo spesso al completo la sera. Prenota in anticipo e assicurati una serata greca perfetta.</p>
         <div class="hours-card">
-          <div class="hours-row"><span class="day">Lunedì – Martedì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
-          <div class="hours-row"><span class="day">Mercoledì</span><span class="closed">CHIUSO</span></div>
-          <div class="hours-row"><span class="day">Giovedì – Venerdì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
-          <div class="hours-row"><span class="day">Sabato</span><span class="time">18:00–23:00</span></div>
-          <div class="hours-row"><span class="day">Domenica</span><span class="time">18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_montue">Lunedì – Martedì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_wed">Mercoledì</span><span class="closed" data-i18n="closed">CHIUSO</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_thufri">Giovedì – Venerdì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_sat">Sabato</span><span class="time">18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_sun">Domenica</span><span class="time">18:00–23:00</span></div>
         </div>
       </div>
       <div class="booking-form">
@@ -596,8 +596,8 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
           <div class="form-group"><label data-i18n="book_date">Data</label><input type="date" id="b-date"></div>
           <div class="form-group"><label data-i18n="book_time">Orario</label>
             <select id="b-time" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#fff;padding:13px 16px;width:100%">
-              <optgroup label="🌞 Pranzo (Lun-Ven)"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option></optgroup>
-              <optgroup label="🌙 Cena"><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option></optgroup>
+              <optgroup data-i18n-label="optgroup_lunch" label="🌞 Pranzo (Lun-Ven)"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option></optgroup>
+              <optgroup data-i18n-label="optgroup_dinner" label="🌙 Cena"><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option></optgroup>
             </select>
           </div>
         </div>
@@ -702,7 +702,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <div class="faq-list">
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Come ordino in asporto?<span class="fq-icon">+</span></div><div class="faq-a"><p>Tramite Pienissimo (app o sito) oppure direttamente su WhatsApp. Ritiro in Via Marconi 27.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate consegna a domicilio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, tramite Deliveroo e Just Eat nell'area di Ancona. Cerca "Argo Greek" su entrambe le app.</p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quando siete aperti?<span class="fq-icon">+</span></div><div class="faq-a"><p>Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)" data-i18n="faq_q_hours">Quando siete aperti?<span class="fq-icon">+</span></div><div class="faq-a"><p data-i18n="faq_a_hours">Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Avete opzioni vegetariane?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Spanakopita, Tiropita, Dakos, Insalata Greca, Tzatziki, Pita Dolmas — tutti segnati con 🌿.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate catering per eventi?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Organizziamo catering per feste, aziende, eventi universitari, gruppi traghetto e molto altro. Scrivici su WhatsApp per un preventivo.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">C'è parcheggio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, parcheggio libero disponibile in Via Marconi e nelle strade adiacenti.</p></div></div>
@@ -737,7 +737,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       </div>
       <div class="footer-col"><h4>Menu</h4><ul><li><a href="#menu">Pite</a></li><li><a href="#menu">Gyros</a></li><li><a href="#menu">Souvlaki</a></li><li><a href="#menu">Mezedes</a></li><li><a href="#menu">Dolci</a></li></ul></div>
       <div class="footer-col"><h4>Ordina</h4><ul><li><a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank">🛵 Deliveroo</a></li><li><a href="https://www.justeat.it/restaurants-argo-greek-comfort-food-ancona" target="_blank">🍽️ Just Eat</a></li><li><a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank">📱 Pienissimo</a></li><li><a href="https://wa.me/393512204268" target="_blank">💬 WhatsApp</a></li><li><a href="#catering">🎪 Catering</a></li></ul></div>
-      <div class="footer-col"><h4>Info</h4><ul><li><a href="#">📍 Via Marconi 27, Ancona</a></li><li><a href="#">🕐 Lun-Mar, Gio-Ven: 12-15, 18-23</a></li><li><a href="#">🌙 Sab-Dom: 18:00–23:00</a></li><li><a href="#">❌ Mercoledì: chiuso</a></li><li><a href="/login.html">⚙️ Admin</a></li></ul></div>
+      <div class="footer-col"><h4>Info</h4><ul><li><a href="#">📍 Via Marconi 27, Ancona</a></li><li><a href="#" data-i18n="footer_hours1">🕐 Lun-Mar, Gio-Ven: 12-15, 18-23</a></li><li><a href="#" data-i18n="footer_hours2">🌙 Sab-Dom: 18:00–23:00</a></li><li><a href="#" data-i18n="footer_closed">❌ Mercoledì: chiuso</a></li><li><a href="/login.html">⚙️ Admin</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2025 ARGO Greek Comfort Food · Via Marconi 27, Ancona</span><span>From Athens to Ancona 🇬🇷</span></div>
   </div>
@@ -821,6 +821,17 @@ const LANGS={
     nl_ph:'La tua email',nl_btn:'ISCRIVITI',
     footer_tag:'Authentic Greek Street Food ad Ancona dal 2017.',
     closed_wed:'⚠️ Il mercoledì siamo chiusi',
+    day_montue:'Lunedì – Martedì',day_wed:'Mercoledì',day_thufri:'Giovedì – Venerdì',day_sat:'Sabato',day_sun:'Domenica',
+    closed:'CHIUSO',
+    footer_hours1:'🕐 Lun-Mar, Gio-Ven: 12-15, 18-23',footer_hours2:'🌙 Sab-Dom: 18:00–23:00',footer_closed:'❌ Mercoledì: chiuso',
+    optgroup_lunch:'🌞 Pranzo (Lun-Ven)',optgroup_dinner:'🌙 Cena',
+    faq_q_hours:'Quando siete aperti?',faq_a_hours:'Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.',
+    status_open:'Aperto ora · Cucina attiva · Ordini in corso',
+    status_closed_wed:'Oggi siamo chiusi · Riapriamo Giovedì',
+    status_closed:'Chiuso · Riapriamo alle',
+    urg_open:'🔥 Aperto ora · Ordina su Deliveroo o Just Eat · Via Marconi 27',
+    urg_wed:'Oggi chiusi · Riapriamo Giovedì 12:00 · Prenota in anticipo',
+    urg_closed:'Chiusi ora · Riapriamo alle',
   },
   el:{
     nav_menu:'Μενού',nav_delivery:'Delivery',nav_book:'Κράτηση',nav_contacts:'Επικοινωνία',nav_order:'ΠΑΡΑΓΓΕΙΛΕ ΤΩΡΑ',
@@ -861,6 +872,17 @@ const LANGS={
     nl_ph:'Το email σου',nl_btn:'ΕΓΓΡΑΦΗ',
     footer_tag:'Αυθεντικό Ελληνικό Street Food στην Ανκόνα από το 2017.',
     closed_wed:'⚠️ Τετάρτη είμαστε κλειστά',
+    day_montue:'Δευτέρα – Τρίτη',day_wed:'Τετάρτη',day_thufri:'Πέμπτη – Παρασκευή',day_sat:'Σάββατο',day_sun:'Κυριακή',
+    closed:'ΚΛΕΙΣΤΟ',
+    footer_hours1:'🕐 Δευτ-Τρ, Πέμπ-Παρ: 12-15, 18-23',footer_hours2:'🌙 Σαββ-Κυρ: 18:00–23:00',footer_closed:'❌ Τετάρτη: κλειστό',
+    optgroup_lunch:'🌞 Μεσημέρι (Δευτ-Παρ)',optgroup_dinner:'🌙 Βράδυ',
+    faq_q_hours:'Πότε είστε ανοιχτά;',faq_a_hours:'Δευτ, Τρίτ, Πέμπτ, Παρ: 12:00–15:00 και 18:00–23:00. Σαββ και Κυρ: μόνο βράδυ 18:00–23:00. Τετάρτη κλειστό.',
+    status_open:'Ανοιχτά τώρα · Κουζίνα ενεργή · Παραγγελίες σε εξέλιξη',
+    status_closed_wed:'Σήμερα είμαστε κλειστοί · Ανοίγουμε Πέμπτη',
+    status_closed:'Κλειστό · Ανοίγουμε στις',
+    urg_open:'🔥 Ανοιχτά τώρα · Παραγγείλε στο Deliveroo ή Just Eat · Via Marconi 27',
+    urg_wed:'Σήμερα κλειστοί · Ανοίγουμε Πέμπτη 12:00',
+    urg_closed:'Κλειστά τώρα · Ανοίγουμε στις',
   },
   en:{
     nav_menu:'Menu',nav_delivery:'Delivery',nav_book:'Book',nav_contacts:'Contact',nav_order:'ORDER NOW',
@@ -901,6 +923,17 @@ const LANGS={
     nl_ph:'Your email',nl_btn:'SUBSCRIBE',
     footer_tag:'Authentic Greek Street Food in Ancona since 2017.',
     closed_wed:'⚠️ Closed on Wednesdays',
+    day_montue:'Monday – Tuesday',day_wed:'Wednesday',day_thufri:'Thursday – Friday',day_sat:'Saturday',day_sun:'Sunday',
+    closed:'CLOSED',
+    footer_hours1:'🕐 Mon-Tue, Thu-Fri: 12-15, 18-23',footer_hours2:'🌙 Sat-Sun: 18:00–23:00',footer_closed:'❌ Wednesday: closed',
+    optgroup_lunch:'🌞 Lunch (Mon-Fri)',optgroup_dinner:'🌙 Dinner',
+    faq_q_hours:'What are your opening hours?',faq_a_hours:'Mon, Tue, Thu, Fri: 12:00–15:00 and 18:00–23:00. Sat and Sun: dinner only 18:00–23:00. Wednesday closed.',
+    status_open:'Open now · Kitchen active · Taking orders',
+    status_closed_wed:'Closed today · We reopen Thursday',
+    status_closed:'Closed · We reopen at',
+    urg_open:'🔥 Open now · Order on Deliveroo or Just Eat · Via Marconi 27',
+    urg_wed:'Closed today · Reopening Thursday at 12:00',
+    urg_closed:'Closed now · Reopening at',
   },
   de:{
     nav_menu:'Menü',nav_delivery:'Lieferung',nav_book:'Reservieren',nav_contacts:'Kontakt',nav_order:'JETZT BESTELLEN',
@@ -941,6 +974,17 @@ const LANGS={
     nl_ph:'Deine E-Mail',nl_btn:'ABONNIEREN',
     footer_tag:'Authentisches Griechisches Street Food in Ancona seit 2017.',
     closed_wed:'⚠️ Mittwochs geschlossen',
+    day_montue:'Montag – Dienstag',day_wed:'Mittwoch',day_thufri:'Donnerstag – Freitag',day_sat:'Samstag',day_sun:'Sonntag',
+    closed:'GESCHLOSSEN',
+    footer_hours1:'🕐 Mo-Di, Do-Fr: 12-15, 18-23',footer_hours2:'🌙 Sa-So: 18:00–23:00',footer_closed:'❌ Mittwoch: geschlossen',
+    optgroup_lunch:'🌞 Mittagessen (Mo-Fr)',optgroup_dinner:'🌙 Abendessen',
+    faq_q_hours:'Wann habt ihr geöffnet?',faq_a_hours:'Mo, Di, Do, Fr: 12:00–15:00 und 18:00–23:00. Sa und So: nur Abendessen 18:00–23:00. Mittwoch geschlossen.',
+    status_open:'Jetzt geöffnet · Küche aktiv · Bestellungen möglich',
+    status_closed_wed:'Heute geschlossen · Wiedereröffnung Donnerstag',
+    status_closed:'Geschlossen · Wiedereröffnung um',
+    urg_open:'🔥 Jetzt geöffnet · Bestelle auf Deliveroo oder Just Eat · Via Marconi 27',
+    urg_wed:'Heute geschlossen · Öffnet Donnerstag um 12:00',
+    urg_closed:'Jetzt geschlossen · Öffnet wieder um',
   },
   fr:{
     nav_menu:'Menu',nav_delivery:'Livraison',nav_book:'Réserver',nav_contacts:'Contact',nav_order:'COMMANDER',
@@ -981,6 +1025,17 @@ const LANGS={
     nl_ph:'Votre email',nl_btn:'S\'INSCRIRE',
     footer_tag:'Street Food Grec Authentique à Ancône depuis 2017.',
     closed_wed:'⚠️ Fermé le mercredi',
+    day_montue:'Lundi – Mardi',day_wed:'Mercredi',day_thufri:'Jeudi – Vendredi',day_sat:'Samedi',day_sun:'Dimanche',
+    closed:'FERMÉ',
+    footer_hours1:'🕐 Lun-Mar, Jeu-Ven: 12-15, 18-23',footer_hours2:'🌙 Sam-Dim: 18:00–23:00',footer_closed:'❌ Mercredi: fermé',
+    optgroup_lunch:'🌞 Déjeuner (Lun-Ven)',optgroup_dinner:'🌙 Dîner',
+    faq_q_hours:'Quels sont vos horaires?',faq_a_hours:'Lun, Mar, Jeu, Ven: 12h00–15h00 et 18h00–23h00. Sam et Dim: dîner uniquement 18h00–23h00. Mercredi fermé.',
+    status_open:'Ouvert maintenant · Cuisine active · Commandes en cours',
+    status_closed_wed:"Fermé aujourd'hui · Réouverture jeudi",
+    status_closed:'Fermé · Réouverture à',
+    urg_open:'🔥 Ouvert maintenant · Commandez sur Deliveroo ou Just Eat · Via Marconi 27',
+    urg_wed:'Fermé aujourd'hui · Réouverture jeudi à 12h00',
+    urg_closed:'Fermé maintenant · Réouverture à',
   },
   es:{
     nav_menu:'Menú',nav_delivery:'Delivery',nav_book:'Reservar',nav_contacts:'Contacto',nav_order:'PEDIR AHORA',
@@ -1021,6 +1076,17 @@ const LANGS={
     nl_ph:'Tu email',nl_btn:'SUSCRIBIRSE',
     footer_tag:'Street Food Griego Auténtico en Ancona desde 2017.',
     closed_wed:'⚠️ Cerramos los miércoles',
+    day_montue:'Lunes – Martes',day_wed:'Miércoles',day_thufri:'Jueves – Viernes',day_sat:'Sábado',day_sun:'Domingo',
+    closed:'CERRADO',
+    footer_hours1:'🕐 Lun-Mar, Jue-Vie: 12-15, 18-23',footer_hours2:'🌙 Sáb-Dom: 18:00–23:00',footer_closed:'❌ Miércoles: cerrado',
+    optgroup_lunch:'🌞 Almuerzo (Lun-Vie)',optgroup_dinner:'🌙 Cena',
+    faq_q_hours:'¿Cuáles son vuestros horarios?',faq_a_hours:'Lun, Mar, Jue, Vie: 12:00–15:00 y 18:00–23:00. Sáb y Dom: solo cena 18:00–23:00. Miércoles cerrado.',
+    status_open:'Abierto ahora · Cocina activa · Pedidos en curso',
+    status_closed_wed:'Hoy cerrados · Reabrimos el jueves',
+    status_closed:'Cerrado · Reabrimos a las',
+    urg_open:'🔥 Abierto ahora · Pide en Deliveroo o Just Eat · Via Marconi 27',
+    urg_wed:'Cerrados hoy · Reabrimos el jueves a las 12:00',
+    urg_closed:'Cerrado ahora · Reabrimos a las',
   }
 };
 
@@ -1033,8 +1099,15 @@ function setLang(lang){
   document.getElementById('current-lang').textContent=lang.toUpperCase();
   document.getElementById('lang-menu').classList.remove('open');
   document.documentElement.lang=lang;
-  // Re-render menu and filters in new language
+  // Re-render menu, filters and status in new language
   if(menuData.length>0){renderFilters();renderMenu();}
+  updateStatus();
+  // Update optgroup labels
+  document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-label');
+    const T=LANGS[currentLang]||LANGS.it;
+    if(T[key])el.label=T[key];
+  });
 }
 
 function applyLang(){
@@ -1082,9 +1155,21 @@ function updateStatus(){
   const lunch=t>=720&&t<900,dinner=t>=1080&&t<1380,hasPranzo=[1,2,4,5].includes(day);
   const dot=document.getElementById('live-dot'),txt=document.getElementById('live-text');
   const urgEl=document.getElementById('urg-text');
-  if(day===3){dot.className='closed-dot';txt.textContent='Oggi siamo chiusi · Riapriamo Giovedì';if(urgEl)urgEl.textContent='Oggi chiusi · Riapriamo Giovedì 12:00 · Prenota in anticipo'}
-  else if((hasPranzo&&lunch)||dinner){dot.className='';txt.textContent='Aperto ora · Cucina attiva · Ordini in corso';if(urgEl)urgEl.textContent='🔥 Aperto ora · Ordina su Deliveroo o Just Eat · Via Marconi 27'}
-  else{dot.className='closed-dot';const next=t<720&&hasPranzo?'12:00':'18:00';txt.textContent=`Chiuso · Riapriamo alle ${next}`;if(urgEl)urgEl.textContent=`Chiusi ora · Riapriamo alle ${next} · Prenota il tuo tavolo!`}
+  const T=LANGS[currentLang]||LANGS.it;
+  if(day===3){
+    dot.className='closed-dot';
+    txt.textContent=T.status_closed_wed||'Oggi siamo chiusi · Riapriamo Giovedì';
+    if(urgEl)urgEl.textContent=T.urg_wed||'Oggi chiusi · Riapriamo Giovedì 12:00';
+  } else if((hasPranzo&&lunch)||dinner){
+    dot.className='';
+    txt.textContent=T.status_open||'Aperto ora · Cucina attiva · Ordini in corso';
+    if(urgEl)urgEl.textContent=T.urg_open||'🔥 Aperto ora · Via Marconi 27';
+  } else {
+    const next=t<720&&hasPranzo?'12:00':'18:00';
+    dot.className='closed-dot';
+    txt.textContent=`${T.status_closed||'Chiuso · Riapriamo alle'} ${next}`;
+    if(urgEl)urgEl.textContent=`${T.urg_closed||'Chiusi ora · Riapriamo alle'} ${next}`;
+  }
 }
 updateStatus();setInterval(updateStatus,60000);
 
