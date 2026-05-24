@@ -121,20 +121,21 @@ nav.scrolled{background:rgba(13,59,102,.92);backdrop-filter:blur(16px);-webkit-b
 .filter-btn{padding:9px 22px;border-radius:20px;border:1.5px solid rgba(255,255,255,.12);background:transparent;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;color:rgba(255,255,255,.6);letter-spacing:.3px}
 .filter-btn.active,.filter-btn:hover{background:var(--sand);border-color:var(--sand);color:var(--navy)}
 .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.menu-card{background:#181818;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:.3s;cursor:pointer}
+.menu-card{background:#181818;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:.3s;cursor:pointer;display:flex;flex-direction:column}
 .menu-card:hover{border-color:rgba(217,199,163,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
 .menu-card-img{position:relative;height:200px;overflow:hidden}
 .menu-card-img img{width:100%;height:100%;object-fit:cover;transition:.5s;filter:brightness(.9)}
 .menu-card:hover .menu-card-img img{transform:scale(1.08);filter:brightness(1)}
+.menu-card-noimg{height:100px;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#1e1e1e,#252525);position:relative}
 .menu-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:800;padding:4px 10px;border-radius:6px;letter-spacing:.5px;text-transform:uppercase}
 .badge-hot{background:#ef4444;color:#fff}
 .badge-best{background:var(--sand);color:var(--navy)}
 .badge-new{background:var(--neon);color:#fff}
 .badge-veg{background:#22c55e;color:#fff}
-.menu-card-body{padding:20px}
+.menu-card-body{padding:20px;flex:1;display:flex;flex-direction:column}
 .menu-card-body h3{font-weight:700;font-size:16px;color:#fff;margin-bottom:6px}
-.menu-card-body p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:16px}
-.menu-card-footer{display:flex;align-items:center;justify-content:space-between}
+.menu-card-body p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:16px;flex:1}
+.menu-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
 .price{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--sand);line-height:1}
 .price small{font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.3);text-decoration:line-through;margin-right:4px;font-weight:400}
 .add-btn{background:var(--neon);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;letter-spacing:.3px}
@@ -625,12 +626,11 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <span class="section-tag">Galleria</span>
     <h2 class="section-title">I NOSTRI<br><span class="sand">PIATTI</span></h2>
   </div>
-  <div class="gallery-grid" style="margin-top:48px">
-    <div class="gallery-item" onclick="openLb(0)"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=85" alt="Mix Grill Argo"><div class="gallery-overlay"><span>MIX GRILL ARGO</span></div></div>
-    <div class="gallery-item" onclick="openLb(1)"><img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&q=85" alt="Pita Gyros"><div class="gallery-overlay"><span>PITA GYROS</span></div></div>
-    <div class="gallery-item" onclick="openLb(2)"><img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=85" alt="Souvlaki"><div class="gallery-overlay"><span>SOUVLAKI</span></div></div>
-    <div class="gallery-item" onclick="openLb(3)"><img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=85" alt="Baklava"><div class="gallery-overlay"><span>BAKLAVA</span></div></div>
-    <div class="gallery-item" onclick="openLb(4)"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=85" alt="Insalata Greca"><div class="gallery-overlay"><span>INSALATA GRECA</span></div></div>
+  <div style="max-width:800px;margin:48px auto 0;text-align:center;padding:64px 24px;background:#181818;border-radius:16px;border:1px dashed rgba(255,255,255,.1)">
+    <div style="font-size:48px;margin-bottom:16px">📸</div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--sand);margin-bottom:12px;letter-spacing:1px">FOTO REALI IN ARRIVO</h3>
+    <p style="color:rgba(255,255,255,.4);font-size:14px;line-height:1.7">Stiamo preparando le foto dei nostri piatti veri.<br>Nel frattempo vieni a trovarci — Via Marconi 27, Ancona.</p>
+    <a href="https://www.instagram.com/argoancona" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:12px 24px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;transition:.2s">📸 Seguici su Instagram @argoancona</a>
   </div>
 </section>
 
@@ -776,15 +776,16 @@ function setFilter(c){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===c));
   renderMenu();
 }
-const badgeClass={'⭐ Best Seller':'badge-best','🔥 Più ordinato':'badge-hot','🆕 Nuovo':'badge-new','🌿 Veg':'badge-veg','🔥':'badge-hot','👨‍🍳 Chef\'s Choice':'badge-best'};
+const catEmoji={'Pita Carne':'🥙','Pita Vegetariana':'🌿','Piatti':'🍽️','Antipasti':'🫒','Salse':'🥣','Dolci':'🍯','Bevande':'🍺'};
+const badgeClass={'⭐ Best Seller':'badge-best','🔥 Più ordinato':'badge-hot','🆕 Nuovo':'badge-new','🌿 Veg':'badge-veg','🔥':'badge-hot','👨‍🍳 Chef\'s Choice':'badge-best','🆕':'badge-new'};
 function renderMenu(){
   const items=activeFilter==='Tutte'?menuData:menuData.filter(i=>i.category===activeFilter&&i.available!==false);
   document.getElementById('menu-grid').innerHTML=items.map(item=>`
     <div class="menu-card">
-      <div class="menu-card-img">
-        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80'">
-        ${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}
-      </div>
+      ${item.image
+        ? `<div class="menu-card-img"><img src="${item.image}" alt="${item.name}" loading="lazy">${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}</div>`
+        : `<div class="menu-card-noimg">${catEmoji[item.category]||'🇬🇷'}${item.badge?`<span class="menu-badge ${badgeClass[item.badge]||'badge-best'}" style="top:8px;left:8px">${item.badge.replace(/[⭐🔥🆕🌿👨‍🍳]/g,'').trim()}</span>`:''}</div>`
+      }
       <div class="menu-card-body">
         <h3>${item.name}</h3>
         <p>${item.description}</p>
