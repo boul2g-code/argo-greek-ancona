@@ -8,13 +8,13 @@
 <meta name="keywords" content="greek food ancona, gyros ancona, street food greco ancona, souvlaki ancona, greek delivery ancona, food vicino porto ancona, flixbus ancona cibo, ristorante vicino flixbus ancona">
 <meta property="og:title" content="ARGO Greek Comfort Food | Ancona">
 <meta property="og:description" content="Gyros, pita e street food greco autentico ad Ancona. Delivery e take away.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=1200&q=80">
+<meta property="og:image" content="https://boul2g-code.github.io/argo-greek-ancona/og-image.jpg">
 <meta property="og:url" content="https://boul2g-code.github.io/argo-greek-ancona/">
 <meta name="theme-color" content="#0D3B66">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Restaurant","name":"ARGO Greek Comfort Food","image":"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800","address":{"@type":"PostalAddress","streetAddress":"Via Marconi 27","addressLocality":"Ancona","postalCode":"60121","addressCountry":"IT"},"servesCuisine":"Greek","priceRange":"€€","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"240"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:00","closes":"23:00"}],"menu":"https://boul2g-code.github.io/argo-greek-ancona/#menu","hasMap":"https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona"}
+{"@context":"https://schema.org","@type":"Restaurant","name":"ARGO Greek Comfort Food","address":{"@type":"PostalAddress","streetAddress":"Via Marconi 27","addressLocality":"Ancona","postalCode":"60121","addressCountry":"IT"},"servesCuisine":"Greek","priceRange":"€€","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"240"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:00","closes":"23:00"}],"menu":"https://boul2g-code.github.io/argo-greek-ancona/#menu","hasMap":"https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona"}
 </script>
 <style>
 :root{
@@ -59,7 +59,7 @@ nav.scrolled{background:rgba(13,59,102,.92);backdrop-filter:blur(16px);-webkit-b
 
 /* HERO */
 .hero{min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1800&q=85') center/cover;transform:scale(1.05);animation:heroZoom 12s ease-in-out infinite alternate}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a2440 0%,#0D3B66 40%,#0a2d52 100%);transform:scale(1.05)}
 @keyframes heroZoom{from{transform:scale(1.05)}to{transform:scale(1.12)}}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(13,59,102,.88) 0%,rgba(17,17,17,.75) 60%,rgba(13,59,102,.6) 100%)}
 .hero-content{position:relative;z-index:1;text-align:center;padding:120px 24px 100px;max-width:960px}
@@ -546,8 +546,9 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
         </div>
         <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20un%20preventivo%20per%20catering%20ARGO" target="_blank" class="btn-catering">Richiedi Preventivo →</a>
       </div>
-      <div class="catering-img">
-        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="ARGO Catering">
+      <div class="catering-img" style="background:linear-gradient(135deg,#1a1a1a,#0D3B66);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;min-height:400px">
+        <div style="font-size:80px">🎪</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:rgba(217,199,163,.3);letter-spacing:4px;text-align:center">FOTO<br>IN ARRIVO</div>
       </div>
     </div>
   </div>
@@ -854,17 +855,10 @@ function toggleFaq(el){
 }
 
 // ========== GALLERY ==========
-const imgs=[
-  'https://images.unsplash.com/photo-1544025162-d76694265947?w=1400&q=85',
-  'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=1400&q=85',
-  'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=1400&q=85',
-  'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=1400&q=85',
-  'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1400&q=85',
-];
-let lbIdx=0;
-function openLb(i){lbIdx=i;document.getElementById('lb-img').src=imgs[i];document.getElementById('lb').classList.add('open')}
+const imgs=[];
+function openLb(i){}
 function closeLb(){document.getElementById('lb').classList.remove('open')}
-function lbNav(d){lbIdx=(lbIdx+d+imgs.length)%imgs.length;document.getElementById('lb-img').src=imgs[lbIdx]}
+function lbNav(d){}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1)});
 
 // ========== NEWSLETTER ==========
