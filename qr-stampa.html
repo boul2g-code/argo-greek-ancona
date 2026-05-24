@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ARGO — QR Code Tavolo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f5f5f5;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.card{background:#fff;border-radius:20px;padding:40px 36px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.12);border:3px solid #0D3B66}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#0D3B66;letter-spacing:2px;margin-bottom:4px}
+.logo span{color:#D9C7A3}
+.tagline{font-size:12px;color:#666;margin-bottom:24px;letter-spacing:.5px;text-transform:uppercase}
+.qr-box{background:#fff;padding:16px;border-radius:12px;border:2px solid #e5e7eb;margin-bottom:20px;display:inline-block}
+.qr-box svg{width:200px;height:200px;display:block}
+.scan-text{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#0D3B66;margin-bottom:6px;letter-spacing:.5px}
+.scan-sub{font-size:12px;color:#666;line-height:1.6;margin-bottom:20px}
+.steps{text-align:left;background:#f0f4ff;border-radius:10px;padding:16px;margin-bottom:20px}
+.step{display:flex;gap:10px;margin-bottom:8px;font-size:12px;color:#333;align-items:center}
+.step:last-child{margin:0}
+.step-num{background:#0D3B66;color:#fff;width:20px;height:20px;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.footer-text{font-size:11px;color:#999;border-top:1px solid #e5e7eb;padding-top:16px;margin-top:4px}
+.greek-flag{font-size:20px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="greek-flag">🇬🇷</div>
+  <div class="logo">ARGO <span>GREEK</span></div>
+  <div class="tagline">Authentic Greek Street Food · Ancona</div>
+  <div class="qr-box">
+    <!-- QR CODE PLACEHOLDER - sostituisci con il QR reale -->
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="white"/>
+      <g fill="#0D3B66">
+        <!-- Corner squares -->
+        <rect x="10" y="10" width="56" height="56" rx="6"/><rect x="18" y="18" width="40" height="40" rx="3" fill="white"/><rect x="26" y="26" width="24" height="24" rx="2"/>
+        <rect x="134" y="10" width="56" height="56" rx="6"/><rect x="142" y="18" width="40" height="40" rx="3" fill="white"/><rect x="150" y="26" width="24" height="24" rx="2"/>
+        <rect x="10" y="134" width="56" height="56" rx="6"/><rect x="18" y="142" width="40" height="40" rx="3" fill="white"/><rect x="26" y="150" width="24" height="24" rx="2"/>
+        <!-- Data dots -->
+        <rect x="78" y="10" width="10" height="10"/><rect x="92" y="10" width="10" height="10"/><rect x="106" y="10" width="10" height="10"/>
+        <rect x="78" y="24" width="10" height="10"/><rect x="106" y="24" width="10" height="10"/><rect x="120" y="24" width="10" height="10"/>
+        <rect x="78" y="38" width="10" height="10"/><rect x="92" y="38" width="10" height="10"/>
+        <rect x="10" y="78" width="10" height="10"/><rect x="24" y="78" width="10" height="10"/><rect x="52" y="78" width="10" height="10"/>
+        <rect x="10" y="92" width="10" height="10"/><rect x="38" y="92" width="10" height="10"/><rect x="52" y="92" width="10" height="10"/>
+        <rect x="10" y="106" width="10" height="10"/><rect x="24" y="106" width="10" height="10"/><rect x="38" y="106" width="10" height="10"/>
+        <rect x="10" y="120" width="10" height="10"/><rect x="52" y="120" width="10" height="10"/>
+        <rect x="78" y="78" width="10" height="10"/><rect x="92" y="78" width="10" height="10"/><rect x="106" y="78" width="10" height="10"/><rect x="120" y="78" width="10" height="10"/>
+        <rect x="78" y="92" width="10" height="10"/><rect x="106" y="92" width="10" height="10"/><rect x="134" y="92" width="10" height="10"/>
+        <rect x="78" y="106" width="10" height="10"/><rect x="92" y="106" width="10" height="10"/><rect x="134" y="106" width="10" height="10"/>
+        <rect x="78" y="120" width="10" height="10"/><rect x="106" y="120" width="10" height="10"/><rect x="120" y="120" width="10" height="10"/><rect x="134" y="120" width="10" height="10"/>
+        <rect x="78" y="134" width="10" height="10"/><rect x="92" y="134" width="10" height="10"/><rect x="106" y="134" width="10" height="10"/>
+        <rect x="134" y="78" width="10" height="10"/><rect x="148" y="78" width="10" height="10"/><rect x="162" y="78" width="10" height="10"/>
+        <rect x="148" y="92" width="10" height="10"/><rect x="162" y="92" width="10" height="10"/><rect x="176" y="92" width="10" height="10"/>
+        <rect x="134" y="106" width="10" height="10"/><rect x="162" y="106" width="10" height="10"/>
+        <rect x="134" y="134" width="10" height="10"/><rect x="162" y="134" width="10" height="10"/><rect x="176" y="134" width="10" height="10"/>
+        <rect x="134" y="148" width="10" height="10"/><rect x="148" y="148" width="10" height="10"/>
+        <rect x="134" y="162" width="10" height="10"/><rect x="148" y="162" width="10" height="10"/><rect x="162" y="162" width="10" height="10"/>
+        <rect x="78" y="148" width="10" height="10"/><rect x="92" y="148" width="10" height="10"/><rect x="106" y="148" width="10" height="10"/>
+        <rect x="78" y="162" width="10" height="10"/><rect x="106" y="162" width="10" height="10"/>
+        <rect x="78" y="176" width="10" height="10"/><rect x="92" y="176" width="10" height="10"/><rect x="120" y="176" width="10" height="10"/>
+      </g>
+      <!-- Center logo area -->
+      <rect x="86" y="86" width="28" height="28" rx="4" fill="white"/>
+      <text x="100" y="98" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#0D3B66">ARGO</text>
+      <text x="100" y="107" text-anchor="middle" font-family="sans-serif" font-size="5" fill="#D9C7A3">GREEK</text>
+    </svg>
+  </div>
+  <div class="scan-text">📱 Scansiona per ordinare</div>
+  <div class="scan-sub">Punta la fotocamera del telefono sul QR code per vedere il menu e inviare il tuo ordine direttamente in cucina</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><span>Scansiona il QR con la fotocamera</span></div>
+    <div class="step"><div class="step-num">2</div><span>Scegli il numero del tuo tavolo</span></div>
+    <div class="step"><div class="step-num">3</div><span>Aggiungi i piatti che vuoi</span></div>
+    <div class="step"><div class="step-num">4</div><span>Invia l'ordine — arriviamo noi!</span></div>
+  </div>
+  <div class="footer-text">boul2g-code.github.io/argo-greek-ancona/ordine.html</div>
+</div>
+</body>
+</html>
