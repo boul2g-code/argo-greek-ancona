@@ -159,7 +159,64 @@ body{font-family:'Inter',sans-serif;background:var(--gray-50);color:#1f2937;disp
 .upload-area .ua-icon{font-size:40px;margin-bottom:12px}
 .upload-area h3{font-size:16px;font-weight:700;color:var(--blue);margin-bottom:8px}
 .upload-area p{font-size:13px;color:var(--gray-600)}
-/* RESPONSIVE */
+/* SOCIAL HUB */
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.composer{background:#fff;border-radius:var(--radius);border:1px solid #e5e7eb;padding:28px;box-shadow:var(--shadow)}
+.composer-label{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.composer textarea{width:100%;padding:14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;min-height:120px;transition:.2s}
+.composer textarea:focus{outline:none;border-color:var(--blue-light)}
+.platform-toggles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+.ptoggle{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;cursor:pointer;transition:.2s;user-select:none}
+.ptoggle.on{border-color:var(--blue);background:#dbeafe}
+.ptoggle-info{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gray-800)}
+.ptoggle-check{width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;transition:.2s}
+.ptoggle.on .ptoggle-check{background:var(--blue);border-color:var(--blue);color:#fff}
+.ai-gen-btn{background:linear-gradient(135deg,var(--blue),#6366f1);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:13px;width:100%;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+.ai-gen-btn:hover{opacity:.9;transform:translateY(-1px)}
+.ai-gen-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pub-btn{background:var(--blue);color:#fff;border:none;padding:14px 20px;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;width:100%;transition:.2s}
+.pub-btn:hover{background:var(--blue-mid)}
+.previews-col{display:flex;flex-direction:column;gap:16px}
+.preview-card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.preview-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #f3f4f6;background:var(--gray-50)}
+.preview-hdr-left{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;color:var(--blue)}
+.preview-body{padding:14px 16px}
+.preview-text{font-size:13px;color:var(--gray-600);line-height:1.6;white-space:pre-wrap;min-height:40px}
+.preview-chars{font-size:11px;margin-top:6px;font-weight:600}
+.preview-chars.ok{color:var(--green)}
+.preview-chars.warn{color:var(--gold)}
+.preview-chars.over{color:var(--red)}
+.copy-btn{background:var(--gray-100);border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;color:var(--blue);transition:.2s}
+.copy-btn:hover{background:#dbeafe}
+.copy-btn.copied{background:#dcfce7;color:#166534}
+/* SYNC PAGE */
+.sync-platform{background:#fff;border-radius:var(--radius);border:1px solid #e5e7eb;margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow)}
+.sync-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;cursor:pointer;transition:.2s}
+.sync-hdr:hover{background:var(--gray-50)}
+.sync-hdr-left{display:flex;align-items:center;gap:12px}
+.sync-hdr-icon{font-size:28px}
+.sync-hdr-name{font-weight:700;font-size:16px;color:var(--blue)}
+.sync-hdr-desc{font-size:12px;color:var(--gray-600);margin-top:2px}
+.sync-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.sync-auto{background:#dcfce7;color:#166534}
+.sync-manual{background:#fef3c7;color:#92400e}
+.sync-none{background:#fee2e2;color:#991b1b}
+.sync-body{display:none;padding:20px 24px;border-top:1px solid #f3f4f6;background:var(--gray-50)}
+.sync-body.open{display:block}
+.sync-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #e5e7eb;align-items:flex-start}
+.sync-step:last-child{border:none}
+.sync-step-num{width:24px;height:24px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
+.sync-step-text{font-size:13px;color:var(--gray-600);line-height:1.6}
+.sync-step-text strong{color:var(--gray-800)}
+.sync-link-btn{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;margin-top:8px;transition:.2s}
+.sync-link-btn:hover{background:var(--blue-mid)}
+.make-workflow{background:linear-gradient(135deg,#f59e0b20,#f59e0b10);border:1.5px solid var(--gold);border-radius:var(--radius);padding:24px;margin-top:20px}
+.make-workflow h3{font-weight:700;color:var(--blue);margin-bottom:8px;font-size:15px}
+.make-workflow p{font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:16px}
+.make-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.make-step{background:#fff;border-radius:8px;padding:12px;font-size:12px;color:var(--gray-600);border:1px solid #e5e7eb}
+.make-step strong{display:block;color:var(--blue);margin-bottom:3px;font-size:13px}
+@media(max-width:900px){.hub-grid{grid-template-columns:1fr}.make-steps{grid-template-columns:1fr}}
 @media(max-width:900px){.sidebar{width:60px;padding:0}.sidebar-logo{display:none}.nav-item span{display:none}.nav-item .icon{margin:0}.sidebar-section{display:none}.stats-row{grid-template-columns:1fr 1fr}.analytics-grid{grid-template-columns:1fr}.photo-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stats-row{grid-template-columns:1fr}.quick-links{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.offer-type-grid,.channel-grid,.template-grid{grid-template-columns:1fr}.menu-table{font-size:12px}}
 </style>
@@ -178,6 +235,8 @@ body{font-family:'Inter',sans-serif;background:var(--gray-50);color:#1f2937;disp
     <a class="nav-item" onclick="showPage('menu')"><span class="icon">🍽️</span><span>Menu</span></a>
     <a class="nav-item" onclick="showPage('photos')"><span class="icon">🖼️</span><span>Foto</span></a>
     <div class="sidebar-section">Marketing</div>
+    <a class="nav-item" onclick="showPage('hub')"><span class="icon">🌐</span><span>Pubblica Ovunque</span></a>
+    <a class="nav-item" onclick="showPage('sync')"><span class="icon">🔄</span><span>Sync Piattaforme</span></a>
     <a class="nav-item" onclick="showPage('offers')"><span class="icon">🏷️</span><span>Offerte</span></a>
     <a class="nav-item" onclick="showPage('campaigns')"><span class="icon">📣</span><span>Campagne</span></a>
     <a class="nav-item" onclick="showPage('reviews')"><span class="icon">⭐</span><span>Recensioni</span></a>
@@ -202,8 +261,211 @@ body{font-family:'Inter',sans-serif;background:var(--gray-50);color:#1f2937;disp
   </div>
   <div class="content">
 
-    <!-- DASHBOARD -->
-    <div class="page active" id="page-dashboard">
+    <!-- SOCIAL HUB -->
+    <div class="page" id="page-hub">
+      <div style="margin-bottom:20px">
+        <h2 style="font-size:18px;font-weight:700;color:var(--blue);margin-bottom:4px">🌐 Pubblica Ovunque</h2>
+        <p style="font-size:13px;color:var(--gray-600)">Scrivi una volta. L'AI ottimizza il testo per ogni piattaforma. Pubblica con un click.</p>
+      </div>
+      <div class="hub-grid">
+        <!-- COMPOSER -->
+        <div class="composer">
+          <div class="composer-label">Il tuo messaggio</div>
+          <textarea id="hub-text" placeholder="Es: Stasera gyros fresco appena fatto 🇬🇷 Vieni a trovarci in Via Marconi 27 o ordina su Deliveroo!" oninput="updatePreviews()"></textarea>
+          <div style="display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap">
+            <button onclick="insertTag('#argo')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-weight:600">#argo</button>
+            <button onclick="insertTag('#gyros')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-weight:600">#gyros</button>
+            <button onclick="insertTag('#ancona')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-weight:600">#ancona</button>
+            <button onclick="insertTag('#streetfood')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-weight:600">#streetfood</button>
+            <button onclick="insertTag('🇬🇷')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:14px;cursor:pointer">🇬🇷</button>
+            <button onclick="insertTag('🔥')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:14px;cursor:pointer">🔥</button>
+            <button onclick="insertTag('🥙')" style="background:var(--gray-100);border:none;border-radius:6px;padding:4px 10px;font-size:14px;cursor:pointer">🥙</button>
+          </div>
+          <div class="composer-label">Genera con AI</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <button class="ai-gen-btn" onclick="aiGenerate('gyros')">🤖 Post Gyros</button>
+            <button class="ai-gen-btn" onclick="aiGenerate('weekend')">🤖 Post Weekend</button>
+            <button class="ai-gen-btn" onclick="aiGenerate('catering')">🤖 Post Catering</button>
+            <button class="ai-gen-btn" onclick="aiGenerate('offerta')">🤖 Offerta Speciale</button>
+          </div>
+          <div id="ai-loading" style="display:none;text-align:center;padding:12px;color:var(--blue);font-size:13px;font-weight:600">🤖 AI sta scrivendo...</div>
+          <hr style="border:none;border-top:1px solid #e5e7eb;margin:16px 0">
+          <div class="composer-label">Pubblica su</div>
+          <div class="platform-toggles">
+            <div class="ptoggle on" id="pt-ig" onclick="togglePlatform('ig')"><div class="ptoggle-info"><span>📸</span> Instagram</div><div class="ptoggle-check">✓</div></div>
+            <div class="ptoggle on" id="pt-fb" onclick="togglePlatform('fb')"><div class="ptoggle-info"><span>👥</span> Facebook</div><div class="ptoggle-check">✓</div></div>
+            <div class="ptoggle on" id="pt-gb" onclick="togglePlatform('gb')"><div class="ptoggle-info"><span>🔵</span> Google Biz</div><div class="ptoggle-check">✓</div></div>
+            <div class="ptoggle" id="pt-tt" onclick="togglePlatform('tt')"><div class="ptoggle-info"><span>🎵</span> TikTok</div><div class="ptoggle-check"></div></div>
+          </div>
+          <div class="form-group" style="margin-bottom:12px">
+            <label style="font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px">Immagine (opzionale)</label>
+            <input type="file" accept="image/*" onchange="previewHubImage(this)" style="margin-top:6px;font-size:13px;width:100%">
+            <img id="hub-img-preview" style="display:none;width:100%;border-radius:8px;margin-top:8px;max-height:160px;object-fit:cover">
+          </div>
+          <button class="pub-btn" onclick="publishAll()">🚀 PUBBLICA SU TUTTE LE PIATTAFORME</button>
+          <p style="font-size:11px;color:#999;text-align:center;margin-top:8px">Copiato negli appunti per ogni piattaforma selezionata</p>
+        </div>
+        <!-- PREVIEWS -->
+        <div class="previews-col">
+          <div class="preview-card" id="prev-ig">
+            <div class="preview-hdr">
+              <div class="preview-hdr-left"><span>📸</span> Instagram</div>
+              <button class="copy-btn" onclick="copyPlatform('ig')">Copia</button>
+            </div>
+            <div class="preview-body">
+              <div class="preview-text" id="text-ig">Il testo apparirà qui...</div>
+              <div class="preview-chars ok" id="chars-ig">0 / 2200</div>
+            </div>
+          </div>
+          <div class="preview-card" id="prev-fb">
+            <div class="preview-hdr">
+              <div class="preview-hdr-left"><span>👥</span> Facebook</div>
+              <button class="copy-btn" onclick="copyPlatform('fb')">Copia</button>
+            </div>
+            <div class="preview-body">
+              <div class="preview-text" id="text-fb">Il testo apparirà qui...</div>
+              <div class="preview-chars ok" id="chars-fb">0 / 63206</div>
+            </div>
+          </div>
+          <div class="preview-card" id="prev-gb">
+            <div class="preview-hdr">
+              <div class="preview-hdr-left"><span>🔵</span> Google Business</div>
+              <button class="copy-btn" onclick="copyPlatform('gb')">Copia</button>
+            </div>
+            <div class="preview-body">
+              <div class="preview-text" id="text-gb">Il testo apparirà qui...</div>
+              <div class="preview-chars ok" id="chars-gb">0 / 1500</div>
+            </div>
+          </div>
+          <div class="preview-card" id="prev-tt">
+            <div class="preview-hdr">
+              <div class="preview-hdr-left"><span>🎵</span> TikTok (caption)</div>
+              <button class="copy-btn" onclick="copyPlatform('tt')">Copia</button>
+            </div>
+            <div class="preview-body">
+              <div class="preview-text" id="text-tt">Il testo apparirà qui...</div>
+              <div class="preview-chars ok" id="chars-tt">0 / 150</div>
+            </div>
+          </div>
+          <!-- MAKE.COM GUIDE -->
+          <div class="make-workflow">
+            <h3>⚡ Automazione con Make.com</h3>
+            <p>Collega Instagram e Facebook una volta sola — poi ogni post dall'admin va in automatico. Gratis fino a 1000 post/mese.</p>
+            <div class="make-steps">
+              <div class="make-step"><strong>1. Crea account</strong>make.com → gratis</div>
+              <div class="make-step"><strong>2. Connetti Meta</strong>Instagram Business + Facebook Page</div>
+              <div class="make-step"><strong>3. Connetti Google</strong>Google Business Profile</div>
+              <div class="make-step"><strong>4. Importa workflow</strong>Scarica il file qui sotto</div>
+            </div>
+            <a href="#" onclick="downloadMakeWorkflow()" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--gold);color:var(--blue);padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none">📥 Scarica Workflow Make.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYNC PIATTAFORME -->
+    <div class="page" id="page-sync">
+      <div style="margin-bottom:24px">
+        <h2 style="font-size:18px;font-weight:700;color:var(--blue);margin-bottom:4px">🔄 Sincronizza le Piattaforme</h2>
+        <p style="font-size:13px;color:var(--gray-600)">Quando cambi prezzi o menu, usa questa guida per aggiornare ogni piattaforma in ordine.</p>
+      </div>
+      <!-- SITO WEB -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('web')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">🌐</div><div><div class="sync-hdr-name">Sito Web</div><div class="sync-hdr-desc">boul2g-code.github.io/argo-greek-ancona</div></div></div>
+          <span class="sync-badge sync-auto">✅ AUTOMATICO</span>
+        </div>
+        <div class="sync-body" id="sync-web">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Vai su <strong>Gestione Menu</strong> nell'admin → modifica prezzi o piatti</div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text">Clicca <strong>"Esporta menu.json"</strong> → scarica il file</div></div>
+          <div class="sync-step"><div class="sync-step-num">3</div><div class="sync-step-text">Vai su <strong>github.com/boul2g-code/argo-greek-ancona</strong> → carica il nuovo menu.json</div></div>
+          <div class="sync-step"><div class="sync-step-num">✓</div><div class="sync-step-text" style="color:var(--green);font-weight:600">Sito aggiornato in 30 secondi automaticamente</div></div>
+        </div>
+      </div>
+      <!-- DELIVEROO -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('del')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">🛵</div><div><div class="sync-hdr-name">Deliveroo</div><div class="sync-hdr-desc">Pannello ristorante Deliveroo</div></div></div>
+          <span class="sync-badge sync-manual">⚠️ MANUALE</span>
+        </div>
+        <div class="sync-body" id="sync-del">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Apri <strong>Restaurant Hub Deliveroo</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text">Vai su <strong>Menu → Gestisci Menu</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">3</div><div class="sync-step-text">Seleziona il piatto → <strong>modifica prezzo</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">4</div><div class="sync-step-text">Clicca <strong>Salva</strong> — attivo in ~10 minuti</div></div>
+          <a href="https://restaurant-hub.deliveroo.com" target="_blank" class="sync-link-btn">→ Apri Restaurant Hub</a>
+        </div>
+      </div>
+      <!-- JUST EAT -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('je')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">🍽️</div><div><div class="sync-hdr-name">Just Eat</div><div class="sync-hdr-desc">Pannello ristorante Just Eat</div></div></div>
+          <span class="sync-badge sync-manual">⚠️ MANUALE</span>
+        </div>
+        <div class="sync-body" id="sync-je">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Apri il <strong>portale Just Eat</strong> per ristoranti</div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text">Vai su <strong>Il mio menu</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">3</div><div class="sync-step-text">Modifica prezzi piatto per piatto → <strong>Salva</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">4</div><div class="sync-step-text">Le modifiche sono live in ~15 minuti</div></div>
+          <a href="https://partner.just-eat.it" target="_blank" class="sync-link-btn">→ Apri Partner Portal</a>
+        </div>
+      </div>
+      <!-- PIENISSIMO -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('pie')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">📱</div><div><div class="sync-hdr-name">Pienissimo</div><div class="sync-hdr-desc">Asporto e prenotazioni</div></div></div>
+          <span class="sync-badge sync-manual">⚠️ MANUALE</span>
+        </div>
+        <div class="sync-body" id="sync-pie">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Accedi al <strong>pannello Pienissimo</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text">Vai su <strong>Menu → Modifica</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">3</div><div class="sync-step-text">Aggiorna prezzi e disponibilità → <strong>Pubblica</strong></div></div>
+          <a href="https://www.pienissimo.it/dashboard" target="_blank" class="sync-link-btn">→ Apri Dashboard Pienissimo</a>
+        </div>
+      </div>
+      <!-- GOOGLE BUSINESS -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('gb')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">🔵</div><div><div class="sync-hdr-name">Google Business Profile</div><div class="sync-hdr-desc">Orari, info, foto, post</div></div></div>
+          <span class="sync-badge sync-manual">⚠️ MANUALE</span>
+        </div>
+        <div class="sync-body" id="sync-gb">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Vai su <strong>business.google.com</strong></div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text"><strong>Priorità ora:</strong> cambia il sito web da argogreekcomfortfood.metro.rest → boul2g-code.github.io/argo-greek-ancona</div></div>
+          <div class="sync-step"><div class="sync-step-num">3</div><div class="sync-step-text">Per post: usa la sezione <strong>"Pubblica Ovunque"</strong> dell'admin → copia il testo Google Business</div></div>
+          <div class="sync-step"><div class="sync-step-num">4</div><div class="sync-step-text">Aggiorna orari solo se cambiano</div></div>
+          <a href="https://business.google.com" target="_blank" class="sync-link-btn">→ Apri Google Business</a>
+        </div>
+      </div>
+      <!-- INSTAGRAM -->
+      <div class="sync-platform">
+        <div class="sync-hdr" onclick="toggleSync('ig')">
+          <div class="sync-hdr-left"><div class="sync-hdr-icon">📸</div><div><div class="sync-hdr-name">Instagram @argoancona</div><div class="sync-hdr-desc">360 follower · 43 post</div></div></div>
+          <span class="sync-badge sync-manual">⚠️ SEMI-AUTO</span>
+        </div>
+        <div class="sync-body" id="sync-ig">
+          <div class="sync-step"><div class="sync-step-num">1</div><div class="sync-step-text">Usa <strong>"Pubblica Ovunque"</strong> per generare il testo con AI → Copia testo Instagram</div></div>
+          <div class="sync-step"><div class="sync-step-num">2</div><div class="sync-step-text">Apri l'app Instagram → Nuovo post → incolla testo → pubblica</div></div>
+          <div class="sync-step"><div class="sync-step-num">✨</div><div class="sync-step-text" style="color:#6366f1;font-weight:600">Con Make.com diventa completamente automatico — vedi la guida in "Pubblica Ovunque"</div></div>
+          <a href="https://instagram.com/argoancona" target="_blank" class="sync-link-btn">→ Apri @argoancona</a>
+        </div>
+      </div>
+      <!-- CHECKLIST CAMBIO PREZZI -->
+      <div class="card" style="margin-top:24px;background:linear-gradient(135deg,#fef3c720,#fef3c710);border-color:var(--gold)">
+        <div class="card-title">📋 Checklist cambio prezzi — falla in ordine</div>
+        <div id="price-checklist">
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f3f4f6;cursor:pointer;font-size:14px"><input type="checkbox" onchange="checklistProgress()" style="width:18px;height:18px"> <span>1. Aggiorna menu.json nell'admin → esporta → carica su GitHub</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f3f4f6;cursor:pointer;font-size:14px"><input type="checkbox" onchange="checklistProgress()" style="width:18px;height:18px"> <span>2. Aggiorna Deliveroo Restaurant Hub</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f3f4f6;cursor:pointer;font-size:14px"><input type="checkbox" onchange="checklistProgress()" style="width:18px;height:18px"> <span>3. Aggiorna Just Eat Partner Portal</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f3f4f6;cursor:pointer;font-size:14px"><input type="checkbox" onchange="checklistProgress()" style="width:18px;height:18px"> <span>4. Aggiorna Pienissimo Dashboard</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;font-size:14px"><input type="checkbox" onchange="checklistProgress()" style="width:18px;height:18px"> <span>5. Posta aggiornamento su Instagram con nuovo prezzo</span></label>
+        </div>
+        <div id="checklist-progress" style="margin-top:16px;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden">
+          <div id="checklist-bar" style="height:100%;background:var(--green);width:0%;transition:.3s;border-radius:4px"></div>
+        </div>
+        <div id="checklist-done" style="display:none;margin-top:12px;color:var(--green);font-weight:700;font-size:14px">✅ Tutto sincronizzato! Tutte le piattaforme sono aggiornate.</div>
+      </div>
+    </div>
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-label">Ordini Oggi (stimato)</div>
@@ -657,14 +919,152 @@ body{font-family:'Inter',sans-serif;background:var(--gray-50);color:#1f2937;disp
 </div>
 
 <script>
-// ========== NAVIGATION ==========
-let menuItems=[];
+// ========== SOCIAL HUB ==========
+const PLATFORM_LIMITS={ig:2200,fb:63206,gb:1500,tt:150};
+const PLATFORM_HASHTAGS={
+  ig:'\n\n#argo #argoancona #gyros #souvlaki #greekfood #streetfood #ancona #cibograco #pita #foodancona #greekcomfortfood',
+  fb:'',
+  gb:'',
+  tt:' #gyros #ancona #greekfood #streetfood'
+};
+let activePlatforms={ig:true,fb:true,gb:true,tt:false};
+let generatedTexts={ig:'',fb:'',gb:'',tt:''};
+
+function togglePlatform(p){
+  activePlatforms[p]=!activePlatforms[p];
+  const el=document.getElementById('pt-'+p);
+  el.classList.toggle('on',activePlatforms[p]);
+  el.querySelector('.ptoggle-check').textContent=activePlatforms[p]?'✓':'';
+  updatePreviews();
+}
+function insertTag(tag){
+  const ta=document.getElementById('hub-text');
+  const pos=ta.selectionStart;
+  ta.value=ta.value.slice(0,pos)+tag+ta.value.slice(pos);
+  ta.focus();
+  updatePreviews();
+}
+function updatePreviews(){
+  const base=document.getElementById('hub-text').value.trim();
+  const variants={
+    ig: base+(base?PLATFORM_HASHTAGS.ig:''),
+    fb: base+(base?'\n\n📍 Via Marconi 27, Ancona | 🛵 Deliveroo | 📱 Pienissimo':''),
+    gb: base+(base?'\n\n📍 Via Marconi 27 · 📞 351 220 4268 · Ordina: Deliveroo e Just Eat':''),
+    tt: base.slice(0,120)+(base.length>120?'...':'')+(base?PLATFORM_HASHTAGS.tt:'')
+  };
+  ['ig','fb','gb','tt'].forEach(p=>{
+    const text=generatedTexts[p]||variants[p];
+    document.getElementById('text-'+p).textContent=text||'Il testo apparirà qui...';
+    const len=text.length;
+    const limit=PLATFORM_LIMITS[p];
+    const el=document.getElementById('chars-'+p);
+    el.textContent=`${len} / ${limit.toLocaleString()}`;
+    el.className='preview-chars '+(len>limit?'over':len>limit*.8?'warn':'ok');
+  });
+}
+async function aiGenerate(tipo){
+  const prompts={
+    gyros:`Scrivi un post Instagram per ARGO Greek Comfort Food, ristorante greco ad Ancona Via Marconi 27. Tema: gyros fresco fatto al momento. Tono: urban, energico, autentico. Max 150 caratteri di testo principale, poi hashtag separati. In italiano.`,
+    weekend:`Scrivi un post Instagram per ARGO Greek Comfort Food Ancona. Tema: weekend, venerdì/sabato sera, atmosfera serale greca. Invita a venire o ordinare. Tono: caldo, invitante. Max 150 caratteri + hashtag. In italiano.`,
+    catering:`Scrivi un post Instagram per ARGO Greek Comfort Food Ancona. Tema: catering per eventi, feste, aziende. CTA: contattare su WhatsApp per preventivo. Tono: professionale ma friendly. Max 150 caratteri + hashtag. In italiano.`,
+    offerta:`Scrivi un post Instagram per ARGO Greek Comfort Food Ancona. Tema: offerta speciale del giorno, codice sconto ARGO10 su Pienissimo. Tono: urgente, FOMO. Max 150 caratteri + hashtag. In italiano.`
+  };
+  document.getElementById('ai-loading').style.display='block';
+  document.querySelectorAll('.ai-gen-btn').forEach(b=>b.disabled=true);
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompts[tipo]}]})
+    });
+    const d=await r.json();
+    const text=d.content[0].text.trim();
+    document.getElementById('hub-text').value=text;
+    generatedTexts={ig:'',fb:'',gb:'',tt:''};
+    updatePreviews();
+  }catch(e){
+    alert('Errore AI. Scrivi il testo manualmente.');
+  }finally{
+    document.getElementById('ai-loading').style.display='none';
+    document.querySelectorAll('.ai-gen-btn').forEach(b=>b.disabled=false);
+  }
+}
+function copyPlatform(p){
+  const text=document.getElementById('text-'+p).textContent;
+  if(text==='Il testo apparirà qui...')return;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=event.target;
+    btn.textContent='✓ Copiato!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copia';btn.classList.remove('copied')},2000);
+  });
+}
+function publishAll(){
+  const platforms=Object.keys(activePlatforms).filter(p=>activePlatforms[p]);
+  if(!document.getElementById('hub-text').value.trim()){alert('Scrivi il testo prima di pubblicare.');return;}
+  let msg='📋 Testo copiato per:\n\n';
+  platforms.forEach(p=>{
+    const names={ig:'Instagram',fb:'Facebook',gb:'Google Business',tt:'TikTok'};
+    msg+=`✅ ${names[p]}\n`;
+  });
+  msg+='\nOra apri ogni piattaforma e incolla il testo!';
+  // Copy first active platform
+  if(platforms.length>0){
+    const text=document.getElementById('text-'+platforms[0]).textContent;
+    navigator.clipboard.writeText(text);
+  }
+  alert(msg);
+}
+function previewHubImage(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{const img=document.getElementById('hub-img-preview');img.src=e.target.result;img.style.display='block'};
+  reader.readAsDataURL(file);
+}
+function downloadMakeWorkflow(){
+  const workflow={
+    name:'ARGO Social Media Automation',
+    description:'Post automatico su Instagram, Facebook e Google Business',
+    steps:[
+      {name:'Webhook trigger',app:'Make.com Webhooks',note:'Riceve il post dall admin panel'},
+      {name:'Instagram Post',app:'Instagram for Business',note:'Pubblica foto + caption'},
+      {name:'Facebook Post',app:'Facebook Pages',note:'Pubblica sulla pagina ARGOancona'},
+      {name:'Google Business Post',app:'Google My Business',note:'Pubblica update sul profilo'}
+    ],
+    instructions:[
+      '1. Vai su make.com e crea un account gratuito',
+      '2. Crea un nuovo scenario',
+      '3. Aggiungi modulo: Webhooks > Custom Webhook (copia URL)',
+      '4. Aggiungi modulo: Instagram for Business > Create a Photo Post',
+      '5. Aggiungi modulo: Facebook Pages > Create a Post',
+      '6. Aggiungi modulo: Google My Business > Create a Post',
+      '7. Salva e attiva il scenario',
+      '8. Incolla lURL del webhook nelle impostazioni admin'
+    ]
+  };
+  const blob=new Blob([JSON.stringify(workflow,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='argo-make-workflow.json';a.click();
+}
+
+// ========== SYNC PAGE ==========
+function toggleSync(id){
+  const body=document.getElementById('sync-'+id);
+  body.classList.toggle('open');
+}
+function checklistProgress(){
+  const boxes=document.querySelectorAll('#price-checklist input[type=checkbox]');
+  const checked=[...boxes].filter(b=>b.checked).length;
+  const pct=(checked/boxes.length)*100;
+  document.getElementById('checklist-bar').style.width=pct+'%';
+  document.getElementById('checklist-done').style.display=pct===100?'block':'none';
+}
+
+// Update showPage titles
+const titles={dashboard:'📊 Dashboard',menu:'🍽️ Gestione Menu',photos:'🖼️ Gestione Foto',hub:'🌐 Pubblica Ovunque',sync:'🔄 Sync Piattaforme',offers:'🏷️ Offerte',campaigns:'📣 Campagne',reviews:'⭐ Recensioni',integrations:'🔌 Integrazioni',settings:'⚙️ Impostazioni',analytics:'📈 Analytics'};
 function showPage(p){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
   event&&event.currentTarget&&event.currentTarget.classList.add('active');
-  const titles={dashboard:'📊 Dashboard',menu:'🍽️ Gestione Menu',photos:'🖼️ Gestione Foto',offers:'🏷️ Offerte',campaigns:'📣 Campagne',reviews:'⭐ Recensioni',integrations:'🔌 Integrazioni',settings:'⚙️ Impostazioni',analytics:'📈 Analytics'};
   document.getElementById('page-title').textContent=titles[p]||p;
 }
 function logout(){sessionStorage.removeItem('admin_auth');window.location.href='/login.html'}
