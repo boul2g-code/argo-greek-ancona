@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Restaurant","name":"ARGO Greek Comfort Food","address":{"@type":"PostalAddress","streetAddress":"Via Marconi 27","addressLocality":"Ancona","postalCode":"60121","addressCountry":"IT"},"servesCuisine":"Greek","priceRange":"€€","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"240"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:00","closes":"23:00"}],"menu":"https://boul2g-code.github.io/argo-greek-ancona/#menu","hasMap":"https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona"}
+{"@context":"https://schema.org","@type":"Restaurant","name":"ARGO Greek Comfort Food","address":{"@type":"PostalAddress","streetAddress":"Via Marconi 27","addressLocality":"Ancona","postalCode":"60121","addressCountry":"IT"},"servesCuisine":"Greek","priceRange":"€€","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"240"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:30","closes":"23:00"}],"menu":"https://boul2g-code.github.io/argo-greek-ancona/#menu","hasMap":"https://maps.google.com/?q=Argo+Greek+Comfort+Food+Via+Marconi+27+Ancona"}
 </script>
 <style>
 :root{
@@ -419,7 +419,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
           <button onclick="setLang('es')">🇪🇸 Español</button>
         </div>
       </div>
-      <a href="ordina/" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>
+      <a href="#ordina" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>
     </div>
     <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
   </div>
@@ -432,7 +432,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <a href="#catering" onclick="closeMobileNav()">CATERING</a>
   <a href="#prenota" onclick="closeMobileNav()">PRENOTA</a>
   <a href="#contatti" onclick="closeMobileNav()">CONTATTI</a>
-  <a href="ordina/" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>
+  <a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>
 </div>
 
 <!-- HERO -->
@@ -444,7 +444,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <h1 class="hero-h1" data-i18n="hero_h1">FEED<br><span class="accent" data-i18n="hero_accent">YOUR MYTH</span></h1>
     <p class="hero-sub" data-i18n="hero_sub"><strong>Pita. Gyros. Souvlaki.</strong><br>Street food greco autentico nel cuore di Ancona.</p>
     <div class="hero-ctas">
-      <a href="ordina/" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>
+      <a href="#ordina" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>
       <a href="#menu" class="btn-hero-secondary" data-i18n="btn_menu">📋 MENU</a>
       <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="btn-hero-secondary" data-i18n="btn_wa">💬 WHATSAPP</a>
     </div>
@@ -518,7 +518,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <div style="text-align:center">
       <span class="section-tag" data-i18n="ord_tag">Ordina Ora</span>
       <h2 class="section-title" data-i18n="ord_title">SCEGLI<br><span class="sand" data-i18n="ord_title2">COME VUOI</span></h2>
-      <p class="section-sub" style="margin:0 auto">Delivery a casa, asporto veloce o prenota il tuo tavolo. Siamo ovunque tu sia.</p>
+      <p class="section-sub" style="margin:0 auto">Ritiro diretto da ARGO, consegna a domicilio oppure prenota il tuo tavolo. Scegli qui come preferisci.</p>
     </div>
     <div class="platforms-grid">
       <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="platform-card">
@@ -534,16 +534,22 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
         <span class="p-tag" data-i18n="je_tag">DELIVERY</span>
       </a>
       <a href="ordina/" class="platform-card">
-        <div class="p-icon">📱</div>
+        <div class="p-icon">🥡</div>
         <div class="p-name" data-i18n="pie_name">ARGO Direct</div>
-        <div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO: asporto o delivery, offerte dedicate e nessuna piattaforma in mezzo.</div>
-        <span class="p-tag" data-i18n="pie_tag">ASPORTO · DELIVERY</span>
+        <div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO e ritira in Via Marconi 27. Offerte dedicate e nessuna piattaforma in mezzo.</div>
+        <span class="p-tag" data-i18n="pie_tag">RITIRO DAL LOCALE</span>
       </a>
-      <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="platform-card">
+      <a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="platform-card">
+        <div class="p-icon">📅</div>
+        <div class="p-name">Prenota un tavolo</div>
+        <div class="p-desc">Prenota il tuo tavolo ARGO online tramite Pienissimo.</div>
+        <span class="p-tag">PRENOTAZIONE TAVOLO</span>
+      </a>
+      <a href="https://wa.me/393512204268" target="_blank" class="platform-card">
         <div class="p-icon">💬</div>
         <div class="p-name" data-i18n="wa_name">WhatsApp</div>
-        <div class="p-desc" data-i18n="wa_desc">Scrivi direttamente. Rispondiamo subito e prepariamo il tuo ordine in anticipo.</div>
-        <span class="p-tag" data-i18n="wa_tag">DIRETTO</span>
+        <div class="p-desc" data-i18n="wa_desc">Contattaci direttamente per informazioni, catering o richieste particolari.</div>
+        <span class="p-tag" data-i18n="wa_tag">CONTATTI</span>
       </a>
     </div>
   </div>
@@ -584,11 +590,11 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       <div>
         <p style="color:rgba(255,255,255,.55);margin-bottom:28px;font-size:15px;line-height:1.7" data-i18n="book_desc">Siamo spesso al completo la sera. Prenota in anticipo e assicurati una serata greca perfetta.</p>
         <div class="hours-card">
-          <div class="hours-row"><span class="day" data-i18n="day_montue">Lunedì – Martedì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_montue">Lunedì – Martedì</span><span class="time">12:00–15:00 · 18:30–23:00</span></div>
           <div class="hours-row"><span class="day" data-i18n="day_wed">Mercoledì</span><span class="closed" data-i18n="closed">CHIUSO</span></div>
-          <div class="hours-row"><span class="day" data-i18n="day_thufri">Giovedì – Venerdì</span><span class="time">12:00–15:00 · 18:00–23:00</span></div>
-          <div class="hours-row"><span class="day" data-i18n="day_sat">Sabato</span><span class="time">18:00–23:00</span></div>
-          <div class="hours-row"><span class="day" data-i18n="day_sun">Domenica</span><span class="time">18:00–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_thufri">Giovedì – Venerdì</span><span class="time">12:00–15:00 · 18:30–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_sat">Sabato</span><span class="time">18:30–23:00</span></div>
+          <div class="hours-row"><span class="day" data-i18n="day_sun">Domenica</span><span class="time">18:30–23:00</span></div>
         </div>
       </div>
       <div class="booking-form">
@@ -609,7 +615,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
         </div>
         <div class="form-group"><label data-i18n="book_notes">Note</label><textarea id="b-notes" rows="2" placeholder="Allergie, compleanno, tavolo esterno..." style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;color:#fff;padding:13px 16px;width:100%;resize:none"></textarea></div>
         <p style="font-size:12px;color:var(--red);font-weight:600;margin-bottom:12px" data-i18n="closed_wed">⚠️ Il mercoledì siamo chiusi</p>
-        <button class="btn-book" onclick="doBooking()" data-i18n="book_btn">📅 Prenota via WhatsApp</button>
+        <button class="btn-book" onclick="window.open('https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu','_blank')">📅 PRENOTA IL TAVOLO · PIENISSIMO</button>
       </div>
     </div>
   </div>
@@ -701,9 +707,9 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <span class="section-tag" data-i18n="faq_tag">FAQ</span>
     <h2 class="section-title" style="text-align:center" data-i18n="faq_title">DOMANDE<br><span class="sand" data-i18n="faq_title2">FREQUENTI</span></h2>
     <div class="faq-list">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Come ordino in asporto?<span class="fq-icon">+</span></div><div class="faq-a"><p>Tramite Pienissimo (app o sito) oppure direttamente su WhatsApp. Ritiro in Via Marconi 27.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Come ordino in asporto?<span class="fq-icon">+</span></div><div class="faq-a"><p>Direttamente su ARGO Direct: ordina online e ritira in Via Marconi 27. Le promozioni ARGO valgono sul ritiro diretto e nel locale, non su Deliveroo o Just Eat.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate consegna a domicilio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, tramite Deliveroo e Just Eat nell'area di Ancona. Cerca "Argo Greek" su entrambe le app.</p></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)" data-i18n="faq_q_hours">Quando siete aperti?<span class="fq-icon">+</span></div><div class="faq-a"><p data-i18n="faq_a_hours">Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.</p></div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)" data-i18n="faq_q_hours">Quando siete aperti?<span class="fq-icon">+</span></div><div class="faq-a"><p data-i18n="faq_a_hours">Lunedì, Martedì, Giovedì, Venerdì, Sabato e Domenica: 18:30–23:00. Mercoledì chiusi.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Avete opzioni vegetariane?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Spanakopita, Tiropita, Dakos, Insalata Greca, Tzatziki, Pita Dolmas — tutti segnati con 🌿.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Fate catering per eventi?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì! Organizziamo catering per feste, aziende, eventi universitari, gruppi traghetto e molto altro. Scrivici su WhatsApp per un preventivo.</p></div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">C'è parcheggio?<span class="fq-icon">+</span></div><div class="faq-a"><p>Sì, parcheggio libero disponibile in Via Marconi e nelle strade adiacenti.</p></div></div>
@@ -738,7 +744,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
       </div>
       <div class="footer-col"><h4>Menu</h4><ul><li><a href="#menu">Pite</a></li><li><a href="#menu">Gyros</a></li><li><a href="#menu">Souvlaki</a></li><li><a href="#menu">Mezedes</a></li><li><a href="#menu">Dolci</a></li></ul></div>
       <div class="footer-col"><h4>Ordina</h4><ul><li><a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank">🛵 Deliveroo</a></li><li><a href="https://www.justeat.it/restaurants-argo-greek-comfort-food-ancona" target="_blank">🍽️ Just Eat</a></li><li><a href="ordina/">🇬🇷 ARGO Direct</a></li><li><a href="https://wa.me/393512204268" target="_blank">💬 WhatsApp</a></li><li><a href="#catering">🎪 Catering</a></li></ul></div>
-      <div class="footer-col"><h4>Info</h4><ul><li><a href="#">📍 Via Marconi 27, Ancona</a></li><li><a href="#" data-i18n="footer_hours1">🕐 Lun-Mar, Gio-Ven: 12-15, 18-23</a></li><li><a href="#" data-i18n="footer_hours2">🌙 Sab-Dom: 18:00–23:00</a></li><li><a href="#" data-i18n="footer_closed">❌ Mercoledì: chiuso</a></li><li><a href="admin/">⚙️ Admin</a></li></ul></div>
+      <div class="footer-col"><h4>Info</h4><ul><li><a href="#">📍 Via Marconi 27, Ancona</a></li><li><a href="#" data-i18n="footer_hours1">🕐 Lun-Mar, Gio-Ven: 18:30–23:00</a></li><li><a href="#" data-i18n="footer_hours2">🌙 Sab-Dom: 18:30–23:00</a></li><li><a href="#" data-i18n="footer_closed">❌ Mercoledì: chiuso</a></li><li><a href="admin/">⚙️ Admin</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2025 ARGO Greek Comfort Food · Via Marconi 27, Ancona</span><span>From Athens to Ancona 🇬🇷</span></div>
   </div>
@@ -760,7 +766,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <div class="mob-cta-grid">
     <a href="https://deliveroo.it/it/menu/ancona/centro-ancona/argo-greek-comfort-food" target="_blank" class="mob-btn">🛵<span>Delivery</span></a>
     <a href="ordina/" class="mob-btn gold">🥡<span>Ordina</span></a>
-    <a href="#prenota" class="mob-btn">📅<span>Prenota</span></a>
+    <a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="mob-btn">📅<span>Prenota</span></a>
     <a href="https://maps.google.com/?q=Via+Marconi+27+Ancona" target="_blank" class="mob-btn">📍<span>Maps</span></a>
   </div>
 </div>
@@ -796,10 +802,10 @@ const LANGS={
     why3_title:'Fresh Every Day',why3_desc:'Tzatziki fatto ogni mattina. Ingredienti freschi, olio d\'oliva greco, niente di confezionato.',
     why4_title:'Cuore di Ancona',why4_desc:'A 10 minuti dal porto. Il posto giusto prima del traghetto o dopo una lunga giornata.',
     menu_tag:'Il Menu',menu_title:'ORDER',menu_title2:'LIKE A GREEK',
-    ord_tag:'Ordina Ora',ord_title:'SCEGLI',ord_title2:'COME VUOI',ord_sub:'Delivery a casa, asporto veloce o prenota il tuo tavolo.',
+    ord_tag:'Ordina Ora',ord_title:'SCEGLI',ord_title2:'COME VUOI',ord_sub:'Ritiro diretto da ARGO, delivery a casa o prenotazione del tavolo.',
     del_name:'Deliveroo',del_desc:'Consegna a domicilio. Porta il gusto greco direttamente a casa tua.',del_tag:'DELIVERY',
     je_name:'Just Eat',je_desc:'Un altro modo per ordinare a domicilio.',je_tag:'DELIVERY',
-    pie_name:'Pienissimo',pie_desc:'Ordina online e ritira in Via Marconi 27. Zero attesa.',pie_tag:'ASPORTO · PRENOTA',
+    pie_name:'ARGO Direct',pie_desc:'Ordina direttamente da ARGO e ritira in Via Marconi 27.',pie_tag:'RITIRO DAL LOCALE',
     wa_name:'WhatsApp',wa_desc:'Scrivi direttamente. Rispondiamo subito.',wa_tag:'DIRETTO',
     cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
     cat_desc:'Portiamo il comfort food greco al tuo evento. Dal compleanno all\'evento aziendale, dalla festa universitaria al gruppo traghetto.',
@@ -807,7 +813,7 @@ const LANGS={
     book_tag:'Prenota',book_title:'RISERVA',book_title2:'IL TUO TAVOLO',
     book_desc:'Siamo spesso al completo la sera. Prenota in anticipo.',
     book_name:'Nome e Cognome',book_date:'Data',book_time:'Orario',book_guests:'Persone',book_notes:'Note',
-    book_btn:'📅 Prenota via WhatsApp',book_warn:'⚠️ Il mercoledì siamo chiusi',
+    book_btn:'📅 PRENOTA IL TAVOLO · PIENISSIMO',book_warn:'⚠️ Il mercoledì siamo chiusi',
     rev_tag:'Recensioni',rev_title:'COSA DICONO',rev_title2:'I NOSTRI CLIENTI',
     gal_tag:'Galleria',gal_title:'I NOSTRI',gal_title2:'PIATTI',
     how_tag:'Come Arrivare',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
@@ -825,9 +831,9 @@ const LANGS={
     closed_wed:'⚠️ Il mercoledì siamo chiusi',
     day_montue:'Lunedì – Martedì',day_wed:'Mercoledì',day_thufri:'Giovedì – Venerdì',day_sat:'Sabato',day_sun:'Domenica',
     closed:'CHIUSO',
-    footer_hours1:'🕐 Lun-Mar, Gio-Ven: 12-15, 18-23',footer_hours2:'🌙 Sab-Dom: 18:00–23:00',footer_closed:'❌ Mercoledì: chiuso',
+    footer_hours1:'🕐 Lun-Mar, Gio-Ven: 18:30–23:00',footer_hours2:'🌙 Sab-Dom: 18:30–23:00',footer_closed:'❌ Mercoledì: chiuso',
     optgroup_lunch:'🌞 Pranzo (Lun-Ven)',optgroup_dinner:'🌙 Cena',
-    faq_q_hours:'Quando siete aperti?',faq_a_hours:'Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.',
+    faq_q_hours:'Quando siete aperti?',faq_a_hours:'Lunedì, Martedì, Giovedì, Venerdì, Sabato e Domenica: 18:30–23:00. Mercoledì chiusi.',
     status_open:'Aperto ora · Cucina attiva · Ordini in corso',
     status_closed_wed:'Oggi siamo chiusi · Riapriamo Giovedì',
     status_closed:'Chiuso · Riapriamo alle',
@@ -848,10 +854,10 @@ const LANGS={
     why3_title:'Φρέσκο Κάθε Μέρα',why3_desc:'Τζατζίκι φτιαγμένο κάθε πρωί. Φρέσκα υλικά, ελληνικό ελαιόλαδο.',
     why4_title:'Καρδιά της Ανκόνα',why4_desc:'10 λεπτά από το λιμάνι. Ιδανικό πριν ή μετά το φέρι.',
     menu_tag:'Το Μενού',menu_title:'ORDER',menu_title2:'LIKE A GREEK',
-    ord_tag:'Παραγγελία',ord_title:'ΔΙΑΛΕΞΕ',ord_title2:'ΠΩΣ ΘΕΛΕΙΣ',ord_sub:'Delivery στο σπίτι, takeaway ή κράτηση τραπεζιού.',
+    ord_tag:'Παραγγελία',ord_title:'ΔΙΑΛΕΞΕ',ord_title2:'ΠΩΣ ΘΕΛΕΙΣ',ord_sub:'Παραλαβή απευθείας από ARGO, delivery στο σπίτι ή κράτηση τραπεζιού.',
     del_name:'Deliveroo',del_desc:'Delivery στο σπίτι σου. Γεύση Ελλάδας στην πόρτα σου.',del_tag:'DELIVERY',
     je_name:'Just Eat',je_desc:'Άλλος τρόπος για delivery στο σπίτι.',je_tag:'DELIVERY',
-    pie_name:'Pienissimo',pie_desc:'Παραγγείλε online και παραλαβή στην Via Marconi 27.',pie_tag:'TAKEAWAY · ΚΡΑΤΗΣΗ',
+    pie_name:'ARGO Direct',pie_desc:'Παράγγειλε απευθείας από το ARGO και παρέλαβε στη Via Marconi 27.',pie_tag:'ΠΑΡΑΛΑΒΗ ΑΠΟ ΤΟ ΚΑΤΑΣΤΗΜΑ',
     wa_name:'WhatsApp',wa_desc:'Γράψε μας άμεσα. Απαντάμε αμέσως.',wa_tag:'ΑΜΕΣΑ',
     cat_tag:'Catering',cat_title:'GREEK',cat_title2:'CATERING',cat_title3:'EXPERIENCE',
     cat_desc:'Φέρνουμε το ελληνικό comfort food στην εκδήλωσή σου. Από γενέθλια έως εταιρικά events.',
@@ -859,7 +865,7 @@ const LANGS={
     book_tag:'Κράτηση',book_title:'ΚΡΑΤΗΣΕ',book_title2:'ΤΟ ΤΡΑΠΕΖΙ ΣΟΥ',
     book_desc:'Συχνά είμαστε πλήρεις το βράδυ. Κράτησε εκ των προτέρων.',
     book_name:'Ονοματεπώνυμο',book_date:'Ημερομηνία',book_time:'Ώρα',book_guests:'Άτομα',book_notes:'Σημειώσεις',
-    book_btn:'📅 Κράτηση via WhatsApp',book_warn:'⚠️ Τετάρτη είμαστε κλειστά',
+    book_btn:'📅 ΚΡΑΤΗΣΗ ΤΡΑΠΕΖΙΟΥ · PIENISSIMO',book_warn:'⚠️ Τετάρτη είμαστε κλειστά',
     rev_tag:'Κριτικές',rev_title:'ΤΙ ΛΕΝΕ',rev_title2:'ΟΙ ΠΕΛΑΤΕΣ ΜΑΣ',
     gal_tag:'Γκαλερί',gal_title:'ΤΑ ΠΙΑΤΑ',gal_title2:'ΜΑΣ',
     how_tag:'Πώς να έρθεις',how_title:'FROM ATHENS',how_title2:'TO ANCONA',
@@ -877,9 +883,9 @@ const LANGS={
     closed_wed:'⚠️ Τετάρτη είμαστε κλειστά',
     day_montue:'Δευτέρα – Τρίτη',day_wed:'Τετάρτη',day_thufri:'Πέμπτη – Παρασκευή',day_sat:'Σάββατο',day_sun:'Κυριακή',
     closed:'ΚΛΕΙΣΤΟ',
-    footer_hours1:'🕐 Δευτ-Τρ, Πέμπ-Παρ: 12-15, 18-23',footer_hours2:'🌙 Σαββ-Κυρ: 18:00–23:00',footer_closed:'❌ Τετάρτη: κλειστό',
+    footer_hours1:'🕐 Δευτ-Τρ, Πέμπ-Παρ: 18:30–23:00',footer_hours2:'🌙 Σαββ-Κυρ: 18:30–23:00',footer_closed:'❌ Τετάρτη: κλειστό',
     optgroup_lunch:'🌞 Μεσημέρι (Δευτ-Παρ)',optgroup_dinner:'🌙 Βράδυ',
-    faq_q_hours:'Πότε είστε ανοιχτά;',faq_a_hours:'Δευτ, Τρίτ, Πέμπτ, Παρ: 12:00–15:00 και 18:00–23:00. Σαββ και Κυρ: μόνο βράδυ 18:00–23:00. Τετάρτη κλειστό.',
+    faq_q_hours:'Πότε είστε ανοιχτά;',faq_a_hours:'Δευτ, Τρίτ, Πέμπτ, Παρ: 12:00–15:00 και 18:30–23:00. Σαββ και Κυρ: μόνο βράδυ 18:30–23:00. Τετάρτη κλειστό.',
     status_open:'Ανοιχτά τώρα · Κουζίνα ενεργή · Παραγγελίες σε εξέλιξη',
     status_closed_wed:'Σήμερα είμαστε κλειστοί · Ανοίγουμε Πέμπτη',
     status_closed:'Κλειστό · Ανοίγουμε στις',
@@ -929,9 +935,9 @@ const LANGS={
     closed_wed:'⚠️ Closed on Wednesdays',
     day_montue:'Monday – Tuesday',day_wed:'Wednesday',day_thufri:'Thursday – Friday',day_sat:'Saturday',day_sun:'Sunday',
     closed:'CLOSED',
-    footer_hours1:'🕐 Mon-Tue, Thu-Fri: 12-15, 18-23',footer_hours2:'🌙 Sat-Sun: 18:00–23:00',footer_closed:'❌ Wednesday: closed',
+    footer_hours1:'🕐 Mon-Tue, Thu-Fri: 18:30–23:00',footer_hours2:'🌙 Sat-Sun: 18:30–23:00',footer_closed:'❌ Wednesday: closed',
     optgroup_lunch:'🌞 Lunch (Mon-Fri)',optgroup_dinner:'🌙 Dinner',
-    faq_q_hours:'What are your opening hours?',faq_a_hours:'Mon, Tue, Thu, Fri: 12:00–15:00 and 18:00–23:00. Sat and Sun: dinner only 18:00–23:00. Wednesday closed.',
+    faq_q_hours:'What are your opening hours?',faq_a_hours:'Mon, Tue, Thu, Fri: 12:00–15:00 and 18:30–23:00. Sat and Sun: dinner only 18:30–23:00. Wednesday closed.',
     status_open:'Open now · Kitchen active · Taking orders',
     status_closed_wed:'Closed today · We reopen Thursday',
     status_closed:'Closed · We reopen at',
@@ -981,9 +987,9 @@ const LANGS={
     closed_wed:'⚠️ Mittwochs geschlossen',
     day_montue:'Montag – Dienstag',day_wed:'Mittwoch',day_thufri:'Donnerstag – Freitag',day_sat:'Samstag',day_sun:'Sonntag',
     closed:'GESCHLOSSEN',
-    footer_hours1:'🕐 Mo-Di, Do-Fr: 12-15, 18-23',footer_hours2:'🌙 Sa-So: 18:00–23:00',footer_closed:'❌ Mittwoch: geschlossen',
+    footer_hours1:'🕐 Mo-Di, Do-Fr: 18:30–23:00',footer_hours2:'🌙 Sa-So: 18:30–23:00',footer_closed:'❌ Mittwoch: geschlossen',
     optgroup_lunch:'🌞 Mittagessen (Mo-Fr)',optgroup_dinner:'🌙 Abendessen',
-    faq_q_hours:'Wann habt ihr geöffnet?',faq_a_hours:'Mo, Di, Do, Fr: 12:00–15:00 und 18:00–23:00. Sa und So: nur Abendessen 18:00–23:00. Mittwoch geschlossen.',
+    faq_q_hours:'Wann habt ihr geöffnet?',faq_a_hours:'Mo, Di, Do, Fr: 12:00–15:00 und 18:30–23:00. Sa und So: nur Abendessen 18:30–23:00. Mittwoch geschlossen.',
     status_open:'Jetzt geöffnet · Küche aktiv · Bestellungen möglich',
     status_closed_wed:'Heute geschlossen · Wiedereröffnung Donnerstag',
     status_closed:'Geschlossen · Wiedereröffnung um',
@@ -1033,7 +1039,7 @@ const LANGS={
     closed_wed:'⚠️ Fermé le mercredi',
     day_montue:'Lundi – Mardi',day_wed:'Mercredi',day_thufri:'Jeudi – Vendredi',day_sat:'Samedi',day_sun:'Dimanche',
     closed:'FERMÉ',
-    footer_hours1:'🕐 Lun-Mar, Jeu-Ven: 12-15, 18-23',footer_hours2:'🌙 Sam-Dim: 18:00–23:00',footer_closed:'❌ Mercredi: fermé',
+    footer_hours1:'🕐 Lun-Mar, Jeu-Ven: 18:30–23:00',footer_hours2:'🌙 Sam-Dim: 18:30–23:00',footer_closed:'❌ Mercredi: fermé',
     optgroup_lunch:'🌞 Déjeuner (Lun-Ven)',optgroup_dinner:'🌙 Dîner',
     faq_q_hours:'Quels sont vos horaires?',faq_a_hours:'Lun, Mar, Jeu, Ven: 12h00–15h00 et 18h00–23h00. Sam et Dim: dîner uniquement 18h00–23h00. Mercredi fermé.',
     status_open:'Ouvert maintenant · Cuisine active · Commandes en cours',
@@ -1085,9 +1091,9 @@ const LANGS={
     closed_wed:'⚠️ Cerramos los miércoles',
     day_montue:'Lunes – Martes',day_wed:'Miércoles',day_thufri:'Jueves – Viernes',day_sat:'Sábado',day_sun:'Domingo',
     closed:'CERRADO',
-    footer_hours1:'🕐 Lun-Mar, Jue-Vie: 12-15, 18-23',footer_hours2:'🌙 Sáb-Dom: 18:00–23:00',footer_closed:'❌ Miércoles: cerrado',
+    footer_hours1:'🕐 Lun-Mar, Jue-Vie: 18:30–23:00',footer_hours2:'🌙 Sáb-Dom: 18:30–23:00',footer_closed:'❌ Miércoles: cerrado',
     optgroup_lunch:'🌞 Almuerzo (Lun-Vie)',optgroup_dinner:'🌙 Cena',
-    faq_q_hours:'¿Cuáles son vuestros horarios?',faq_a_hours:'Lun, Mar, Jue, Vie: 12:00–15:00 y 18:00–23:00. Sáb y Dom: solo cena 18:00–23:00. Miércoles cerrado.',
+    faq_q_hours:'¿Cuáles son vuestros horarios?',faq_a_hours:'Lun, Mar, Jue, Vie: 12:00–15:00 y 18:30–23:00. Sáb y Dom: solo cena 18:30–23:00. Miércoles cerrado.',
     status_open:'Abierto ahora · Cocina activa · Pedidos en curso',
     status_closed_wed:'Hoy cerrados · Reabrimos el jueves',
     status_closed:'Cerrado · Reabrimos a las',
