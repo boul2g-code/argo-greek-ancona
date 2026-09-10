@@ -15,15 +15,15 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '11'
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.7'
+          gradle-version: '7.6'
       - name: Build debug APK
         working-directory: sunmi-app
         run: gradle assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: argo-sunmi-apk
+          name: argo-sunmi-v2-legacy-apk
           path: sunmi-app/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
