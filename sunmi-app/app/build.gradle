@@ -3,12 +3,21 @@ plugins { id 'com.android.application' }
 android {
     namespace 'it.argogreek.orders'
     compileSdk 35
+
     defaultConfig {
         applicationId 'it.argogreek.orders'
         minSdk 24
-        targetSdk 28
-        versionCode 1
-        versionName '1.0.0'
+        targetSdk 25
+        versionCode 2
+        versionName '1.0.1-v2'
+    }
+
+    // SUNMI V2 runs Android 7.1.1. Keep the APK deliberately simple and
+    // compatible with the legacy package installer used by this terminal.
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
