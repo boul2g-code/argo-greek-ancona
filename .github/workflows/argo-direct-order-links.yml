@@ -1,0 +1,50 @@
+name: ARGO direct ordering links
+on:
+  push:
+    paths:
+      - '.github/workflows/argo-direct-order-links.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch direct ordering links
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old=s
+          reps={
+            '<a href="#ordina" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>':'<a href="ordina/" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>',
+            '<a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>':'<a href="ordina/" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>',
+            '<a href="#ordina" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>':'<a href="ordina/" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>',
+            '<a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="platform-card">':'<a href="ordina/" class="platform-card">',
+            '<div class="p-name" data-i18n="pie_name">Pienissimo</div>':'<div class="p-name" data-i18n="pie_name">ARGO Direct</div>',
+            '<div class="p-desc" data-i18n="pie_desc">Ordina online e ritira in Via Marconi 27. Zero attesa, tutto pronto per te.</div>':'<div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO: asporto o delivery, offerte dedicate e nessuna piattaforma in mezzo.</div>',
+            '<span class="p-tag" data-i18n="pie_tag">ASPORTO · PRENOTA</span>':'<span class="p-tag" data-i18n="pie_tag">ASPORTO · DELIVERY</span>',
+            '<li><a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank">📱 Pienissimo</a></li>':'<li><a href="ordina/">🇬🇷 ARGO Direct</a></li>',
+            '<a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="mob-btn gold">🥡<span>Asporto</span></a>':'<a href="ordina/" class="mob-btn gold">🥡<span>Ordina</span></a>',
+            '📱 Pienissimo<br><small>Asporto</small>':'🇬🇷 ARGO Direct<br><small>Asporto</small>',
+            "tak:'https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu'":"tak:'ordina/'",
+            'Prima di andare, usa questo codice per il tuo prossimo ordine asporto su Pienissimo:':'Prima di andare, usa questo codice sul tuo primo ordine diretto ARGO:',
+            '<div class="ep-code">ARGO10</div>':'<div class="ep-code">BENVENUTO</div>',
+            '10% di sconto · Valido oggi':'10% di sconto · Primo ordine · Minimo €20',
+            "onclick=\"window.open('https://www.pienissimo.it/argo-greek-ancona','_blank');document.getElementById('exit-popup').classList.remove('open')\"":"onclick=\"window.location.href='ordina/?promo=BENVENUTO'\"",
+            '<a href="/login.html">⚙️ Admin</a>':'<a href="admin/">⚙️ Admin</a>'
+          }
+          for a,b in reps.items():
+              s=s.replace(a,b)
+          if s==old:
+              raise SystemExit('No replacements made')
+          p.write_text(s)
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "argo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          git commit -m "Route ARGO ordering to direct site"
+          git push
