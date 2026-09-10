@@ -30,7 +30,11 @@ public class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
-        InnerPrinterManager.getInstance().bindService(this, printerCallback);
+        try {
+            InnerPrinterManager.getInstance().bindService(this, printerCallback);
+        } catch (Exception e) {
+            Toast.makeText(this, "Connessione stampante SUNMI non disponibile", Toast.LENGTH_LONG).show();
+        }
         web = new WebView(this);
         setContentView(web);
         WebSettings s = web.getSettings();
