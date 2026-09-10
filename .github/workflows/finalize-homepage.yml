@@ -1,0 +1,60 @@
+name: Finalize ARGO Homepage
+on:
+  push:
+    paths:
+      - '.github/workflows/finalize-homepage.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Finalize homepage
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          replacements={
+          '<a href="ordina/" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>':'<a href="#ordina" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>',
+          '<a href="ordina/" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>':'<a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>',
+          '<a href="ordina/" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>':'<a href="#ordina" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>',
+          '<p class="section-sub" style="margin:0 auto">Delivery a casa, asporto veloce o prenota il tuo tavolo. Siamo ovunque tu sia.</p>':'<p class="section-sub" style="margin:0 auto">Ritiro diretto da ARGO, consegna a domicilio oppure prenota il tuo tavolo. Scegli qui come preferisci.</p>',
+          '<div class="p-icon">📱</div>\n        <div class="p-name" data-i18n="pie_name">ARGO Direct</div>\n        <div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO: asporto o delivery, offerte dedicate e nessuna piattaforma in mezzo.</div>\n        <span class="p-tag" data-i18n="pie_tag">ASPORTO · DELIVERY</span>':'<div class="p-icon">🥡</div>\n        <div class="p-name" data-i18n="pie_name">ARGO Direct</div>\n        <div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO e ritira in Via Marconi 27. Offerte dedicate e nessuna piattaforma in mezzo.</div>\n        <span class="p-tag" data-i18n="pie_tag">RITIRO DAL LOCALE</span>',
+          '<a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="platform-card">\n        <div class="p-icon">💬</div>\n        <div class="p-name" data-i18n="wa_name">WhatsApp</div>\n        <div class="p-desc" data-i18n="wa_desc">Scrivi direttamente. Rispondiamo subito e prepariamo il tuo ordine in anticipo.</div>\n        <span class="p-tag" data-i18n="wa_tag">DIRETTO</span>\n      </a>':'<a href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="platform-card">\n        <div class="p-icon">📅</div>\n        <div class="p-name">Prenota un tavolo</div>\n        <div class="p-desc">Prenota il tuo tavolo ARGO online tramite Pienissimo.</div>\n        <span class="p-tag">PRENOTAZIONE TAVOLO</span>\n      </a>\n      <a href="https://wa.me/393512204268" target="_blank" class="platform-card">\n        <div class="p-icon">💬</div>\n        <div class="p-name" data-i18n="wa_name">WhatsApp</div>\n        <div class="p-desc" data-i18n="wa_desc">Contattaci direttamente per informazioni, catering o richieste particolari.</div>\n        <span class="p-tag" data-i18n="wa_tag">CONTATTI</span>\n      </a>',
+          '<button class="btn-book" onclick="doBooking()" data-i18n="book_btn">📅 Prenota via WhatsApp</button>':'<button class="btn-book" onclick="window.open(\'https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu\',\'_blank\')">📅 PRENOTA IL TAVOLO · PIENISSIMO</button>',
+          'Tramite Pienissimo (app o sito) oppure direttamente su WhatsApp. Ritiro in Via Marconi 27.':'Direttamente su ARGO Direct: ordina online e ritira in Via Marconi 27. Le promozioni ARGO valgono sul ritiro diretto e nel locale, non su Deliveroo o Just Eat.',
+          "ord_sub:'Delivery a casa, asporto veloce o prenota il tuo tavolo.'":"ord_sub:'Ritiro diretto da ARGO, delivery a casa o prenotazione del tavolo.'",
+          "pie_name:'Pienissimo',pie_desc:'Ordina online e ritira in Via Marconi 27. Zero attesa.',pie_tag:'ASPORTO · PRENOTA'":"pie_name:'ARGO Direct',pie_desc:'Ordina direttamente da ARGO e ritira in Via Marconi 27.',pie_tag:'RITIRO DAL LOCALE'",
+          "book_btn:'📅 Prenota via WhatsApp'":"book_btn:'📅 PRENOTA IL TAVOLO · PIENISSIMO'",
+          "ord_sub:'Delivery στο σπίτι, takeaway ή κράτηση τραπεζιού.'":"ord_sub:'Παραλαβή απευθείας από ARGO, delivery στο σπίτι ή κράτηση τραπεζιού.'",
+          "pie_name:'Pienissimo',pie_desc:'Παραγγείλε online και παραλαβή στην Via Marconi 27.',pie_tag:'TAKEAWAY · ΚΡΑΤΗΣΗ'":"pie_name:'ARGO Direct',pie_desc:'Παράγγειλε απευθείας από το ARGO και παρέλαβε στη Via Marconi 27.',pie_tag:'ΠΑΡΑΛΑΒΗ ΑΠΟ ΤΟ ΚΑΤΑΣΤΗΜΑ'",
+          "book_btn:'📅 Κράτηση via WhatsApp'":"book_btn:'📅 ΚΡΑΤΗΣΗ ΤΡΑΠΕΖΙΟΥ · PIENISSIMO'",
+          'href="#prenota" class="mob-btn">📅<span>Prenota</span>':'href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu" target="_blank" class="mob-btn">📅<span>Prenota</span>'
+          }
+          missing=[]
+          for a,b in replacements.items():
+              if a not in s: missing.append(a[:100])
+              else: s=s.replace(a,b)
+          # Current opening hours: dinner only, Wednesday closed.
+          s=s.replace('Lun, Mar, Gio, Ven: 12:00–15:00 e 18:00–23:00. Sab e Dom: solo cena 18:00–23:00. Mercoledì chiusi.','Lunedì, Martedì, Giovedì, Venerdì, Sabato e Domenica: 18:30–23:00. Mercoledì chiusi.')
+          s=s.replace('12:00–15:00 e 18:00–23:00','18:30–23:00').replace('18:00–23:00','18:30–23:00')
+          s=s.replace('12-15, 18-23','18:30–23:00')
+          s=s.replace('Sab-Dom: 18:00–23:00','Sab-Dom: 18:30–23:00')
+          # Schema.org must not advertise lunch.
+          old='{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:00","closes":"23:00"}'
+          new='{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],"opens":"18:30","closes":"23:00"}'
+          s=s.replace(old,new)
+          p.write_text(s,encoding='utf-8')
+          print('Missing optional replacements:',len(missing))
+          for x in missing: print('MISS',x)
+      - name: Commit homepage
+        run: |
+          git config user.name "argo-site-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          git diff --cached --check
+          git commit -m "Finalize homepage ordering booking and hours"
+          git push
