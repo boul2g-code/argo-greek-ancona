@@ -1,0 +1,59 @@
+name: Optimize ARGO Direct
+
+on:
+  push:
+    paths:
+      - '.github/workflows/optimize-argo-direct.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Optimize direct ordering startup
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('ordina/index.html')
+          s = p.read_text()
+
+          old = '<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>'
+          new = '<link rel="preconnect" href="https://zibubwrntdmdxyimqddo.supabase.co" crossorigin>'
+          if old not in s:
+              raise SystemExit('Supabase CDN script marker not found')
+          s = s.replace(old, new, 1)
+
+          old = "const sb=supabase.createClient('https://zibubwrntdmdxyimqddo.supabase.co','sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL');let items=[]"
+          new = "const SUPA='https://zibubwrntdmdxyimqddo.supabase.co',KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL',HEAD={'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'};async function rest(path){let r=await fetch(SUPA+'/rest/v1/'+path,{headers:HEAD});if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}async function rpc(name,body){try{let r=await fetch(SUPA+'/rest/v1/rpc/'+name,{method:'POST',headers:HEAD,body:JSON.stringify(body)}),data=await r.json();if(!r.ok)throw new Error(data?.message||('HTTP '+r.status));return {data,error:null}}catch(error){return {data:null,error}}}let items=[]"
+          if old not in s:
+              raise SystemExit('Client init marker not found')
+          s = s.replace(old, new, 1)
+
+          pattern = r"async function load\(\)\{.*?\}function renderCats\(\)"
+          repl = """async function load(){const cacheKey='argo_direct_cache_v2';let hadCache=false;try{let c=JSON.parse(localStorage.getItem(cacheKey)||'null');if(c&&c.items){cats=c.cats||[];items=c.items||[];groups=c.groups||[];options=c.options||[];links=c.links||[];hadCache=true;renderCats();render()}}catch(_){}if(!hadCache)$('menu').innerHTML='<div style=\"grid-column:1/-1;padding:28px;text-align:center;color:#aab5c2\">Caricamento menu…</div>';try{let [c,m,g,o,l]=await Promise.all([rest('argo_menu_categories?select=*&active=eq.true&order=sort_order.asc'),rest('argo_menu_items?select=*&active=eq.true&order=sort_order.asc'),rest('argo_modifier_groups?select=*&active=eq.true&order=sort_order.asc'),rest('argo_modifier_options?select=*&active=eq.true&order=sort_order.asc'),rest('argo_menu_item_modifier_groups?select=*&order=sort_order.asc')]);cats=c||[];items=m||[];groups=g||[];options=o||[];links=l||[];try{localStorage.setItem(cacheKey,JSON.stringify({cats,items,groups,options,links,ts:Date.now()}))}catch(_){}renderCats();render()}catch(e){if(!items.length)$('menu').innerHTML='<div style=\"grid-column:1/-1;padding:28px;text-align:center;color:#ffb4b4\">Menu non disponibile. Riprova tra poco.</div>'}let qp=new URLSearchParams(location.search).get('promo');if(qp)$('promo').value=qp.toUpperCase()}function renderCats()"""
+          s2, n = re.subn(pattern, repl, s, count=1, flags=re.S)
+          if n != 1:
+              raise SystemExit(f'load() replacement count {n}')
+          s = s2
+
+          s = s.replace("let {data,error}=await sb.rpc('argo_validate_promo',", "let {data,error}=await rpc('argo_validate_promo',", 1)
+          s = s.replace("let {data,error}=await sb.rpc('argo_place_order',", "let {data,error}=await rpc('argo_place_order',", 1)
+
+          if 'supabase.createClient' in s or 'sb.from(' in s or 'sb.rpc(' in s:
+              raise SystemExit('Legacy Supabase SDK references remain')
+
+          p.write_text(s)
+          PY
+      - name: Commit optimization
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ordina/index.html
+          git commit -m "Speed up ARGO Direct startup" || exit 0
+          git push
