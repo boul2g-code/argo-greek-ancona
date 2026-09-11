@@ -14,24 +14,49 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Point all primary order CTAs to ARGO Direct
+      - name: Make primary order CTAs work reliably
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
+
           p = Path('index.html')
           s = p.read_text()
-          replacements = {
-              '<a href="#ordina" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>': '<a href="ordina/" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>',
-              '<a href="#ordina" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>': '<a href="ordina/" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>',
-              '<a href="#ordina" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>': '<a href="ordina/" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>',
-          }
-          changed = 0
-          for old, new in replacements.items():
-              if old in s:
-                  s = s.replace(old, new)
-                  changed += 1
-          if changed != 3:
-              raise SystemExit(f'Expected 3 replacements, made {changed}')
+          target = 'https://boul2g-code.github.io/argo-greek-ancona/ordina/'
+
+          # Desktop top CTA
+          s = re.sub(
+              r'<a\s+href="[^"]*"\s+class="nav-cta"\s+data-i18n="nav_order">ORDINA ORA</a>',
+              f'<a href="{target}" onclick="window.location.assign(\'{target}\');return false" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>',
+              s
+          )
+
+          # Mobile menu CTA
+          s = re.sub(
+              r'<a\s+href="[^"]*"\s+onclick="closeMobileNav\(\)"\s+style="color:var\(--sand\)"\s+data-i18n="nav_order">ORDINA ORA →</a>',
+              f'<a href="{target}" onclick="closeMobileNav();window.location.assign(\'{target}\');return false" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>',
+              s
+          )
+
+          # Hero CTA
+          s = re.sub(
+              r'<a\s+href="[^"]*"\s+class="btn-hero-primary"\s+data-i18n="btn_order">⚡ ORDINA ORA</a>',
+              f'<a href="{target}" onclick="window.location.assign(\'{target}\');return false" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>',
+              s
+          )
+
+          # Also make the entire ARGO Direct platform card force a real navigation.
+          s = s.replace(
+              '<a href="ordina/" class="platform-card">',
+              f'<a href="{target}" onclick="window.location.assign(\'{target}\');return false" class="platform-card">'
+          )
+
+          # Ensure touch devices cannot lose the click to decorative layers.
+          marker = '</style>'
+          css = '\n/* CTA reliability */\n.nav-cta,.btn-hero-primary,.platform-card{position:relative;z-index:5;pointer-events:auto;touch-action:manipulation}\n.hero-overlay,.hero-bg{pointer-events:none}\n'
+          if '/* CTA reliability */' not in s:
+              s = s.replace(marker, css + marker, 1)
+
           p.write_text(s)
           PY
       - name: Commit fix
@@ -39,5 +64,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Fix primary ORDINA ORA links" || exit 0
+          git commit -m "Harden ORDINA ORA navigation" || exit 0
           git push
