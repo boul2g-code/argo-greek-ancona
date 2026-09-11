@@ -393,6 +393,10 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   #chat-win{width:calc(100vw - 32px);right:16px;bottom:166px}
   #cart-bar{bottom:100px}
 }
+
+/* CTA reliability */
+.nav-cta,.btn-hero-primary,.platform-card{position:relative;z-index:5;pointer-events:auto;touch-action:manipulation}
+.hero-overlay,.hero-bg{pointer-events:none}
 </style>
 </head>
 <body>
@@ -419,7 +423,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
           <button onclick="setLang('es')">🇪🇸 Español</button>
         </div>
       </div>
-      <a href="ordina/" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>
+      <a href="https://boul2g-code.github.io/argo-greek-ancona/ordina/" onclick="window.location.assign('https://boul2g-code.github.io/argo-greek-ancona/ordina/');return false" class="nav-cta" data-i18n="nav_order">ORDINA ORA</a>
     </div>
     <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
   </div>
@@ -432,7 +436,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
   <a href="#catering" onclick="closeMobileNav()">CATERING</a>
   <a href="#prenota" onclick="closeMobileNav()">PRENOTA</a>
   <a href="#contatti" onclick="closeMobileNav()">CONTATTI</a>
-  <a href="ordina/" onclick="closeMobileNav()" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>
+  <a href="https://boul2g-code.github.io/argo-greek-ancona/ordina/" onclick="closeMobileNav();window.location.assign('https://boul2g-code.github.io/argo-greek-ancona/ordina/');return false" style="color:var(--sand)" data-i18n="nav_order">ORDINA ORA →</a>
 </div>
 
 <!-- HERO -->
@@ -444,7 +448,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
     <h1 class="hero-h1" data-i18n="hero_h1">FEED<br><span class="accent" data-i18n="hero_accent">YOUR MYTH</span></h1>
     <p class="hero-sub" data-i18n="hero_sub"><strong>Pita. Gyros. Souvlaki.</strong><br>Street food greco autentico nel cuore di Ancona.</p>
     <div class="hero-ctas">
-      <a href="ordina/" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>
+      <a href="https://boul2g-code.github.io/argo-greek-ancona/ordina/" onclick="window.location.assign('https://boul2g-code.github.io/argo-greek-ancona/ordina/');return false" class="btn-hero-primary" data-i18n="btn_order">⚡ ORDINA ORA</a>
       <a href="#menu" class="btn-hero-secondary" data-i18n="btn_menu">📋 MENU</a>
       <a href="https://wa.me/393512204268?text=Ciao!%20Vorrei%20ordinare%20da%20ARGO" target="_blank" class="btn-hero-secondary" data-i18n="btn_wa">💬 WHATSAPP</a>
     </div>
@@ -533,7 +537,7 @@ footer{background:#0a0a0a;padding:60px 24px 24px;border-top:1px solid rgba(255,2
         <div class="p-desc" data-i18n="je_desc">Un altro modo per ordinare a domicilio. Scegli la piattaforma che preferisci.</div>
         <span class="p-tag" data-i18n="je_tag">DELIVERY</span>
       </a>
-      <a href="ordina/" class="platform-card">
+      <a href="https://boul2g-code.github.io/argo-greek-ancona/ordina/" onclick="window.location.assign('https://boul2g-code.github.io/argo-greek-ancona/ordina/');return false" class="platform-card">
         <div class="p-icon">🥡</div>
         <div class="p-name" data-i18n="pie_name">ARGO Direct</div>
         <div class="p-desc" data-i18n="pie_desc">Ordina direttamente da ARGO e ritira in Via Marconi 27. Offerte dedicate e nessuna piattaforma in mezzo.</div>
