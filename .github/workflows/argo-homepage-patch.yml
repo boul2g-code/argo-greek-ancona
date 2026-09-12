@@ -1,13 +1,28 @@
-name: ARGO workflow test
+name: ARGO homepage patch
 
 on:
   push:
     paths:
       - '.github/workflows/argo-homepage-patch.yml'
 
+permissions:
+  contents: write
+
 jobs:
-  test:
+  patch-homepage:
     runs-on: ubuntu-latest
     steps:
-      - name: Hello
-        run: echo "ARGO workflow OK"
+      - uses: actions/checkout@v4
+      - name: Patch homepage
+        run: python scripts/patch_homepage.py
+      - name: Commit homepage
+        run: |
+          git config user.name "ARGO automation"
+          git config user.email "actions@github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Use live ARGO menu and current operating info"
+          git push
