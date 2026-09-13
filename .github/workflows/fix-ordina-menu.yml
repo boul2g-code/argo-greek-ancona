@@ -1,0 +1,32 @@
+name: Fix ARGO Direct menu
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-ordina-menu.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch direct ordering page
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('ordina/index.html')
+          s=p.read_text(encoding='utf-8')
+          old="HEAD={'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'}"
+          new="HEAD={'apikey':KEY,'Content-Type':'application/json'}"
+          if old not in s:
+              raise SystemExit('Expected HEAD definition not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit fix
+        run: |
+          git config user.name "argo-site-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add ordina/index.html
+          git diff --cached --check
+          git commit -m "Fix ARGO Direct Supabase public menu request"
+          git push
