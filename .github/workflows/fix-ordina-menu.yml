@@ -10,17 +10,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch direct ordering page
+      - name: Add resilient menu fallback
         shell: python
         run: |
           from pathlib import Path
           p=Path('ordina/index.html')
           s=p.read_text(encoding='utf-8')
-          old="HEAD={'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'}"
-          new="HEAD={'apikey':KEY,'Content-Type':'application/json'}"
-          if old not in s:
-              raise SystemExit('Expected HEAD definition not found')
-          s=s.replace(old,new,1)
+
+          # Public REST uses the public apikey only.
+          s=s.replace("'Authorization':'Bearer '+KEY,","")
+
+          # Add fallback state once.
+          s=s.replace("let items=[],cats=[],groups=[],options=[],links=[],cart=[],promoState=null,currentItem=null;","let items=[],cats=[],groups=[],options=[],links=[],cart=[],promoState=null,currentItem=null,fallbackOnly=false;",1)
+
+          marker="async function load(){const cacheKey='argo_direct_cache_v3';let had=false;"
+          if marker in s and "argo_emergency_menu_v1" not in s:
+              insert="""async function load(){const cacheKey='argo_direct_cache_v3';let had=false;
+try{const sr=await fetch('menu-snapshot.json',{cache:'no-store'});if(sr.ok){const snap=await sr.json();if(Array.isArray(snap.items)&&snap.items.length){cats=snap.cats||[];items=snap.items||[];groups=snap.groups||[];options=snap.options||[];links=snap.links||[];had=true;fallbackOnly=false;renderCats();render();}}}catch(_){}
+try{const c=JSON.parse(localStorage.getItem(cacheKey)||'null');if(!had&&c?.items?.length){cats=c.cats||[];items=c.items||[];groups=c.groups||[];options=c.options||[];links=c.links||[];had=true;fallbackOnly=false;renderCats();render()}}catch(_){}
+if(!had){try{const er=await fetch('../menu.json',{cache:'no-store'});if(er.ok){const em=await er.json();const names=(em.categories||[]).filter(x=>x&&x!=='Tutte');cats=names.map((n,i)=>({id:'legacy-cat-'+i,name:n,sort_order:i}));const cmap=Object.fromEntries(cats.map(c=>[c.name,c.id]));items=(em.items||[]).filter(x=>x.available!==false).map((x,i)=>({id:'legacy-'+(x.id??i),category_id:cmap[x.category]||cats[0]?.id,name:x.name,description:x.description||'',price:Number(x.price||0),image_url:x.image||'',sort_order:i}));groups=[];options=[];links=[];if(items.length){had=true;fallbackOnly=true;renderCats();render();let note=document.getElementById('argo-emergency-note');if(!note){note=document.createElement('div');note.id='argo-emergency-note';note.style.cssText='background:#3b2f1f;border:1px solid #8b6b3c;color:#f4dfb5;padding:11px 13px;border-radius:10px;margin:0 0 12px;font-size:13px;line-height:1.4';note.textContent='Menu di emergenza: la connessione al sistema ordini è temporaneamente indisponibile. Puoi consultare il menu, ma l’invio dell’ordine resta disattivato finché la connessione non torna.';$('cats').before(note);}}}}catch(_){} }
+"""
+              s=s.replace(marker,insert,1)
+
+          # Avoid duplicate legacy-cache block left by the original loader.
+          dup="try{const c=JSON.parse(localStorage.getItem(cacheKey)||'null');if(c?.items){cats=c.cats||[];items=c.items||[];groups=c.groups||[];options=c.options||[];links=c.links||[];had=true;renderCats();render()}}catch(_){}"
+          s=s.replace(dup,"",1)
+
+          # Make live success authoritative and clear emergency state.
+          live="cats=c||[];items=m||[];groups=g||[];options=o||[];links=l||[];try{localStorage.setItem(cacheKey,JSON.stringify({cats,items,groups,options,links,ts:Date.now()}))}catch(_){}renderCats();render()"
+          live_new="cats=c||[];items=m||[];groups=g||[];options=o||[];links=l||[];fallbackOnly=false;document.getElementById('argo-emergency-note')?.remove();try{localStorage.setItem(cacheKey,JSON.stringify({cats,items,groups,options,links,ts:Date.now()}))}catch(_){}renderCats();render()"
+          s=s.replace(live,live_new,1)
+
+          # In emergency fallback, menu is view-only because legacy ids/prices must never be submitted.
+          oldbtn="<button class=\"add\" onclick=\"startAdd('${x.id}')\">${hasMods(x.id)?'PERSONALIZZA +':'+ AGGIUNGI'}</button>"
+          newbtn="${fallbackOnly?'<button class=\"add\" disabled style=\"opacity:.55;cursor:not-allowed\">SOLO CONSULTAZIONE</button>':`<button class=\"add\" onclick=\"startAdd('${x.id}')\">${hasMods(x.id)?'PERSONALIZZA +':'+ AGGIUNGI'}</button>`}"
+          s=s.replace(oldbtn,newbtn,1)
+
+          # If an exact static snapshot exists later, it takes over automatically.
           p.write_text(s,encoding='utf-8')
       - name: Commit fix
         run: |
@@ -28,5 +54,5 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add ordina/index.html
           git diff --cached --check
-          git commit -m "Fix ARGO Direct Supabase public menu request"
+          git commit -m "Add resilient offline menu fallback" || exit 0
           git push
