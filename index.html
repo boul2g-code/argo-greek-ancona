@@ -1196,7 +1196,7 @@ let menuData=[],activeFilter='Tutte',cart=[];
 async function loadMenu(){
   const SUPA='https://zibubwrntdmdxyimqddo.supabase.co';
   const KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL';
-  const H={'apikey':KEY,'Authorization':'Bearer '+KEY};
+  const H={'apikey':KEY};
   try{
     const [cr,mr]=await Promise.all([
       fetch(SUPA+'/rest/v1/argo_menu_categories?select=id,name&active=eq.true&order=sort_order.asc',{headers:H}),
@@ -1208,7 +1208,7 @@ async function loadMenu(){
     renderFilters();renderMenu();
   }catch(e){
     console.error(e);
-    document.getElementById('menu-grid').innerHTML='<p style="color:rgba(255,255,255,.45);padding:40px;text-align:center;grid-column:1/-1">Menu temporaneamente non disponibile. Usa ARGO Direct per vedere il menu aggiornato.</p>';
+    document.getElementById('menu-filters').innerHTML=''; document.getElementById('menu-grid').innerHTML='<div class="menu-error"><strong>Menu ARGO</strong><span>Il menu live non si è caricato.</span><a href="ordina/">APRI IL MENU AGGIORNATO →</a></div>';
   }
 }
 const CAT_TRANSLATIONS={
