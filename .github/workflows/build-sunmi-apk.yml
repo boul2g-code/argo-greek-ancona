@@ -1,3 +1,4 @@
+# ARGO SUNMI legacy build verification
 name: Build ARGO SUNMI APK
 on:
   push:
