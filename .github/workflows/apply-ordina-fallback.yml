@@ -18,3 +18,4 @@ jobs:
           git diff --cached --check
           git commit -m "Add ARGO Direct offline fallback" || exit 0
           git push
+# rerun after patch script syntax fix
