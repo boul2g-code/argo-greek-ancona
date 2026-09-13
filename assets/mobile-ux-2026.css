@@ -37,6 +37,8 @@
   .menu-filters::-webkit-scrollbar{display:none}.filter-btn{flex:0 0 auto;padding:10px 16px;min-height:42px}
   .menu-grid{grid-template-columns:1fr 1fr;gap:10px;min-height:0}
   .menu-grid:empty{display:none}
+  .menu-grid>p{margin:0!important;padding:18px!important;background:#181818!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:14px!important;text-align:left!important;color:rgba(255,255,255,.68)!important;font-size:14px!important;line-height:1.55!important;min-height:0!important}
+  .menu-grid>p::after{content:'Usa ORDINA qui sotto per aprire il menu completo.';display:block;margin-top:10px;color:var(--sand);font-weight:700;font-size:13px}
   .menu-error{grid-column:1/-1;background:#181818;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 18px;text-align:left;color:rgba(255,255,255,.68);font-size:14px;line-height:1.55;margin-top:4px}
   .menu-error strong{display:block;color:#fff;font-size:17px;margin-bottom:7px}
   .menu-error a{display:flex;align-items:center;justify-content:center;min-height:50px;margin-top:16px;background:var(--sand);color:var(--navy);text-decoration:none;border-radius:11px;font-weight:800}
