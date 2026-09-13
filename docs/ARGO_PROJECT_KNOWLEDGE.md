@@ -24,6 +24,13 @@ Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes st
 - Admin pages include admin/orders.html and admin/photos.html; service worker is admin/sw.js.
 - A task is deployed only after a real remote commit and, where relevant, a successful GitHub Pages deployment.
 
+## GitHub Actions hygiene
+- Obsolete one-shot patch workflows have been removed from main to stop stale patch jobs/failures from firing during normal pushes.
+- Removed: apply-ordina-fallback.yml, finalize-homepage.yml, fix-order-now-links.yml, fix-ordina-menu.yml, optimize-argo-direct.yml, patch-ordina-fallback.yml.
+- Keep: argo-menu-snapshot.yml, because it refreshes the static ARGO Direct fallback snapshot on schedule.
+- Keep: build-sunmi-apk.yml, because it is the legitimate SUNMI Android build workflow.
+- Latest cleanup commit removing the final obsolete patch workflow: f0b70b9e1730f9b54c2f8c3fb5022a0aece1dc2d.
+
 ## Homepage decisions already established
 - Homepage reads the active menu from Supabase, not old menu.json.
 - Hero/social image uses real ARGO photo WA0114.
@@ -95,11 +102,12 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - 20231113-WA0019 -> person serving ouzo, CONDITIONAL; public use requires consent.
 
 ## Current Supabase media-library state
-- argo_media_library now contains all 227 originals. Corpus reconciliation is complete.
-- No original is currently missing from the media library.
+- argo_media_library contains all 227 originals. Corpus reconciliation is complete.
+- No original is missing from the media library.
 - 7 production menu mappings are linked and verified.
-- A large block of rows still carries category da_classificare in Supabase because the master workbook does not repeat filename-level verdicts for every classified original.
-- Do not infer or invent classifications for those remaining rows from filenames alone.
+- There are zero rows remaining with category da_classificare.
+- 184 rows are now category audit_reconciled: the original exists and belongs to the completed master audit, but the recoverable filename-level register does not expose the precise verdict for that individual file. These are HOLD / no auto-publish, not "unreviewed".
+- The remainder is explicitly classified as menu_verified, menu_conditional, candidate, social, backstage, heritage, archive, sauces, desserts, etc.
 - Database category/status fields are workflow metadata; the workbook remains visual-audit truth where it has an explicit filename-level verdict.
 
 ### Verified menu links already in Supabase
@@ -122,9 +130,10 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Preview chain: stored thumb_url -> lh3.googleusercontent.com/d/<ID>=w1200 -> drive.google.com/uc?export=view&id=<ID> -> visible unavailable-preview warning.
 - referrerpolicy=no-referrer is used on photo previews.
 - Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more. This reduces desktop browser/Drive request pressure.
-- Photo-admin audit filters include menu, hero, verified, conditional, social, backstage, heritage, archive, reconciled, mezedes, sauces, salads, desserts and unclassified.
+- Photo Admin has search and a Da verificare queue for conditional/candidate/unlinked verified assets.
+- Photo-admin audit filters include menu, hero, verified, conditional, social, backstage, heritage, archive, reconciled, mezedes, sauces, salads and desserts.
 - Progressive-loading commit: 09052eac4effc7476fb548d45590a4835b4e471c.
-- GitHub Pages deployment for that commit completed successfully.
+- Verification-queue/search commit: 119f647a77f2f4ac14b749d550d107291e3ab527.
 
 ## Publishing / selection rules
 - Exact-map only verified A2 MENU assets to current menu items.
@@ -136,7 +145,7 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 ## Current high-priority photo gaps
 - Pita Pollo.
 - Pita Agnello.
-- Pita Soutzoukaki.
+- Pita Bifteki / Soutzoukaki identity gap.
 - Pita Salsiccia / Loukaniko.
 - Product-specific Pita Vegetariana.
 - Current Souvlaki plate.
@@ -155,8 +164,8 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Workbook = visual truth; Supabase = current menu/product/price truth.
 
 ## Current open work
-- Recover or recreate filename-level verdicts for the remaining DB rows still marked da_classificare without inventing data.
-- Verify the conditional assets and promote/archive each appropriately.
+- Recover or recreate filename-level verdicts for audit_reconciled rows only when needed for commercial use.
+- Verify conditional assets and promote/archive each appropriately.
 - Complete exact product-photo mapping where current product identity exists.
 - Execute the P1 photo shoot to improve menu coverage beyond the current 58% estimate.
 - Final end-to-end order-flow test.
