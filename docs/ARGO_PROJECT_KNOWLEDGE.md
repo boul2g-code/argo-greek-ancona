@@ -27,7 +27,7 @@ Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes st
 ## Repository / production
 - Repo: boul2g-code/argo-greek-ancona.
 - main is the production branch.
-- Admin photo pages: admin/photos.html, admin/photo-review.html, admin/photo-review-history.html.
+- Admin photo pages: admin/photos.html, admin/photo-review.html, admin/photo-review-history.html, admin/photo-shoot-plan.html.
 - Service worker: admin/sw.js.
 - A task is deployed only after a real remote commit and, where relevant, a successful GitHub Pages deployment.
 
@@ -71,6 +71,16 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Heritage winners: 2.
 - Estimated menu coverage: 58%.
 - Corrected arithmetic: 128 + 49 + 35 + 13 + 2 = 227.
+- Latest completed workbook expansion has 56 operational sheets, up from 52.
+- The 56-sheet build passed formula/type checks with 0 formula errors, visual review of the five affected sheets, and XLSX integrity validation with no errors.
+- The permanent File Library copy may still point to the previous version until the newer build is explicitly uploaded/replaced; do not assume the stored library file already contains the four new sheets.
+
+### New operational sheets in the 56-sheet build
+- `7-Day Sprint`: 19 concrete actions from locking current menu truth through the first approved exports.
+- `Shoot Prep`: 23 readiness checks covering products, portions, equipment, lighting, storage, rights and protection of live service.
+- `Contact Sheet Log`: prefilled shot register for pita family, mezedes, dolmas, sauces, desserts, current production process, exterior and team.
+- `Post-Shoot Handoff`: 18 steps from ingest and dual backup through approval, derivatives, Asset Register and launch queue.
+- `Workbook Guide` was updated so these sheets are part of the overall operating system rather than standalone add-ons.
 
 ### Current production-method rule
 - Meat is cooked in Rational, chilled safely, cut, then finished on grill/plate to order.
@@ -132,6 +142,7 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more.
 - Photo Admin has search, a 13-item Da verificare queue, a separate Verified senza match state, and links into the dedicated review flow.
 - Verification page: admin/photo-review.html.
+- Shoot-plan page: admin/photo-shoot-plan.html.
 - Audit-history page: admin/photo-review-history.html, including per-asset filtering through ?media=<uuid>.
 - Progressive-loading commit: 09052eac4effc7476fb548d45590a4835b4e471c.
 - Verification-queue/search commit: 119f647a77f2f4ac14b749d550d107291e3ab527.
@@ -139,6 +150,8 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Library/review linking commit: 6b2f56f5c020d1672079698c8b43602b1c74a025.
 - History-page commit: 46890d0a88626ce2a5a1a5ef2ef9e2b20289323e.
 - Per-asset history filtering commit: a6a1bb1c203c72a13da8b8ef4bfccb051f6544b0. GitHub Pages deployment completed successfully.
+- Shoot-plan initial commit: 141916814d12fda0af77343628a40cbcca6b5e7f.
+- Shoot-plan category-resolution fix: 2fea53e0536431fa14c30b31cd9df0b18ed97b0b.
 
 ## Photo review safety / audit trail
 - argo_admin_media_review is the only admin RPC intended for review decisions.
@@ -180,8 +193,11 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Verify against real GitHub main and real Supabase state.
 - Workbook = visual truth; Supabase = current menu/product/price truth.
 - Do not treat Pita Pollo/Pita chicky or Pita Gyros/Pita piggy as duplicates.
+- Treat the 56-sheet workbook build as the newest operational master once its actual XLSX binary is available; until then, do not overwrite or silently relabel the older File Library object.
 
 ## Current open work
+- Replace/upload the permanent File Library workbook with the validated 56-sheet build when the actual file becomes available in a writable session.
+- Use `7-Day Sprint` as the execution sequence, `Shoot Prep` before service-day photography, `Contact Sheet Log` during capture, and `Post-Shoot Handoff` immediately after shooting.
 - Use the 13-item review queue to promote/archive assets only after real product verification.
 - Recover audit_reconciled assets only when needed for a concrete commercial gap.
 - Complete exact product-photo mapping where current product identity exists.
