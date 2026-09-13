@@ -18,6 +18,12 @@ Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes st
 - ARGO Direct is the direct ordering channel. Pienissimo is retained only for bookings where applicable.
 - Photo workbook is visual/audit truth only. Never copy workbook price snapshots into production.
 
+## Confirmed product distinctions
+- `Pita Pollo` and `Pita chicky` are different products. Never merge, deactivate or treat one as an alias of the other.
+- `Pita Gyros` and `Pita piggy` are different products. Never merge, deactivate or treat one as an alias of the other.
+- Photo mapping must also preserve those distinctions. A verified image for one of these products must never be reused as proof for the other unless the exact pictured product is independently verified.
+- Their current descriptions may still need refinement for customer clarity, but wording must not be invented without the real operational/product difference being supplied.
+
 ## Repository / production
 - Repo: boul2g-code/argo-greek-ancona.
 - main is the production branch.
@@ -163,6 +169,8 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Bugiurdi.
 - Sauce family identification / shoot.
 - Current Rational-to-grill process series.
+- Pita chicky requires its own exact photo coverage separate from Pita Pollo.
+- Pita piggy requires its own exact photo coverage separate from Pita Gyros.
 
 ## Stable constraints
 - Never reintroduce old menu.json as canonical.
@@ -171,6 +179,7 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Avoid unrelated auth/service-worker/order-flow changes while working on photo mapping.
 - Verify against real GitHub main and real Supabase state.
 - Workbook = visual truth; Supabase = current menu/product/price truth.
+- Do not treat Pita Pollo/Pita chicky or Pita Gyros/Pita piggy as duplicates.
 
 ## Current open work
 - Use the 13-item review queue to promote/archive assets only after real product verification.
