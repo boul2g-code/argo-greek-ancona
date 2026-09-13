@@ -1,0 +1,65 @@
+name: ARGO menu snapshot
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/argo-menu-snapshot.yml'
+  schedule:
+    - cron: '17 */6 * * *'
+permissions:
+  contents: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build static menu snapshot
+        shell: python
+        run: |
+          import json, re, time, urllib.request
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          html=Path('ordina/index.html').read_text(encoding='utf-8')
+          m=re.search(r"KEY='([^']+)'",html)
+          if not m: raise SystemExit('Public menu key not found in ordina/index.html')
+          key=m.group(1)
+          base='https://zibubwrntdmdxyimqddo.supabase.co/rest/v1/'
+          headers={'apikey':key,'Accept':'application/json'}
+          endpoints={
+            'cats':'argo_menu_categories?select=*&active=eq.true&order=sort_order.asc',
+            'items':'argo_menu_items?select=*&active=eq.true&order=sort_order.asc',
+            'groups':'argo_modifier_groups?select=*&active=eq.true&order=sort_order.asc',
+            'options':'argo_modifier_options?select=*&active=eq.true&order=sort_order.asc',
+            'links':'argo_menu_item_modifier_groups?select=*&order=sort_order.asc'
+          }
+          def get(path):
+            err=None
+            for attempt in range(5):
+              try:
+                req=urllib.request.Request(base+path,headers=headers)
+                with urllib.request.urlopen(req,timeout=25) as r:
+                  return json.loads(r.read().decode('utf-8'))
+              except Exception as e:
+                err=e; time.sleep(2*(attempt+1))
+            raise err
+          data={k:get(v) for k,v in endpoints.items()}
+          data['generated_at']=datetime.now(timezone.utc).isoformat()
+          Path('ordina/menu-snapshot.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+
+          p=Path('ordina/index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace("'Authorization':'Bearer '+KEY,","")
+          marker="async function load(){const cacheKey='argo_direct_cache_v3';let had=false;"
+          if marker in s and 'menu-snapshot.json' not in s:
+            insert="async function load(){const cacheKey='argo_direct_cache_v3';let had=false;try{const sr=await fetch('menu-snapshot.json',{cache:'no-store'});if(sr.ok){const snap=await sr.json();if(Array.isArray(snap.items)&&snap.items.length){cats=snap.cats||[];items=snap.items||[];groups=snap.groups||[];options=snap.options||[];links=snap.links||[];had=true;renderCats();render();try{localStorage.setItem(cacheKey,JSON.stringify({cats,items,groups,options,links,ts:Date.now()}))}catch(_){}}}}catch(_){}"
+            s=s.replace(marker,insert,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit snapshot
+        run: |
+          git config user.name "argo-menu-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add ordina/menu-snapshot.json ordina/index.html
+          git diff --cached --check
+          git commit -m "Refresh ARGO menu snapshot fallback" || exit 0
+          git push
