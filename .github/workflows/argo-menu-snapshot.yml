@@ -1,3 +1,4 @@
+# ARGO fallback snapshot: scheduled and manually triggerable
 name: ARGO menu snapshot
 on:
   workflow_dispatch:
