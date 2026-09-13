@@ -15,6 +15,12 @@ This checkpoint records the actual production state after the 2026-09-13 cleanup
 - Menu fallback snapshot was forcibly refreshed from live Supabase on 2026-09-13. The stale vegetarian flags are now synchronized; for example `Tirokeftedes pikantikoi` is `vegetarian=true` in the current snapshot.
 - ARGO SUNMI Android debug APK build was re-run from current `main` and completed successfully. Artifact: `argo-sunmi-v2-legacy-apk`, workflow run `34765186877`, artifact id `10320545441`, SHA-256 digest `2ee72f32b78d8c1d5628d62094bcba358811756d790800995f0ac927a06ef582`.
 - SUNMI web terminal actions match the production RPC actions: `accept_print`, `reprint`, `preparing`, `ready`, `completed`.
+- Background push diagnostic page and Settings link were deployed. Latest verified GitHub Pages deployment for commit `45fbc6b6cb7237f8ce252dff25909ae6ce537735` completed successfully.
+- Manual Supabase security review completed for ARGO tables, policies, privileges and ARGO `SECURITY DEFINER` functions.
+- Legacy `argo_registro_emergenza` was confirmed empty and unused by the current ARGO repository/functions, then locked down: no RLS policies remain and `anon` / `authenticated` have no direct SELECT, INSERT, UPDATE or DELETE privileges.
+- ARGO admin/private tables remain behind RLS with no direct public policies; operational access is through token-validating RPCs rather than direct table access.
+- Performance hardening added missing leading indexes for ARGO foreign keys used by admin sessions, booking events, media/menu links, modifier relations, order items and order offers. This improves joins and referential actions without changing business data.
+- Admin navigation currently exposes Orders, Menu, Promo, Marketing, Photos, Bookings, Statistics and Settings; Settings also exposes Photo Review, Photo Shoot Plan, Photo Import, SUNMI and push diagnostics.
 
 ## Intentionally pending because they require real external or physical input
 
@@ -27,4 +33,4 @@ This checkpoint records the actual production state after the 2026-09-13 cleanup
 
 ## Current operational rule
 
-Anything that could be completed safely from code/database has been completed or verified. Remaining tasks need either the user's local files, real third-party account authorization, physical food/photo verification, or the physical SUNMI device. Do not simulate those steps or mark them complete without evidence.
+All code/database work that can be completed safely from the connected tools has been completed or verified for this checkpoint. Remaining tasks need either the user's local files, real third-party account authorization, physical food/photo verification, or the physical SUNMI device. Do not simulate those steps or mark them complete without evidence.
