@@ -1,0 +1,42 @@
+name: Fix ARGO photo admin image loading
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-photo-admin-image-fallback.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch photo admin image loading
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('admin/photos.html')
+          s=p.read_text(encoding='utf-8')
+          old="function statusLabel(s){return s==='menu'?'NEL MENU':s==='archive'?'ARCHIVIO':'PRONTA / FUTURA'}function render(){"
+          new="function statusLabel(s){return s==='menu'?'NEL MENU':s==='archive'?'ARCHIVIO':'PRONTA / FUTURA'}function imgFallback(el){const id=el.dataset.driveId||'';const step=Number(el.dataset.fallback||'0');const urls=[id?('https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w1200'):null,id?('https://drive.google.com/uc?export=view&id='+encodeURIComponent(id)):null].filter(Boolean);if(step<urls.length){el.dataset.fallback=String(step+1);el.src=urls[step];return}el.onerror=null;el.style.opacity='.18';el.alt='Anteprima non disponibile';const box=el.closest('.pic');if(box&&!box.querySelector('.imgwarn')){const w=document.createElement('div');w.className='imgwarn';w.textContent='Anteprima non disponibile · apri originale';box.appendChild(w)}}function render(){"
+          if old not in s:
+            raise SystemExit('status/render marker not found')
+          s=s.replace(old,new,1)
+          old_img='<img src="${esc(r.thumb_url)}" alt="${esc(r.title)}" loading="lazy" onerror="this.style.opacity=.15">'
+          new_img='<img src="${esc(r.thumb_url)}" data-drive-id="${esc(r.source_drive_id||\'\')}" data-fallback="0" alt="${esc(r.title)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="imgFallback(this)">'
+          if old_img not in s:
+            raise SystemExit('image marker not found')
+          s=s.replace(old_img,new_img,1)
+          css_old='.pic img{width:100%;height:100%;object-fit:cover;display:block}.badge{'
+          css_new='.pic img{width:100%;height:100%;object-fit:cover;display:block}.imgwarn{position:absolute;inset:auto 8px 8px 8px;background:#fff9;color:#7c2d12;border:1px solid #fed7aa;border-radius:8px;padding:7px 8px;font-size:11px;font-weight:800;text-align:center}.badge{'
+          if css_old not in s:
+            raise SystemExit('css marker not found')
+          s=s.replace(css_old,css_new,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit fix
+        run: |
+          git config user.name "argo-photo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add admin/photos.html
+          git diff --cached --check
+          git commit -m "fix(admin): add robust Drive image fallbacks" || exit 0
+          git push
