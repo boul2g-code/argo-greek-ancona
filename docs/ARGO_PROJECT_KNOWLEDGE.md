@@ -21,7 +21,8 @@ Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes st
 ## Repository / production
 - Repo: boul2g-code/argo-greek-ancona.
 - main is the production branch.
-- Admin pages include admin/orders.html and admin/photos.html; service worker is admin/sw.js.
+- Admin photo pages: admin/photos.html, admin/photo-review.html, admin/photo-review-history.html.
+- Service worker: admin/sw.js.
 - A task is deployed only after a real remote commit and, where relevant, a successful GitHub Pages deployment.
 
 ## GitHub Actions hygiene
@@ -77,7 +78,7 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - IMG-20240216-WA0034.jpg -> A2 MENU, Pita Gyros. Primary pita winner.
 - IMG-20240216-WA0014.jpg -> A2 MENU, Gyros plate. Primary plate winner.
 - IMG-20240216-WA0016.jpg -> A2 MENU, Chicken plate. Primary chicken winner.
-- IMG-20240216-WA0038.jpg -> A2 MENU, Soutzoukakia plate. Never relabel as Bifteki unless identical product is explicitly verified.
+- IMG-20240216-WA0038.jpg -> A2 MENU, Soutzoukakia plate. Current DB state: menu_verified_unlinked because no exact active menu item exists. Never relabel as Bifteki unless identical product is explicitly verified.
 - IMG-20240216-WA0046.jpg -> A2 MENU, Vegetarian plate. Publish only after current-composition verification.
 - IMG-20240216-WA0112.jpg -> A2 MENU, Tzatziki.
 - IMG-20240216-WA0137.jpg -> A2 MENU, Greek salad.
@@ -97,17 +98,16 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - 20211130-WA0012 -> HERITAGE A, old Greek spread.
 - 20220610-WA0014 -> HERITAGE A3, old Pita Gyros series superseded by WA0034.
 - 20220628-WA0010 -> large mixed souvlaki plate, CONDITIONAL A2/A3; verify current product/portion.
-- 20240624-WA0001 -> stuffed vegetables, CONDITIONAL; use only if item remains active.
-- 20240808-WA0019 -> Nissos beer + Greek salad, CONDITIONAL; verify beer availability.
+- 20240624-WA0001 -> ARCHIVE. Stuffed vegetables have no matching active menu item as of 2026-09-13.
+- 20240808-WA0019 -> SOCIAL ARCHIVE. Nissos beer is not in the current active beer menu as of 2026-09-13.
 - 20231113-WA0019 -> person serving ouzo, CONDITIONAL; public use requires consent.
 
 ## Current Supabase media-library state
 - argo_media_library contains all 227 originals. Corpus reconciliation is complete.
 - No original is missing from the media library.
-- 7 production menu mappings are linked and verified.
+- Current counts: 227 total, 184 audit_reconciled, 13 verification-queue assets, 1 menu_verified_unlinked, 7 linked menu images, 4 archived.
 - There are zero rows remaining with category da_classificare.
-- 184 rows are now category audit_reconciled: the original exists and belongs to the completed master audit, but the recoverable filename-level register does not expose the precise verdict for that individual file. These are HOLD / no auto-publish, not "unreviewed".
-- The remainder is explicitly classified as menu_verified, menu_conditional, candidate, social, backstage, heritage, archive, sauces, desserts, etc.
+- audit_reconciled means the original belongs to the completed master audit but the recoverable filename-level register does not expose the precise verdict for that file. HOLD / no auto-publish.
 - Database category/status fields are workflow metadata; the workbook remains visual-audit truth where it has an explicit filename-level verdict.
 
 ### Verified menu links already in Supabase
@@ -119,21 +119,30 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - WA0154 -> Feta.
 - WA0157 -> Dolmas.
 
-### Important currently-unlinked media rows
-- WA0038 -> menu_verified / future; safe asset for Soutzoukakia plate, but there is no exact active current menu item link to force blindly.
-- WA0046 -> menu_conditional / future; vegetarian plate, requires current-composition verification.
-- WA0036, WA0096, WA0078, WA0081, WA0130, WA0135 and other conditional rows remain NO AUTO-PUBLISH until identity/current-state checks pass.
-
 ## Photo Admin / desktop loading
 - admin/photos.html authenticates through argo_admin_valid and loads media through argo_admin_media.
-- Google Drive previews are inherently less reliable across browsers than locally hosted/Supabase Storage images, so the admin uses fallbacks.
-- Preview chain: stored thumb_url -> lh3.googleusercontent.com/d/<ID>=w1200 -> drive.google.com/uc?export=view&id=<ID> -> visible unavailable-preview warning.
+- Google Drive preview chain: stored thumb_url -> lh3.googleusercontent.com/d/<ID>=w1200 -> drive.google.com/uc?export=view&id=<ID> -> visible unavailable-preview warning.
 - referrerpolicy=no-referrer is used on photo previews.
-- Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more. This reduces desktop browser/Drive request pressure.
-- Photo Admin has search and a Da verificare queue for conditional/candidate/unlinked verified assets.
-- Photo-admin audit filters include menu, hero, verified, conditional, social, backstage, heritage, archive, reconciled, mezedes, sauces, salads and desserts.
+- Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more.
+- Photo Admin has search, a 13-item Da verificare queue, a separate Verified senza match state, and links into the dedicated review flow.
+- Verification page: admin/photo-review.html.
+- Audit-history page: admin/photo-review-history.html, including per-asset filtering through ?media=<uuid>.
 - Progressive-loading commit: 09052eac4effc7476fb548d45590a4835b4e471c.
 - Verification-queue/search commit: 119f647a77f2f4ac14b749d550d107291e3ab527.
+- Review-page commit: 17ead362878390680f691f25e735652e2b4dc1d2.
+- Library/review linking commit: 6b2f56f5c020d1672079698c8b43602b1c74a025.
+- History-page commit: 46890d0a88626ce2a5a1a5ef2ef9e2b20289323e.
+- Per-asset history filtering commit: a6a1bb1c203c72a13da8b8ef4bfccb051f6544b0. GitHub Pages deployment completed successfully.
+
+## Photo review safety / audit trail
+- argo_admin_media_review is the only admin RPC intended for review decisions.
+- Menu publication requires category=menu_verified, status=menu and an exact active linked menu item.
+- Archived media cannot remain linked to a menu item.
+- Menu image sync is blocked unless all publication gates pass.
+- Review actions are written to argo_media_review_events with admin email, before/after category, status, menu link, sync flag, notes and timestamp.
+- argo_media_review_events has RLS enabled.
+- Review history is exposed only through the authenticated SECURITY DEFINER RPC argo_admin_media_review_history.
+- The audit table had 0 events immediately after setup, confirming that implementation/testing did not fabricate review decisions.
 
 ## Publishing / selection rules
 - Exact-map only verified A2 MENU assets to current menu items.
@@ -164,8 +173,8 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Workbook = visual truth; Supabase = current menu/product/price truth.
 
 ## Current open work
-- Recover or recreate filename-level verdicts for audit_reconciled rows only when needed for commercial use.
-- Verify conditional assets and promote/archive each appropriately.
+- Use the 13-item review queue to promote/archive assets only after real product verification.
+- Recover audit_reconciled assets only when needed for a concrete commercial gap.
 - Complete exact product-photo mapping where current product identity exists.
 - Execute the P1 photo shoot to improve menu coverage beyond the current 58% estimate.
 - Final end-to-end order-flow test.
