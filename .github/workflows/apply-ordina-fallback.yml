@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/apply-ordina-fallback.yml'
+      - 'scripts/patch_ordina_fallback.py'
 permissions:
   contents: write
 jobs:
@@ -18,4 +19,3 @@ jobs:
           git diff --cached --check
           git commit -m "Add ARGO Direct offline fallback" || exit 0
           git push
-# rerun after patch script syntax fix
