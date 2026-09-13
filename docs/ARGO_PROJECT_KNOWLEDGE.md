@@ -1,49 +1,37 @@
 # ARGO PROJECT KNOWLEDGE
 
-Canonical working knowledge for ARGO Greek Comfort Food. Keep this file updated when important decisions change.
+Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes stale chat summaries. Update it whenever a production fact or decision materially changes.
 
 ## Business
 - ARGO Greek Comfort Food, Ancona, Via Marconi 27.
 - Greek comfort/street food, takeaway + delivery + limited seating.
-- Current hours: 18:30–23:00 on Monday, Tuesday, Thursday, Friday, Saturday, Sunday. Wednesday closed. No lunch for now.
+- Current hours: 18:30–23:00 Monday, Tuesday, Thursday, Friday, Saturday, Sunday. Wednesday closed. No lunch for now.
 - Instagram: @argoancona.
-- Positioning: contemporary Mediterranean/Greek premium street-food, mobile-first, authentic real food photography. Avoid generic stock-Greece imagery.
-- User wants the site/menu to increase sales of mezedes, sauces and desserts.
+- Positioning: contemporary Mediterranean/Greek premium street-food, mobile-first, authentic real-food photography. Avoid generic stock-Greece imagery.
+- Commercial priority: increase attachment sales of mezedes, sauces and desserts.
 
-## Canonical menu and data flow
-- Supabase is the source of truth for the active menu.
+## Canonical data architecture
+- Supabase is the source of truth for the active menu, product names, prices and availability.
 - Canonical flow: Supabase -> Admin -> ARGO Direct -> homepage.
 - Do not use old menu.json as source of truth.
-- Do not hardcode old prices or product availability in chatbot/homepage.
-- ARGO Direct is the direct ordering channel. Pienissimo remains only for table bookings where applicable.
+- Do not hardcode old prices or availability in chatbot/homepage.
+- ARGO Direct is the direct ordering channel. Pienissimo is retained only for bookings where applicable.
+- Photo workbook is visual/audit truth only. Never copy workbook price snapshots into production.
 
-## Current key menu items/prices
-- Pita Gyros €9; Pita Pollo €9; Pita Agnello €11; Pita Bifteki €10; Pita Salsiccia €10; Pita chicky €10; Pita piggy €10; Pita Vuota €1.50.
-- Gyros di Suino al Piatto €15; Gyros di Pollo al Piatto €15; Bifteki alla griglia €15; Piatto Souvlaki Kotopoulo €15; Piatto Souvlaki Chirino €15; Piatto Meze Vegetariano €15; Bistecche di suino con patatine fritte €13; Moussaka €15.
-- Saganaki €7; Tirokeftedes pikantikoi €6.50; Feta €5.50; Feta in pastafillo con miele e sesamo €9; Dolmas €6.50; Halloumi alla griglia €8; Spiedino di suino con pita e salsa €7; Spiedino di pollo con pita e salsa €7; Feta al Cartoccio €9; Feta ed Olive €7.50; Pita greca €2; Tiri ki elies €9; Polpettine di Ceci €6.50; Polpettine di Melanzane €5; Keftedakia €6.50; Filettini di Pollo Panati €7; Polpettine di melanzane e formaggio €6.50; Patatine fritte €5.
-- Insalata greca choriatiki €12; Insalata verde con pomodorini €7.
-- Pita Feta €9; Pita vegan €9; Pita dolmas €9; Pita Vegetariana €9.
-- Tzatziki €5; Tzatziki grande €6; Tzatziki piccola €1.50.
-- Baklava €5.50; Kataifi €5.50; Sokolatopita €5; Yogurt con miele €6; Yogurt con Miele e Noci €7.
-- Use Dolmas or dolmadakia, not singular dolmadaki.
-- Keftedakia are pan-fried beef meatballs.
-- Do not resurrect old Spanakopita/Tiropitaki data without checking current Supabase state.
-
-## Repository and production
+## Repository / production
 - Repo: boul2g-code/argo-greek-ancona.
-- main is production source.
-- Admin pages include orders.html and photos.html; service worker is admin/sw.js.
-- Verify production changes against real remote state, not only local drafts.
-- Do not call work deployed until a real commit SHA or verified remote state exists.
+- main is the production branch.
+- Admin pages include admin/orders.html and admin/photos.html; service worker is admin/sw.js.
+- A task is deployed only after a real remote commit and, where relevant, a successful GitHub Pages deployment.
 
 ## Homepage decisions already established
-- Homepage now reads active menu from Supabase, not old menu.json.
+- Homepage reads the active menu from Supabase, not old menu.json.
 - Hero/social image uses real ARGO photo WA0114.
 - Hours are 18:30–23:00, closed Wednesday, no lunch opening.
 - Lunch booking options removed.
 - Old Pienissimo ordering references changed to ARGO Direct; Pienissimo only for bookings where relevant.
 - Old Spanakopita/Tiropita and outdated hours references cleaned.
-- Chatbot must not guess prices or availability and should defer to live menu.
+- Chatbot must not guess prices or availability and should defer to the live menu.
 - Instagram corrected to @argoancona; copyright 2026.
 
 ## Admin notification fix
@@ -51,100 +39,125 @@ Canonical working knowledge for ARGO Greek Comfort Food. Keep this file updated 
 - Sound and system notifications are independent.
 - unlockSound() must not request notification permission.
 - Denied notification permission must not show a blocking alert.
-- States: NOTIFICHE BLOCCATE / ATTIVA NOTIFICHE / NOTIFICHE ATTIVE.
+- Notification states: NOTIFICHE BLOCCATE / ATTIVA NOTIFICHE / NOTIFICHE ATTIVE.
 - requestPermission() only after user action and only while permission is default.
-- Orders/polling/actions/sound continue if notifications are denied.
+- Orders, polling, actions and sound continue if browser notifications are denied.
 - Polling remains every 5 seconds.
 - admin/sw.js was not changed for this fix.
 
-## Photo system
-- Admin photo library is backed by argo_media_library and shown in admin/photos.html.
-- Real ARGO photos only for production food imagery. No AI/stock for food library.
-- Commercial classes: HERO, MENU, SOCIAL, BACKSTAGE, ARCHIVE/REJECT.
-- Existing DB workflow also uses menu/future/archive plus category metadata.
+## Photo master
+Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 
-### Corpus reconciliation
-- 227/227 filenames reconciled.
-- 226/227 have a recoverable visual verdict.
-- IMG-20240216-WA0164.jpg remains unresolved and must be visually reopened before classification.
-- WA0163 is BACKSTAGE only if the depicted process is still current.
-- Corrected arithmetic: 128 + 49 + 35 + 13 + 2 = 227. The 006x–010x block is 49, not 39.
+### Master status
+- Originals reconciled: 227.
+- Originals classified: 227.
+- Pending verdicts: 0.
+- Confirmed ACTIVE: 35.
+- Conditional ACTIVE: 5.
+- Heritage winners: 2.
+- Estimated menu coverage: 58%.
+- Corrected arithmetic: 128 + 49 + 35 + 13 + 2 = 227.
 
-### Database gap from last audit
-- argo_media_library: 210 rows, all active.
-- 7 linked to menu items.
-- 7 status=menu.
-- 203 status=future.
-- 0 status=archive.
-- Therefore visual review is far ahead of DB classification.
-- With 227 corpus originals vs 210 media rows, 17 originals still need reconciliation into the library.
+### Current production-method rule
+- Meat is cooked in Rational, chilled safely, cut, then finished on grill/plate to order.
+- Do not present vertical-spit imagery as the current production method.
+- Generated concepts never prove the appearance of a real menu item.
+- A menu photo must match current product, portion, garnish and composition.
+- Keep original filenames; selected derivatives must retain source mapping.
 
-### Active menu image coverage from last audit
-- Pita 1/8.
-- Piatti 2/8.
-- Mezedes 2/18.
-- Insalate 1/2.
-- Vegetariano 0/4.
-- Salse 1/20.
-- Dolci 0/5.
+### Verified primary assets
+- IMG-20240216-WA0114.jpg -> A1 HERO, Greek sharing table. Homepage / Google cover / pinned social. Not a single-product menu thumbnail.
+- IMG-20240216-WA0034.jpg -> A2 MENU, Pita Gyros. Primary pita winner.
+- IMG-20240216-WA0014.jpg -> A2 MENU, Gyros plate. Primary plate winner.
+- IMG-20240216-WA0016.jpg -> A2 MENU, Chicken plate. Primary chicken winner.
+- IMG-20240216-WA0038.jpg -> A2 MENU, Soutzoukakia plate. Never relabel as Bifteki unless identical product is explicitly verified.
+- IMG-20240216-WA0046.jpg -> A2 MENU, Vegetarian plate. Publish only after current-composition verification.
+- IMG-20240216-WA0112.jpg -> A2 MENU, Tzatziki.
+- IMG-20240216-WA0137.jpg -> A2 MENU, Greek salad.
+- IMG-20240216-WA0154.jpg -> A2 MENU, Feta ladorigani.
+- IMG-20240216-WA0157.jpg -> A2 MENU, Dolmas. Current rule: verify 4 pieces + tzatziki.
 
-### Already linked verified mappings
+### Conditional / restricted assets
+- WA0036 -> fried/grilled cheese; identify exact product before Saganaki/Halloumi use.
+- WA0096 -> vegetarian polpettine; identify exact variety.
+- WA0078 / WA0081 -> desserts; identify exact dessert before naming.
+- WA0130 -> light dip; likely hummus/other, identify before publication.
+- WA0135 -> dark dip; likely melitzanosalata, confirm.
+- WA0164 -> Feta service plate, C / BACKSTAGE B. Process/story only, not homepage/menu/paid ads.
+- 20251222-WA0002 -> Moussaka production, BACKSTAGE.
+- 20240203-WA0005 -> meat/lamb skewers, A3 / MENU ALT. Social/authentic proof; do not promise an exact plate if composition differs.
+- 20211130-WA0005 -> Moussaka plate, CONDITIONAL A2. Use only if current plating still matches.
+- 20211130-WA0012 -> HERITAGE A, old Greek spread.
+- 20220610-WA0014 -> HERITAGE A3, old Pita Gyros series superseded by WA0034.
+- 20220628-WA0010 -> large mixed souvlaki plate, CONDITIONAL A2/A3; verify current product/portion.
+- 20240624-WA0001 -> stuffed vegetables, CONDITIONAL; use only if item remains active.
+- 20240808-WA0019 -> Nissos beer + Greek salad, CONDITIONAL; verify beer availability.
+- 20231113-WA0019 -> person serving ouzo, CONDITIONAL; public use requires consent.
+
+## Current Supabase media-library state
+- argo_media_library now contains all 227 originals. Corpus reconciliation is complete.
+- No original is currently missing from the media library.
+- 7 production menu mappings are linked and verified.
+- A large block of rows still carries category da_classificare in Supabase because the master workbook does not repeat filename-level verdicts for every classified original.
+- Do not infer or invent classifications for those remaining rows from filenames alone.
+- Database category/status fields are workflow metadata; the workbook remains visual-audit truth where it has an explicit filename-level verdict.
+
+### Verified menu links already in Supabase
+- WA0034 -> Pita Gyros.
 - WA0014 -> Gyros di Suino al Piatto.
 - WA0016 -> Gyros di Pollo al Piatto.
-- WA0034 -> Pita Gyros.
 - WA0112 -> Tzatziki.
 - WA0137 -> Insalata greca choriatiki.
 - WA0154 -> Feta.
 - WA0157 -> Dolmas.
 
-### Known visual verdicts
-- WA0012 -> MENU ACTIVE, strong meat-plate candidate.
-- WA0011 -> SOCIAL + MENU secondary.
-- WA0013 / WA0017 -> alternatives.
-- WA0016 -> SOCIAL/AD ACTIVE, also linked to chicken plate.
-- WA0018 -> SOCIAL.
-- WA0019 -> ARCHIVE/MEDIUM.
-- WA0010 -> SOCIAL, pita held with glove.
-- WA0015 -> BACKSTAGE.
-- WA0006 -> MENU ACTIVE for fried cheese / strong Saganaki candidate.
-- WA0007 -> MENU secondary for same fried-cheese product.
-- WA0009 -> SOCIAL/ARCHIVE alternative open-pita shot.
-- WA0163 -> BACKSTAGE if process is still current.
-- WA0164 -> unresolved, never guess.
-- WA0075 -> dolci / Revani.
-- WA0091 -> contorni / Patate.
-- WA0130 -> salse, identify before publication.
-- WA0152 -> salse / Tzatziki.
-- WA0153 -> mezedes atmosphere.
-- WA0158 -> Dolmadakia alternative.
+### Important currently-unlinked media rows
+- WA0038 -> menu_verified / future; safe asset for Soutzoukakia plate, but there is no exact active current menu item link to force blindly.
+- WA0046 -> menu_conditional / future; vegetarian plate, requires current-composition verification.
+- WA0036, WA0096, WA0078, WA0081, WA0130, WA0135 and other conditional rows remain NO AUTO-PUBLISH until identity/current-state checks pass.
 
-### Photo production priorities
-Priority 1: Pita Pollo, Pita Agnello, Pita Bifteki, Pita Salsiccia, Moussaka, Souvlaki chicken/pork plates, Saganaki, Halloumi, Tirokeftedes, Feta in pastafillo.
-Priority 2: Polpettine di Ceci, Polpettine di Melanzane, Keftedakia, Tirokafteri, Hummus, Melitzanosalata, Baklava, Kataifi, Sokolatopita.
-Low priority bespoke photography: Pita Vuota, Patatine, commodity drinks/cutlery.
+## Photo Admin / desktop loading
+- admin/photos.html authenticates through argo_admin_valid and loads media through argo_admin_media.
+- Google Drive previews are inherently less reliable across browsers than locally hosted/Supabase Storage images, so the admin uses fallbacks.
+- Preview chain: stored thumb_url -> lh3.googleusercontent.com/d/<ID>=w1200 -> drive.google.com/uc?export=view&id=<ID> -> visible unavailable-preview warning.
+- referrerpolicy=no-referrer is used on photo previews.
+- Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more. This reduces desktop browser/Drive request pressure.
+- Photo-admin audit filters include menu, hero, verified, conditional, social, backstage, heritage, archive, reconciled, mezedes, sauces, salads, desserts and unclassified.
+- Progressive-loading commit: 09052eac4effc7476fb548d45590a4835b4e471c.
+- GitHub Pages deployment for that commit completed successfully.
 
-### Photo workflow
-1. Import visual classification ledger into argo_media_library.
-2. Reconcile 17 missing originals.
-3. Keep WA0164 unresolved until visually inspected.
-4. Build a commercial active set rather than exposing all 227 images.
-5. Exact-map approved MENU images to menu items.
-6. Update menu image URLs only from approved assets.
-7. Verify Photo Admin, homepage cards and ARGO Direct after updates.
-8. Keep HERO/SOCIAL/BACKSTAGE separate from menu-card imagery.
+## Publishing / selection rules
+- Exact-map only verified A2 MENU assets to current menu items.
+- Conditional assets never auto-publish.
+- HERO, SOCIAL, BACKSTAGE and ARCHIVE remain separate from menu-card imagery.
+- Verify current item, portion, ingredients, garnish and rights/consent before public use.
+- Better no image than a misleading product image.
+
+## Current high-priority photo gaps
+- Pita Pollo.
+- Pita Agnello.
+- Pita Soutzoukaki.
+- Pita Salsiccia / Loukaniko.
+- Product-specific Pita Vegetariana.
+- Current Souvlaki plate.
+- Current Mix Grill.
+- Current Moussaka plate + cut-open detail.
+- Bugiurdi.
+- Sauce family identification / shoot.
+- Current Rational-to-grill process series.
 
 ## Stable constraints
 - Never reintroduce old menu.json as canonical.
-- Never guess unidentified photo contents from filename.
+- Never guess unidentified photo contents from filename alone.
 - Prefer authentic ARGO food photos over stock/AI.
-- Avoid unrelated changes to auth, service worker, order flow or database logic while doing photo mapping.
+- Avoid unrelated auth/service-worker/order-flow changes while working on photo mapping.
 - Verify against real GitHub main and real Supabase state.
+- Workbook = visual truth; Supabase = current menu/product/price truth.
 
 ## Current open work
-- Finish photo-ledger import into Supabase.
-- Reconcile 17 missing media rows.
-- Resolve WA0164 visually.
-- Complete exact product-photo mapping.
-- Improve active menu image coverage.
+- Recover or recreate filename-level verdicts for the remaining DB rows still marked da_classificare without inventing data.
+- Verify the conditional assets and promote/archive each appropriately.
+- Complete exact product-photo mapping where current product identity exists.
+- Execute the P1 photo shoot to improve menu coverage beyond the current 58% estimate.
 - Final end-to-end order-flow test.
 - SUNMI integration/testing after order flow is stable.
