@@ -6,8 +6,18 @@ Use this file when synchronising the completed 2026 photo audit into Supabase. T
 - argo_media_library contains all 227 reconciled originals.
 - No corpus originals are currently missing from Supabase.
 - The master workbook declares 227/227 classified and 0 pending verdicts.
-- Supabase still has many rows labelled da_classificare because the recovered filename-level register does not repeat every master verdict.
-- Do not turn those rows into invented classifications from filenames alone.
+- The old `da_classificare` state has been removed from rows whose filename-level verdict was not recoverable.
+- Those rows are now `audit_reconciled`: they are known to belong to the completed 227/227 master audit, but their specific filename-level verdict was not preserved in the recoverable register.
+- `audit_reconciled` means HOLD, not approved. Never auto-publish those rows until the original verdict is recovered or a fresh visual review is completed.
+
+## Verified database state after reconciliation
+- Total media rows: 227.
+- `audit_reconciled` / future: 184.
+- `menu_verified` / menu: 7.
+- `menu_verified` / future: 1 (Soutzoukakia plate, not force-linked to a non-identical current item).
+- `menu_conditional` / future: 6.
+- Remaining rows are explicit social, backstage, heritage, archive, dessert/sauce conditional, menu candidate/secondary and other recovered categories.
+- No `da_classificare` rows remain after the reconciliation pass.
 
 ## Price rule
 Never copy prices from the photo workbook into production. The workbook contains historical price snapshots. Always use current Supabase values.
@@ -55,7 +65,7 @@ These verified links must not be overwritten casually.
 ## Safe sync order
 1. Preserve every existing verified menu link.
 2. Apply filename-level master verdicts only where explicitly recovered/verified.
-3. Leave unrecovered filename-level verdicts untouched rather than guessing.
+3. Treat `audit_reconciled` as HOLD until an exact verdict is recovered or re-reviewed visually.
 4. Promote only A2 MENU assets that also pass current product/portion checks.
 5. Link approved assets to the exact active Supabase item.
 6. Set image_url from the approved media asset only after exact mapping.
@@ -69,7 +79,7 @@ These verified links must not be overwritten casually.
 - The GitHub Pages deployment for that commit completed successfully.
 
 ## Remaining work
-- Recover the unrepeated filename-level master verdicts for rows that still say da_classificare, or visually re-review those assets.
+- Recover exact filename-level verdicts for `audit_reconciled` rows where commercially useful, or visually re-review them.
 - Verify conditional product identity/portion/consent items.
 - Map exact verified A2 assets to current active menu items where a true one-to-one product match exists.
 - Execute new P1 shoot for missing core pitas, current Moussaka, current Souvlaki/Mix Grill, Bugiurdi, sauces and current production workflow.
