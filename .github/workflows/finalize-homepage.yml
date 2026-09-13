@@ -11,69 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch resilient homepage menu loader
+      - name: Fix homepage menu fallback
         shell: python
         run: |
           from pathlib import Path
-          import re
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          new_func=r'''async function loadMenu(){
-  const SUPA='https://zibubwrntdmdxyimqddo.supabase.co';
-  const KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL';
-  const cacheKey='argo_home_menu_cache_v2';
-  const grid=document.getElementById('menu-grid');
-  const filters=document.getElementById('menu-filters');
-
-  try{
-    const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');
-    if(Array.isArray(cached)&&cached.length){
-      menuData=cached;
-      renderFilters();
-      renderMenu();
-    }
-  }catch(_){ }
-
-  const fetchJson=async(url)=>{
-    const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),7000);
-    try{
-      const r=await fetch(url,{headers:{apikey:KEY,Accept:'application/json'},cache:'no-store',signal:controller.signal});
-      if(!r.ok)throw new Error('HTTP '+r.status);
-      return await r.json();
-    }finally{clearTimeout(timer)}
-  };
-
-  try{
-    const [cats,rows]=await Promise.all([
-      fetchJson(SUPA+'/rest/v1/argo_menu_categories?select=id,name&active=eq.true&order=sort_order.asc'),
-      fetchJson(SUPA+'/rest/v1/argo_menu_items?select=id,category_id,name,description,price,image_url,sort_order&active=eq.true&order=sort_order.asc')
-    ]);
-    const catMap=Object.fromEntries(cats.map(c=>[c.id,c.name]));
-    const fresh=rows.map((x,idx)=>({id:idx+1,sourceId:x.id,name:x.name,description:x.description||'',price:Number(x.price||0),image:x.image_url||'',category:catMap[x.category_id]||'Altro',available:true}));
-    if(!fresh.length)throw new Error('empty_menu');
-    menuData=fresh;
-    try{localStorage.setItem(cacheKey,JSON.stringify(menuData));}catch(_){ }
-    renderFilters();
-    renderMenu();
-  }catch(e){
-    console.error('ARGO homepage menu load failed',e);
-    if(menuData.length){renderFilters();renderMenu();return;}
-    if(filters)filters.innerHTML='';
-    if(grid)grid.innerHTML='<div class="menu-error"><strong>Menu ARGO</strong><span>Il menu live non si è caricato in questa pagina.</span><a href="ordina/">APRI IL MENU AGGIORNATO →</a></div>';
-  }
-}'''
-          pattern=r"async function loadMenu\(\)\{.*?\n\}\nconst CAT_TRANSLATIONS="
-          repl=new_func+'\nconst CAT_TRANSLATIONS='
-          out,n=re.subn(pattern,repl,s,count=1,flags=re.S)
-          if n!=1:
-              raise SystemExit(f'loadMenu block replacements: {n}')
-          p.write_text(out,encoding='utf-8')
-      - name: Commit homepage fix
+          old="document.getElementById('menu-grid').innerHTML='<p style=\"color:rgba(255,255,255,.45);padding:40px;text-align:center;grid-column:1/-1\">Menu temporaneamente non disponibile. Usa ARGO Direct per vedere il menu aggiornato.</p>';"
+          new="document.getElementById('menu-filters').innerHTML=''; document.getElementById('menu-grid').innerHTML='<div class=\"menu-error\"><strong>Menu ARGO</strong><span>Il menu live non si è caricato.</span><a href=\"ordina/\">APRI IL MENU AGGIORNATO →</a></div>';"
+          s=s.replace(old,new)
+          s=s.replace("const H={'apikey':KEY,'Authorization':'Bearer '+KEY};","const H={'apikey':KEY};")
+          p.write_text(s,encoding='utf-8')
+      - name: Commit homepage
         run: |
           git config user.name "argo-site-bot"
           git config user.email "actions@users.noreply.github.com"
           git add index.html
           git diff --cached --check
-          git commit -m "Make homepage menu loading resilient"
+          git commit -m "Fix homepage mobile menu fallback" || exit 0
           git push
