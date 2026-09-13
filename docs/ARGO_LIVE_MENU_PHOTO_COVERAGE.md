@@ -76,8 +76,8 @@ No conditional asset is to be auto-published.
 
 - Pita Bifteki.
 - Pita Salsiccia.
-- Pita chicky.
-- Pita piggy.
+- Pita chicky — distinct product from Pita Pollo; needs its own exact visual identity.
+- Pita piggy — distinct product from Pita Gyros; needs its own exact visual identity.
 - Bifteki alla griglia.
 - Bistecche di suino con patatine fritte.
 - Feta in pastafillo con miele e sesamo.
@@ -92,6 +92,15 @@ No conditional asset is to be auto-published.
 - Insalata verde con pomodorini.
 - Pita Feta / Pita vegan / Pita dolmas.
 - Yogurt con miele / Yogurt con Miele e Noci.
+
+## Distinct-pita protection
+
+The following pairs are confirmed operationally as different products and must stay separate in menu cleanup, photography, admin mapping and future merchandising:
+
+- Pita Pollo != Pita chicky.
+- Pita Gyros != Pita piggy.
+
+Do not reuse the Pita Pollo image for Pita chicky or the Pita Gyros image for Pita piggy merely because the base protein family is similar. Each product requires exact-product verification. Current descriptions are not sufficient to document the real operational difference, so no invented wording should be pushed to production until that difference is explicitly supplied.
 
 ## Low-priority image gaps
 
@@ -112,6 +121,8 @@ These can reasonably share family imagery or remain without dedicated photograph
 - `Piatto Meze Vegetariano` corrected to `vegetarian=true`.
 - `Dolmas`, `Feta in pastafillo con miele e sesamo`, and `Tirokeftedes pikantikoi` corrected to `vegetarian=true` based on their current live descriptions.
 - `Polpettine di melanzane e formaggio` description corrected so it is no longer identical to the plain melanzane item.
+- Active exact-name duplicates are now blocked by the database guard `argo_menu_items_active_category_name_uq`.
+- Pita Pollo/Pita chicky and Pita Gyros/Pita piggy are confirmed distinct and are explicitly excluded from duplicate cleanup.
 
 ## Safety rules
 
