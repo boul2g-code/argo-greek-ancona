@@ -1,4 +1,5 @@
 # ARGO fallback snapshot: scheduled and manually triggerable
+# Refresh trigger 2026-09-13: persist approved public photo proxy URLs into fallback snapshot.
 name: ARGO menu snapshot
 on:
   workflow_dispatch:
