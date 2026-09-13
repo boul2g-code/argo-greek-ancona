@@ -1,8 +1,5 @@
 name: Fix ARGO Mobile Menu Loading
-on:
-  push:
-    paths:
-      - '.github/workflows/fix-mobile-menu-loading.yml'
+on: push
 permissions:
   contents: write
 jobs:
@@ -10,34 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch menu loading and compact error state
+      - name: Patch homepage menu resilience
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text(encoding='utf-8')
-          old="""async function loadMenu(){
-  const SUPA='https://zibubwrntdmdxyimqddo.supabase.co';
-  const KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL';
-  const H={'apikey':KEY,'Authorization':'Bearer '+KEY};
-  try{
-    const [cr,mr]=await Promise.all([
-      fetch(SUPA+'/rest/v1/argo_menu_categories?select=id,name&active=eq.true&order=sort_order.asc',{headers:H}),
-      fetch(SUPA+'/rest/v1/argo_menu_items?select=id,category_id,name,description,price,image_url,sort_order&active=eq.true&order=sort_order.asc',{headers:H})
-    ]);
-    if(!cr.ok||!mr.ok)throw new Error('menu_http');
-    const cats=await cr.json(),rows=await mr.json(),catMap=Object.fromEntries(cats.map(c=>[c.id,c.name]));
-    menuData=rows.map((x,idx)=>({id:idx+1,sourceId:x.id,name:x.name,description:x.description||'',price:Number(x.price||0),image:x.image_url||'',category:catMap[x.category_id]||'Altro',available:true}));
-    renderFilters();renderMenu();
-  }catch(e){
-    console.error(e);
-    document.getElementById('menu-grid').innerHTML='<p style=\"color:rgba(255,255,255,.45);padding:40px;text-align:center;grid-column:1/-1\">Menu temporaneamente non disponibile. Usa ARGO Direct per vedere il menu aggiornato.</p>';
-  }
-}"""
-          new="""async function loadMenu(){
-  const SUPA='https://zibubwrntdmdxyimqddo.supabase.co';
-  const KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL';
-  const grid=document.getElementById('menu-grid');
+          marker="  const H={'apikey':KEY,'Authorization':'Bearer '+KEY};\n"
+          cache="""  const H={'apikey':KEY,'Authorization':'Bearer '+KEY};
   const cacheKey='argo_home_menu_cache_v1';
   try{
     const cached=localStorage.getItem(cacheKey);
@@ -46,38 +23,28 @@ jobs:
       if(Array.isArray(parsed)&&parsed.length){menuData=parsed;renderFilters();renderMenu();}
     }
   }catch(_){ }
-  const request=async(headers)=>{
-    const [cr,mr]=await Promise.all([
-      fetch(SUPA+'/rest/v1/argo_menu_categories?select=id,name&active=eq.true&order=sort_order.asc',{headers,cache:'no-store'}),
-      fetch(SUPA+'/rest/v1/argo_menu_items?select=id,category_id,name,description,price,image_url,sort_order&active=eq.true&order=sort_order.asc',{headers,cache:'no-store'})
-    ]);
-    if(!cr.ok||!mr.ok)throw new Error('menu_http_'+cr.status+'_'+mr.status);
-    return [await cr.json(),await mr.json()];
-  };
-  try{
-    let cats,rows;
-    try{[cats,rows]=await request({'apikey':KEY});}
-    catch(first){[cats,rows]=await request({'apikey':KEY,'Authorization':'Bearer '+KEY});}
-    const catMap=Object.fromEntries(cats.map(c=>[c.id,c.name]));
-    menuData=rows.map((x,idx)=>({id:idx+1,sourceId:x.id,name:x.name,description:x.description||'',price:Number(x.price||0),image:x.image_url||'',category:catMap[x.category_id]||'Altro',available:true}));
-    try{localStorage.setItem(cacheKey,JSON.stringify(menuData));}catch(_){ }
+"""
+          if marker not in s: raise SystemExit('menu header marker missing')
+          s=s.replace(marker,cache,1)
+          marker2="    renderFilters();renderMenu();\n  }catch(e){"
+          repl2="""    try{localStorage.setItem(cacheKey,JSON.stringify(menuData));}catch(_){ }
     renderFilters();renderMenu();
-  }catch(e){
-    console.error('ARGO menu load failed',e);
+  }catch(e){"""
+          if marker2 not in s: raise SystemExit('menu success marker missing')
+          s=s.replace(marker2,repl2,1)
+          old="    console.error(e);\n    document.getElementById('menu-grid').innerHTML='<p style=\"color:rgba(255,255,255,.45);padding:40px;text-align:center;grid-column:1/-1\">Menu temporaneamente non disponibile. Usa ARGO Direct per vedere il menu aggiornato.</p>';"
+          new="""    console.error(e);
     if(menuData.length){renderFilters();renderMenu();return;}
     document.getElementById('menu-filters').innerHTML='';
-    grid.innerHTML='<div class=\"menu-error\"><strong>Menu online</strong>La lista non si è caricata in questa pagina. Apri ARGO Direct: trovi subito il menu aggiornato, prezzi e ritiro dal locale.<a href=\"ordina/\">VEDI IL MENU E ORDINA →</a></div>';
-  }
-}"""
-          if old not in s:
-              raise SystemExit('Target loadMenu block not found')
+    document.getElementById('menu-grid').innerHTML='<div class=\"menu-error\"><strong>Menu online</strong>Il menu non si è caricato qui. Apri ARGO Direct per menu aggiornato, prezzi e ritiro dal locale.<a href=\"ordina/\">VEDI IL MENU E ORDINA →</a></div>';"""
+          if old not in s: raise SystemExit('menu error marker missing')
           s=s.replace(old,new,1)
           p.write_text(s,encoding='utf-8')
-      - name: Commit fix
+      - name: Commit
         run: |
-          git config user.name "argo-site-bot"
-          git config user.email "actions@users.noreply.github.com"
+          git config user.name argo-site-bot
+          git config user.email actions@users.noreply.github.com
           git add index.html
           git diff --cached --check
-          git commit -m "Fix mobile menu loading and fallback"
+          git commit -m "Improve mobile menu fallback and cache"
           git push
