@@ -1,68 +1,44 @@
 # ARGO PROJECT KNOWLEDGE
 
-Canonical working knowledge for ARGO Greek Comfort Food. This file supersedes stale chat summaries. Update it whenever a production fact or decision materially changes.
+Canonical working knowledge for ARGO Greek Comfort Food. This file is the primary production reference and supersedes stale chat notes where they conflict.
 
 ## Business
-- ARGO Greek Comfort Food, Ancona, Via Marconi 27.
-- Greek comfort/street food, takeaway + delivery + limited seating.
+- ARGO Greek Comfort Food, Via Marconi 27, Ancona.
 - Current hours: 18:30–23:00 Monday, Tuesday, Thursday, Friday, Saturday, Sunday. Wednesday closed. No lunch for now.
 - Instagram: @argoancona.
-- Positioning: contemporary Mediterranean/Greek premium street-food, mobile-first, authentic real-food photography. Avoid generic stock-Greece imagery.
+- Positioning: contemporary Mediterranean/Greek premium street food, mobile-first, authentic real-food photography.
 - Commercial priority: increase attachment sales of mezedes, sauces and desserts.
 
+## Ordering-channel policy
+- ARGO Direct / website accepts **pickup only** (`asporto` / ritiro dal locale).
+- ARGO Direct does **not** operate delivery, riders, delivery addresses or delivery fees.
+- Home delivery is handled externally by **Deliveroo** and **Just Eat**.
+- Homepage and menu ordering CTAs must first lead customers to a channel-choice section: delivery via Deliveroo/Just Eat or pickup via ARGO Direct.
+- Admin operational order queues and SUNMI are only for ARGO Direct pickup orders.
+- Supabase enforces pickup-only orders at database level.
+- Canonical policy doc: `docs/ARGO_ORDER_CHANNEL_POLICY.md`.
+
 ## Canonical data architecture
-- Supabase is the source of truth for the active menu, product names, prices and availability.
+- Supabase is the source of truth for active menu, prices, availability, offers, orders, admin state and media workflow.
 - Canonical flow: Supabase -> Admin -> ARGO Direct -> homepage.
-- Do not use old menu.json as source of truth.
-- Do not hardcode old prices or availability in chatbot/homepage.
-- ARGO Direct is the direct ordering channel. Pienissimo is retained only for bookings where applicable.
-- Photo workbook is visual/audit truth only. Never copy workbook price snapshots into production.
+- Do not use old `menu.json` as source of truth.
+- `ordina/menu-snapshot.json` is fallback only and is refreshed from Supabase.
+- Photo workbook is visual/audit truth only. Never use workbook prices as production prices.
 
 ## Confirmed product distinctions
-- `Pita Pollo` and `Pita chicky` are different products. Never merge, deactivate or treat one as an alias of the other.
-- `Pita Gyros` and `Pita piggy` are different products. Never merge, deactivate or treat one as an alias of the other.
-- Photo mapping must also preserve those distinctions. A verified image for one of these products must never be reused as proof for the other unless the exact pictured product is independently verified.
-- Their current descriptions may still need refinement for customer clarity, but wording must not be invented without the real operational/product difference being supplied.
+- `Pita Pollo` and `Pita chicky` are distinct products. Never merge or treat as aliases.
+- `Pita Gyros` and `Pita piggy` are distinct products. Never merge or treat as aliases.
+- Photo mapping must preserve those distinctions.
 
-## Repository / production
-- Repo: boul2g-code/argo-greek-ancona.
-- main is the production branch.
-- Admin photo pages: admin/photos.html, admin/photo-review.html, admin/photo-review-history.html, admin/photo-shoot-plan.html.
-- Service worker: admin/sw.js.
-- A task is deployed only after a real remote commit and, where relevant, a successful GitHub Pages deployment.
-
-## GitHub Actions hygiene
-- Obsolete one-shot patch workflows have been removed from main to stop stale patch jobs/failures from firing during normal pushes.
-- Removed: apply-ordina-fallback.yml, finalize-homepage.yml, fix-order-now-links.yml, fix-ordina-menu.yml, optimize-argo-direct.yml, patch-ordina-fallback.yml.
-- Keep: argo-menu-snapshot.yml, because it refreshes the static ARGO Direct fallback snapshot on schedule.
-- Keep: build-sunmi-apk.yml, because it is the legitimate SUNMI Android build workflow.
-- Latest cleanup commit removing the final obsolete patch workflow: f0b70b9e1730f9b54c2f8c3fb5022a0aece1dc2d.
-
-## Homepage decisions already established
-- Homepage reads the active menu from Supabase, not old menu.json.
-- Hero/social image uses real ARGO photo WA0114.
-- Hours are 18:30–23:00, closed Wednesday, no lunch opening.
-- Lunch booking options removed.
-- Old Pienissimo ordering references changed to ARGO Direct; Pienissimo only for bookings where relevant.
-- Old Spanakopita/Tiropita and outdated hours references cleaned.
-- Chatbot must not guess prices or availability and should defer to the live menu.
-- Instagram corrected to @argoancona; copyright 2026.
-
-## Admin notification fix
-- Commit: 7a01a869d0b1eb75544be5379a4b48a807bb8335.
-- Sound and system notifications are independent.
-- unlockSound() must not request notification permission.
-- Denied notification permission must not show a blocking alert.
-- Notification states: NOTIFICHE BLOCCATE / ATTIVA NOTIFICHE / NOTIFICHE ATTIVE.
-- requestPermission() only after user action and only while permission is default.
-- Orders, polling, actions and sound continue if browser notifications are denied.
-- Polling remains every 5 seconds.
-- admin/sw.js was not changed for this fix.
+## Current menu/photo rule
+- Product images shown to customers must come from verified ARGO media or approved public/cache assets.
+- Better no image than a misleading image.
+- Manual free-form `image_url` editing from the menu editor is blocked; menu-photo assignment goes through the verified photo workflow.
+- Seven exact verified menu mappings currently exist: Pita Gyros, Gyros di Suino al Piatto, Gyros di Pollo al Piatto, Tzatziki, Insalata greca choriatiki, Feta, Dolmas.
+- Remaining candidate/conditional photos must not be auto-published.
 
 ## Photo master
-Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
-
-### Master status
+Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Originals reconciled: 227.
 - Originals classified: 227.
 - Pending verdicts: 0.
@@ -70,137 +46,132 @@ Source of truth for visual audit: ARGO_Photo_Audit_Master_2026.xlsx.
 - Conditional ACTIVE: 5.
 - Heritage winners: 2.
 - Estimated menu coverage: 58%.
-- Corrected arithmetic: 128 + 49 + 35 + 13 + 2 = 227.
-- Latest completed workbook expansion has 56 operational sheets, up from 52.
-- The 56-sheet build passed formula/type checks with 0 formula errors, visual review of the five affected sheets, and XLSX integrity validation with no errors.
-- The permanent File Library copy may still point to the previous version until the newer build is explicitly uploaded/replaced; do not assume the stored library file already contains the four new sheets.
+- Newest operational workbook build has 56 sheets.
+- Permanent File Library copy may still be older until the actual newer XLSX is explicitly uploaded/replaced.
 
-### New operational sheets in the 56-sheet build
-- `7-Day Sprint`: 19 concrete actions from locking current menu truth through the first approved exports.
-- `Shoot Prep`: 23 readiness checks covering products, portions, equipment, lighting, storage, rights and protection of live service.
-- `Contact Sheet Log`: prefilled shot register for pita family, mezedes, dolmas, sauces, desserts, current production process, exterior and team.
-- `Post-Shoot Handoff`: 18 steps from ingest and dual backup through approval, derivatives, Asset Register and launch queue.
-- `Workbook Guide` was updated so these sheets are part of the overall operating system rather than standalone add-ons.
+### Operational workbook flow
+`7-Day Sprint -> Shoot Prep -> Contact Sheet Log -> Post-Shoot Handoff -> Asset Register / Launch Queue`
 
-### Current production-method rule
+## Current production-method rule
 - Meat is cooked in Rational, chilled safely, cut, then finished on grill/plate to order.
-- Do not present vertical-spit imagery as the current production method.
-- Generated concepts never prove the appearance of a real menu item.
-- A menu photo must match current product, portion, garnish and composition.
-- Keep original filenames; selected derivatives must retain source mapping.
+- Never present vertical-spit imagery as the current production method.
+- Generated concepts do not prove the real appearance of menu items.
 
-### Verified primary assets
-- IMG-20240216-WA0114.jpg -> A1 HERO, Greek sharing table. Homepage / Google cover / pinned social. Not a single-product menu thumbnail.
-- IMG-20240216-WA0034.jpg -> A2 MENU, Pita Gyros. Primary pita winner.
-- IMG-20240216-WA0014.jpg -> A2 MENU, Gyros plate. Primary plate winner.
-- IMG-20240216-WA0016.jpg -> A2 MENU, Chicken plate. Primary chicken winner.
-- IMG-20240216-WA0038.jpg -> A2 MENU, Soutzoukakia plate. Current DB state: menu_verified_unlinked because no exact active menu item exists. Never relabel as Bifteki unless identical product is explicitly verified.
-- IMG-20240216-WA0046.jpg -> A2 MENU, Vegetarian plate. Publish only after current-composition verification.
-- IMG-20240216-WA0112.jpg -> A2 MENU, Tzatziki.
-- IMG-20240216-WA0137.jpg -> A2 MENU, Greek salad.
-- IMG-20240216-WA0154.jpg -> A2 MENU, Feta ladorigani.
-- IMG-20240216-WA0157.jpg -> A2 MENU, Dolmas. Current rule: verify 4 pieces + tzatziki.
+## Media infrastructure
+- `argo_media_library` contains all 227 reconciled originals.
+- Private bucket `argo-admin-media` exists and is non-public.
+- Admin photo import supports filename-based import from the local source folder.
+- Private preview functions protect Admin-only media.
+- Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
+- Import of the full local 227-photo folder remains a user-side physical/local-file task.
 
-### Conditional / restricted assets
-- WA0036 -> fried/grilled cheese; identify exact product before Saganaki/Halloumi use.
-- WA0096 -> vegetarian polpettine; identify exact variety.
-- WA0078 / WA0081 -> desserts; identify exact dessert before naming.
-- WA0130 -> light dip; likely hummus/other, identify before publication.
-- WA0135 -> dark dip; likely melitzanosalata, confirm.
-- WA0164 -> Feta service plate, C / BACKSTAGE B. Process/story only, not homepage/menu/paid ads.
-- 20251222-WA0002 -> Moussaka production, BACKSTAGE.
-- 20240203-WA0005 -> meat/lamb skewers, A3 / MENU ALT. Social/authentic proof; do not promise an exact plate if composition differs.
-- 20211130-WA0005 -> Moussaka plate, CONDITIONAL A2. Use only if current plating still matches.
-- 20211130-WA0012 -> HERITAGE A, old Greek spread.
-- 20220610-WA0014 -> HERITAGE A3, old Pita Gyros series superseded by WA0034.
-- 20220628-WA0010 -> large mixed souvlaki plate, CONDITIONAL A2/A3; verify current product/portion.
-- 20240624-WA0001 -> ARCHIVE. Stuffed vegetables have no matching active menu item as of 2026-09-13.
-- 20240808-WA0019 -> SOCIAL ARCHIVE. Nissos beer is not in the current active beer menu as of 2026-09-13.
-- 20231113-WA0019 -> person serving ouzo, CONDITIONAL; public use requires consent.
+## Photo review safety
+- Menu publication requires `category=menu_verified`, `status=menu`, and an exact active linked menu item.
+- Archive media cannot stay linked to menu items.
+- `menu_verified_unlinked` remains future/unlinked until exact product identity exists.
+- Review decisions are written to `argo_media_review_events`.
 
-## Current Supabase media-library state
-- argo_media_library contains all 227 originals. Corpus reconciliation is complete.
-- No original is missing from the media library.
-- Current counts: 227 total, 184 audit_reconciled, 13 verification-queue assets, 1 menu_verified_unlinked, 7 linked menu images, 4 archived.
-- There are zero rows remaining with category da_classificare.
-- audit_reconciled means the original belongs to the completed master audit but the recoverable filename-level register does not expose the precise verdict for that file. HOLD / no auto-publish.
-- Database category/status fields are workflow metadata; the workbook remains visual-audit truth where it has an explicit filename-level verdict.
+## Homepage / customer flow
+- Homepage reads active menu and current offers from Supabase.
+- `ORDINA ORA` and product-order CTAs lead to the channel-choice section rather than forcing Deliveroo or ARGO Direct.
+- Delivery choices: Deliveroo / Just Eat.
+- Pickup choice: ARGO Direct.
+- Homepage and ARGO Direct expose live daily pickup promotions.
+- Welcome and daily promotions are validated server-side.
+- Current hero/food imagery should use real ARGO assets, not generic Greece stock art.
+- Hours: 18:30–23:00, Wednesday closed, no lunch.
+- Chatbot must not guess prices or availability.
 
-### Verified menu links already in Supabase
-- WA0034 -> Pita Gyros.
-- WA0014 -> Gyros di Suino al Piatto.
-- WA0016 -> Gyros di Pollo al Piatto.
-- WA0112 -> Tzatziki.
-- WA0137 -> Insalata greca choriatiki.
-- WA0154 -> Feta.
-- WA0157 -> Dolmas.
+## Promotions
+- Promo creation/editing has DB and UI safeguards for discount values, thresholds, dates, use limits and duplicate codes.
+- Daily pickup promotions are exposed publicly through dedicated RPCs.
+- Welcome offer is exposed separately from daily offers.
+- Promo validation remains server-side and redemption is audited.
 
-## Photo Admin / desktop loading
-- admin/photos.html authenticates through argo_admin_valid and loads media through argo_admin_media.
-- Google Drive preview chain: stored thumb_url -> lh3.googleusercontent.com/d/<ID>=w1200 -> drive.google.com/uc?export=view&id=<ID> -> visible unavailable-preview warning.
-- referrerpolicy=no-referrer is used on photo previews.
-- Initial rendering is progressive: 36 photos at a time, then Carica altre foto loads 36 more.
-- Photo Admin has search, a 13-item Da verificare queue, a separate Verified senza match state, and links into the dedicated review flow.
-- Verification page: admin/photo-review.html.
-- Shoot-plan page: admin/photo-shoot-plan.html.
-- Audit-history page: admin/photo-review-history.html, including per-asset filtering through ?media=<uuid>.
-- Progressive-loading commit: 09052eac4effc7476fb548d45590a4835b4e471c.
-- Verification-queue/search commit: 119f647a77f2f4ac14b749d550d107291e3ab527.
-- Review-page commit: 17ead362878390680f691f25e735652e2b4dc1d2.
-- Library/review linking commit: 6b2f56f5c020d1672079698c8b43602b1c74a025.
-- History-page commit: 46890d0a88626ce2a5a1a5ef2ef9e2b20289323e.
-- Per-asset history filtering commit: a6a1bb1c203c72a13da8b8ef4bfccb051f6544b0. GitHub Pages deployment completed successfully.
-- Shoot-plan initial commit: 141916814d12fda0af77343628a40cbcca6b5e7f.
-- Shoot-plan category-resolution fix: 2fea53e0536431fa14c30b31cd9df0b18ed97b0b.
+## Orders / kitchen workflow
+- ARGO Direct orders are pickup-only.
+- Backend order state machine:
+  - `new -> accepted` via `accept_print`
+  - `accepted -> preparing`
+  - `accepted/preparing -> ready`
+  - `ready -> completed`
+  - cancellation blocked after terminal states
+  - reprint blocked for cancelled orders
+- Invalid transitions raise an error.
+- `argo_order_events` records action history with admin identity, old/new status, print count and timestamps.
+- `admin/order-history.html` exposes the audit trail.
+- `admin/orders.html` sorts operationally by state, shows elapsed waiting time and highlights long-waiting orders.
 
-## Photo review safety / audit trail
-- argo_admin_media_review is the only admin RPC intended for review decisions.
-- Menu publication requires category=menu_verified, status=menu and an exact active linked menu item.
-- Archived media cannot remain linked to a menu item.
-- Menu image sync is blocked unless all publication gates pass.
-- Review actions are written to argo_media_review_events with admin email, before/after category, status, menu link, sync flag, notes and timestamp.
-- argo_media_review_events has RLS enabled.
-- Review history is exposed only through the authenticated SECURITY DEFINER RPC argo_admin_media_review_history.
-- The audit table had 0 events immediately after setup, confirming that implementation/testing did not fabricate review decisions.
+## SUNMI
+- SUNMI web terminal actions match the hardened backend state machine.
+- Native Android app includes printer bridge, keep-screen-on behavior and printer readiness exposure.
+- Latest known successful Android build is the current SUNMI legacy APK workflow output.
+- Software build is complete; **physical install and real printer validation are still pending**.
 
-## Publishing / selection rules
-- Exact-map only verified A2 MENU assets to current menu items.
-- Conditional assets never auto-publish.
-- HERO, SOCIAL, BACKSTAGE and ARCHIVE remain separate from menu-card imagery.
-- Verify current item, portion, ingredients, garnish and rights/consent before public use.
-- Better no image than a misleading product image.
+## Notifications / background push
+- Browser-page sound and background Web Push are separate systems.
+- Orders polling continues every 5 seconds while the page is open.
+- Background notifications are server-triggered from new order inserts and do not require the Orders page to be open.
+- Order push Edge Function requires an internal secret; unauthenticated direct calls are rejected.
+- Push dispatch has duplicate protection and retry handling for transient provider failures.
+- Dead subscriptions are disabled when push providers return permanent-gone responses.
+- `admin/push-test.html` provides a real background push diagnostic test.
+- Last verified server-side real dispatch before hardening delivered to 5 active subscriptions with 0 provider failures.
+- Final visual/audio confirmation still depends on each physical device and OS notification settings.
 
-## Current high-priority photo gaps
-- Pita Pollo.
-- Pita Agnello.
-- Pita Bifteki / Soutzoukaki identity gap.
-- Pita Salsiccia / Loukaniko.
-- Product-specific Pita Vegetariana.
-- Current Souvlaki plate.
-- Current Mix Grill.
-- Current Moussaka plate + cut-open detail.
-- Bugiurdi.
-- Sauce family identification / shoot.
-- Current Rational-to-grill process series.
-- Pita chicky requires its own exact photo coverage separate from Pita Pollo.
-- Pita piggy requires its own exact photo coverage separate from Pita Gyros.
+## Bookings
+- Booking transitions are protected.
+- Booking status changes write to `argo_booking_events`.
+- `admin/booking-history.html` exposes booking audit history.
+- Admin booking UI prioritizes real booking date/time and future reservations.
+
+## Marketing
+- Marketing Hub exists with draft/approval/schedule/ready/published workflow.
+- Linked product must remain active.
+- Menu-verified media must match the exact selected product.
+- Conditional/archive/reconciled media cannot auto-publish.
+- Paid ads require an explicit positive budget.
+- Meta and Google Business providers remain disconnected until real external authorization is supplied.
+
+## Stats / Settings
+- `admin/stats.html` shows pickup-focused ARGO Direct metrics; Deliveroo and Just Eat are intentionally excluded.
+- `admin/settings.html` is the operational control center for Orders, SUNMI, push tests, bookings, photos, marketing, promos and stats.
+- Admin logout clears the local admin session token.
+
+## Security / database hardening
+- Admin tables use RLS and token-authenticated SECURITY DEFINER RPCs where required.
+- `argo_registro_emergenza` legacy anonymous access was removed; it is currently locked from anonymous/authenticated direct CRUD.
+- `argo_notify_order_push()` is not executable by anon/authenticated roles.
+- Critical SECURITY DEFINER functions have explicit `search_path` settings.
+- Missing foreign-key support indexes were added for admin sessions, booking events, media links, modifier relations, order items and offer links.
+- Exact active menu duplicates are blocked by a partial unique index on active category/name.
+
+## GitHub / deployment
+- Repo: `boul2g-code/argo-greek-ancona`.
+- `main` is production.
+- GitHub Pages auto-deploys production site/admin changes.
+- A task is considered deployed only after a real commit and successful Pages deployment where relevant.
+- Keep `.github/workflows/argo-menu-snapshot.yml` and `.github/workflows/build-sunmi-apk.yml`.
+- Obsolete one-shot patch workflows were removed.
 
 ## Stable constraints
-- Never reintroduce old menu.json as canonical.
-- Never guess unidentified photo contents from filename alone.
-- Prefer authentic ARGO food photos over stock/AI.
-- Avoid unrelated auth/service-worker/order-flow changes while working on photo mapping.
-- Verify against real GitHub main and real Supabase state.
-- Workbook = visual truth; Supabase = current menu/product/price truth.
-- Do not treat Pita Pollo/Pita chicky or Pita Gyros/Pita piggy as duplicates.
-- Treat the 56-sheet workbook build as the newest operational master once its actual XLSX binary is available; until then, do not overwrite or silently relabel the older File Library object.
+- Never reintroduce site delivery logic into ARGO Direct without an explicit business decision.
+- Never treat Deliveroo/Just Eat delivery as ARGO Direct orders.
+- Never merge confirmed-distinct pita products.
+- Never guess unidentified photo contents.
+- Never auto-publish conditional images.
+- Never claim physical SUNMI, social-account authorization, photo verification or local-folder import complete without real evidence.
 
 ## Current open work
-- Replace/upload the permanent File Library workbook with the validated 56-sheet build when the actual file becomes available in a writable session.
-- Use `7-Day Sprint` as the execution sequence, `Shoot Prep` before service-day photography, `Contact Sheet Log` during capture, and `Post-Shoot Handoff` immediately after shooting.
-- Use the 13-item review queue to promote/archive assets only after real product verification.
-- Recover audit_reconciled assets only when needed for a concrete commercial gap.
-- Complete exact product-photo mapping where current product identity exists.
-- Execute the P1 photo shoot to improve menu coverage beyond the current 58% estimate.
-- Final end-to-end order-flow test.
-- SUNMI integration/testing after order flow is stable.
+Only tasks requiring real external, local or physical input remain as material blockers:
+1. Import the 227 local originals into private ARGO storage from the actual local folder.
+2. Verify the 13 conditional/candidate photos against current products and portions.
+3. Execute the physical P1 photo shoot and post-shoot handoff.
+4. Install the current SUNMI APK on the real device and perform printer validation with a real/test operational order path.
+5. Connect Meta/Instagram/Facebook and optional Google Business using real provider authorization when desired.
+6. Replace the permanent File Library workbook with the validated 56-sheet XLSX when the actual file is available.
+
+## Checkpoints
+- `docs/ARGO_COMPLETION_CHECKPOINT_2026-09-13.md`
+- `docs/ARGO_IMPROVEMENTS_2026-09-13.md`
+- `docs/ARGO_ORDER_CHANNEL_POLICY.md`
