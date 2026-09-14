@@ -100,6 +100,15 @@ Prioritize exact current-product coverage for:
 9. Bugiurdi
 10. desserts and sauces after exact confirmation
 
+### Centered derivative specification — 2026-09-14
+- Target format for customer cards: 1200x800 (3:2), baseline/non-progressive JPEG, sRGB, metadata stripped, quality 88.
+- No generative editing and no alteration of the food. Only crop, resize and re-encode the real ARGO originals.
+- Exact sources/targets: `WA0157 -> dolmas.jpg`; `WA0154 -> feta.jpg`; `WA0014 -> gyros-suino.jpg`; `WA0137 -> insalata-greca.jpg`; `WA0034 -> pita-gyros.jpg`; `WA0006 -> saganaki.jpg`.
+- Landscape sources use centered 3:2 crop. Gyros Suino uses source crop `900x600+0+225`; Insalata greca uses source crop `938x625+0+455`.
+- All six locally generated previews decoded successfully at 1200x800 and passed contact-sheet review.
+- The local execution environment became unavailable before the six derivatives were committed. Production continues to hide every menu photo; regenerate/restore these exact derivatives before re-enabling rendering.
+- Re-enable rule: both homepage and ARGO Direct must use a 3:2 media frame, image width/height 100%, `object-fit: cover`, centered object position, and tested error fallback.
+
 ## Photo master
 Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Originals reconciled: 227.
