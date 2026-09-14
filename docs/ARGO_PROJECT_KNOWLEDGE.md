@@ -38,7 +38,7 @@ When continuing ARGO work in a new ChatGPT conversation, read this file first be
 - Better no image than a misleading image.
 - Manual free-form `image_url` editing from the menu editor is blocked; menu-photo assignment goes through the verified photo workflow.
 - Nine exact verified menu mappings remain in the media/database workflow: Pita Gyros, Gyros di Suino al Piatto, Gyros di Pollo al Piatto, Tzatziki, Insalata greca choriatiki, Feta, Dolmas, Saganaki and Patatine fritte.
-- Customer-facing menu-photo rendering is temporarily disabled on both homepage and ARGO Direct until centered derivatives pass mobile QA.
+- Customer-facing rendering is enabled only for the six approved centered derivatives on homepage and ARGO Direct.
 - Six verified originals are suitable for strict, non-generative centered derivatives: Pita Gyros, Gyros di Suino al Piatto, Insalata greca choriatiki, Feta, Dolmas and Saganaki.
 - Three verified originals require a new photo instead of forced cropping: Gyros di Pollo al Piatto, Tzatziki and Patatine fritte.
 - Moussaka is no longer verified: its former source was identified as stock imagery, archived, unlinked, removed from the public cache and cleared from the active menu row.
@@ -137,7 +137,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
 - `argo-public-menu-photo` was hardened so only exact active `menu_verified` mappings can be served.
 - The previous Moussaka derivative was withdrawn after its source was identified as stock imagery. Saganaki remains crop-ready; Patatine fritte requires a reshoot.
-- Existing customer photo rendering is disabled pending new centered derivatives and cross-device visual QA.
+- The six centered derivatives are live in 3:2 frames with `object-fit: cover`, centered positioning and tested error fallbacks.
 - Import of the full local 227-photo folder remains a user-side physical/local-file task.
 
 ## Photo review safety
@@ -233,7 +233,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - A task is considered deployed only after a real commit and successful Pages deployment where relevant.
 - Keep `.github/workflows/argo-menu-snapshot.yml` and `.github/workflows/build-sunmi-apk.yml`.
 - Obsolete one-shot patch workflows were removed.
-- Legacy verified assets remain in `assets/menu/verified/`, but customer rendering is currently disabled. Moussaka was removed from its active menu URL/cache mapping; only newly approved centered derivatives may be re-enabled.
+- `assets/menu/verified/` contains only the six approved centered derivatives. The public legacy files for Moussaka, Gyros Pollo, Tzatziki and Patatine were removed, and their menu/fallback URLs are null.
 
 ## Stable constraints
 - Never reintroduce site delivery logic into ARGO Direct without an explicit business decision.
@@ -245,15 +245,14 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 
 ## Current open work
 Priority order:
-1. Produce strict, non-generative centered derivatives for the six crop-ready verified originals and test them on real mobile layouts before enabling them.
-2. Keep Gyros di Pollo al Piatto, Tzatziki and Patatine fritte image-free until new photos pass QA.
-3. Execute the physical P1 photo shoot and post-shoot handoff for unresolved high-value products, including a replacement Moussaka photo.
-4. Preserve the completed 227/227 media audit; do not repeat already classified filenames.
-5. Import the 227 local originals into private ARGO storage from the actual local folder when local-file access is available.
-6. After photo phase is closed, implement the ARGO-owned table reservation system.
-7. Install the current SUNMI APK on the real device and perform printer validation.
-8. Connect Meta/Instagram/Facebook and optional Google Business only with real provider authorization.
-9. Replace the permanent File Library workbook with the validated 56-sheet XLSX when the actual file is available.
+1. Keep Gyros di Pollo al Piatto, Tzatziki and Patatine fritte image-free until new photos pass QA.
+2. Execute the physical P1 photo shoot and post-shoot handoff for unresolved high-value products, including a replacement Moussaka photo.
+3. Preserve the completed 227/227 media audit; do not repeat already classified filenames.
+4. Import the 227 local originals into private ARGO storage from the actual local folder when local-file access is available.
+5. After photo phase is closed, implement the ARGO-owned table reservation system.
+6. Install the current SUNMI APK on the real device and perform printer validation.
+7. Connect Meta/Instagram/Facebook and optional Google Business only with real provider authorization.
+8. Replace the permanent File Library workbook with the validated 56-sheet XLSX when the actual file is available.
 
 ## Checkpoints
 - `docs/ARGO_COMPLETION_CHECKPOINT_2026-09-13.md`
