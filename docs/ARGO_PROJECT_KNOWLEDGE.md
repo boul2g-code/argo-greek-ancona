@@ -134,6 +134,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Private bucket `argo-admin-media` exists and is non-public.
 - Admin photo import supports filename-based import from the local source folder.
 - Admin photo import also accepts genuinely new shooting filenames. Each new file is stored privately and registered as unlinked `menu_candidate` / `future`; it must pass Admin photo review before any product mapping or publication.
+- Raw uploads cannot enter the public menu. `menu_derivative_ready` becomes true only after crop and mobile QA; both the review RPC and the public photo endpoint enforce this gate.
 - Private preview functions protect Admin-only media.
 - Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
 - `argo-public-menu-photo` was hardened so only exact active `menu_verified` mappings can be served.
