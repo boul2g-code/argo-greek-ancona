@@ -62,6 +62,14 @@ This section records the visual QA done in chat so future sessions do not repeat
 - `WA0049`, `WA0050`, `WA0078`, `WA0081` -> dessert family candidates, likely Portokalopita/Kataifi range, but no exact mapping without kitchen confirmation.
 - `WA0096`, `WA0066` -> fried polpettine family, but filling cannot be distinguished from photo; do not map to Ceci/Melanzane/Melanzane e formaggio without confirmation.
 
+### Conditional recheck — 2026-09-14
+- Exact Drive originals for the Bifteki and Piatto Meze Vegetariano candidate sets were recovered and visually reviewed.
+- Best current Bifteki candidate: `IMG-20240216-WA0039.jpg`; it shows two bifteki with fries, salad, tomato, onion and tzatziki.
+- Best current vegetarian meze candidate: `IMG-20240216-WA0057.jpg`; it shows dolmas, fried polpettine, fries, salad, olives and tzatziki.
+- The owner could not confirm that either image still matches the current portion/composition. Both remain `conditional` and must not be published until checked against today's actual dishes.
+- `IMG-20240216-WA0035.jpg` is a real pita image but remains ambiguous between Pita Gyros and Pita piggy; do not relink it.
+- `IMG-20220628-WA0003.jpg` and `IMG-20220628-WA0004.jpg` show old souvlaki plates, not the current unresolved pita products; do not use them as pita photos.
+
 ### Useful alternatives / social assets
 - `WA0026`, `WA0028`, `WA0029`, `WA0030`, `WA0031` -> Gyros di Pollo al Piatto alternatives; verified/public main image already exists.
 - `WA0033`, old `WA0012`, old `WA0002` -> Gyros di Suino / generic gyros plate alternatives; main verified/public image already exists.
