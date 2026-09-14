@@ -137,6 +137,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Hours: 18:30–23:00, Wednesday closed, no lunch.
 - Chatbot must not guess prices or availability.
 - Homepage now reads `image_url` and uses real verified menu photos where available, with fallback and image error handling.
+- ARGO Direct now uses the same resilient customer-facing rule: every item has a stable visual placeholder, failed image URLs fall back without a broken-image icon, and real photos use lazy loading, async decoding and a fixed mobile-friendly aspect ratio.
 
 ## Promotions
 - Promo creation/editing has DB and UI safeguards for discount values, thresholds, dates, use limits and duplicate codes.
@@ -226,6 +227,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 Priority order:
 1. Finish photo QA / exact mappings and publish only verified exact-product assets.
 2. Get Moussaka, Saganaki and Patatine fritte through a real public image path and verify anonymous `200 image/*` before calling them live.
+   - Their approved original JPG files were not available in the repository or the Codex workspace on 2026-09-14; do not invent URLs or substitute other photos. Resume this item when the exact three originals are available.
 3. Continue visual QA through remaining library without repeating filenames already documented above.
 4. Import the 227 local originals into private ARGO storage from the actual local folder when local-file access is available.
 5. Execute the physical P1 photo shoot and post-shoot handoff for unresolved high-value products.
