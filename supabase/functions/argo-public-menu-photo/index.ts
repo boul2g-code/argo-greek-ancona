@@ -12,16 +12,16 @@ Deno.serve(async(req:Request)=>{
   const item=new URL(req.url).searchParams.get("item")||"";
   if(!/^[0-9a-f-]{36}$/i.test(item)) return new Response("Bad item",{status:400,headers:common});
   const sb=createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,{auth:{persistSession:false}});
-  const {data:media,error}=await sb.from("argo_media_library").select("preview_storage_path")
+  const {data:media,error}=await sb.from("argo_media_library").select("menu_derivative_storage_path")
     .eq("linked_menu_item_id",item).eq("category","menu_verified").eq("status","menu").eq("menu_derivative_ready",true).eq("active",true).maybeSingle();
   if(error||!media) return new Response("Approved derivative not available",{status:404,headers:{...common,"Cache-Control":"public, max-age=60"}});
   const {data:cached}=await sb.from("argo_public_menu_photo_cache").select("image_b64,mime_type").eq("item_id",item).maybeSingle();
   if(cached?.image_b64) try{
     return new Response(b64ToBytes(cached.image_b64),{status:200,headers:{...common,"Content-Type":cached.mime_type||"image/jpeg","Cache-Control":"public, max-age=31536000, immutable","X-ARGO-Photo":"verified-cache-v5"}});
   }catch(_){ }
-  if(media.preview_storage_path){
-    const {data:blob,error:dlErr}=await sb.storage.from("argo-admin-media").download(media.preview_storage_path);
-    if(!dlErr&&blob) return new Response(await blob.arrayBuffer(),{status:200,headers:{...common,"Content-Type":blob.type||"image/jpeg","Cache-Control":"public, max-age=31536000, immutable","X-ARGO-Photo":"verified-private-derivative-v5"}});
+  if(media.menu_derivative_storage_path){
+    const {data:blob,error:dlErr}=await sb.storage.from("argo-admin-media").download(media.menu_derivative_storage_path);
+    if(!dlErr&&blob) return new Response(await blob.arrayBuffer(),{status:200,headers:{...common,"Content-Type":blob.type||"image/jpeg","Cache-Control":"public, max-age=300","X-ARGO-Photo":"verified-private-derivative-v6"}});
   }
   const {data:menuItem}=await sb.from("argo_menu_items").select("image_url").eq("id",item).eq("active",true).maybeSingle();
   const approvedUrl=String(menuItem?.image_url||"");
