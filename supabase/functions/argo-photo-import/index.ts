@@ -20,6 +20,7 @@ Deno.serve(async (req: Request) => {
     const form = await req.formData();
     const adminToken = String(form.get("admin_token") || "");
     const requestedMediaId = String(form.get("media_id") || "");
+    const intendedMenuItemId = String(form.get("intended_menu_item_id") || "");
     const file = form.get("file");
     if (!adminToken || !(file instanceof File)) return new Response("Missing fields", { status: 400, headers: cors });
     if (!allowedTypes.has(file.type)) return new Response("Unsupported image type", { status: 415, headers: cors });
@@ -32,11 +33,20 @@ Deno.serve(async (req: Request) => {
     const { data: ok, error: authErr } = await sb.rpc("argo_admin_valid", { p_token: adminToken });
     if (authErr || !ok) return new Response("Unauthorized", { status: 401, headers: cors });
 
+    let intendedItem: { id: string; name: string } | null = null;
+    if (intendedMenuItemId) {
+      if (!/^[0-9a-f-]{36}$/i.test(intendedMenuItemId)) return new Response("Invalid intended menu item", { status: 400, headers: cors });
+      const { data, error } = await sb.from("argo_menu_items").select("id,name").eq("id", intendedMenuItemId).eq("active", true).maybeSingle();
+      if (error || !data) return new Response("Intended active menu item not found", { status: 404, headers: cors });
+      intendedItem = data;
+    }
+
     let mediaId = requestedMediaId;
     let sourceFilename = file.name.trim();
     let created = false;
 
     if (mediaId) {
+      if (intendedItem) return new Response("Product intent is allowed only for genuinely new photos", { status: 409, headers: cors });
       const { data: media, error: mediaErr } = await sb.from("argo_media_library")
         .select("id,source_filename,active").eq("id", mediaId).eq("active", true).maybeSingle();
       if (mediaErr || !media) return new Response("Media not found", { status: 404, headers: cors });
@@ -49,9 +59,10 @@ Deno.serve(async (req: Request) => {
         title: sourceFilename,
         source_filename: sourceFilename,
         category: "menu_candidate",
-        recommended_for: "Nuova fotografia ARGO: identificare il prodotto e verificare porzione, composizione e plating.",
+        recommended_for: intendedItem ? `Nuova fotografia ARGO destinata a ${intendedItem.name}: verificare porzione, composizione e plating.` : "Nuova fotografia ARGO: identificare il prodotto e verificare porzione, composizione e plating.",
+        linked_menu_item_id: intendedItem?.id || null,
         status: "future",
-        notes: "Caricata dal nuovo shooting; nessun collegamento o pubblicazione automatica.",
+        notes: intendedItem ? `Caricata dal piano shooting per ${intendedItem.name}; collegamento candidato, nessuna pubblicazione automatica.` : "Caricata dal nuovo shooting; nessun collegamento o pubblicazione automatica.",
         active: true,
         sort_order: 10,
       }).select("id").single();
@@ -80,7 +91,7 @@ Deno.serve(async (req: Request) => {
       return new Response(`DB update failed: ${updateErr.message}`, { status: 500, headers: cors });
     }
 
-    return new Response(JSON.stringify({ ok: true, created, media_id: mediaId, filename: sourceFilename, preview_storage_path: path }), {
+    return new Response(JSON.stringify({ ok: true, created, media_id: mediaId, filename: sourceFilename, preview_storage_path: path, intended_menu_item_id: intendedItem?.id || null }), {
       status: 200,
       headers: { ...cors, "Content-Type": "application/json", "Cache-Control": "no-store" },
     });
