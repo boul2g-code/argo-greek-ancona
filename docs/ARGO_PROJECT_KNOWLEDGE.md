@@ -2,6 +2,9 @@
 
 Canonical working knowledge for ARGO Greek Comfort Food. This file is the primary production reference and supersedes stale chat notes where they conflict.
 
+## CONTINUATION INSTRUCTION FOR FUTURE CHATS
+When continuing ARGO work in a new ChatGPT conversation, read this file first before making production changes. Treat Supabase as live truth for menu/prices/state and this file as the durable project context. Do not restart completed work or repeat photo QA already recorded here. When a new production milestone is completed, update this file.
+
 ## Business
 - ARGO Greek Comfort Food, Via Marconi 27, Ancona.
 - Current hours: 18:30–23:00 Monday, Tuesday, Thursday, Friday, Saturday, Sunday. Wednesday closed. No lunch for now.
@@ -34,8 +37,58 @@ Canonical working knowledge for ARGO Greek Comfort Food. This file is the primar
 - Product images shown to customers must come from verified ARGO media or approved public/cache assets.
 - Better no image than a misleading image.
 - Manual free-form `image_url` editing from the menu editor is blocked; menu-photo assignment goes through the verified photo workflow.
-- Seven exact verified menu mappings currently exist: Pita Gyros, Gyros di Suino al Piatto, Gyros di Pollo al Piatto, Tzatziki, Insalata greca choriatiki, Feta, Dolmas.
+- Seven exact verified menu mappings are already public: Pita Gyros, Gyros di Suino al Piatto, Gyros di Pollo al Piatto, Tzatziki, Insalata greca choriatiki, Feta, Dolmas.
+- Additional verified but not yet public as of 2026-09-14: Moussaka, Saganaki, Patatine fritte.
+- Current verified total: 10.
 - Remaining candidate/conditional photos must not be auto-published.
+
+## Photo QA checkpoint — 2026-09-14
+This section records the visual QA done in chat so future sessions do not repeat it.
+
+### Verified / approved but not necessarily public
+- `IMG-20211130-WA0005.jpg` -> Moussaka -> `menu_verified`, linked to Moussaka; public source still unavailable at last real test.
+- `IMG-20240216-WA0006.jpg` -> Saganaki -> `menu_verified`, linked to Saganaki; public source still unavailable at last real test.
+- `IMG-20240216-WA0051.jpg` -> Patatine fritte -> `menu_verified`, linked to active Patatine fritte; publication still pending.
+
+### Strong candidates / conditional mappings
+- `WA0021`, `WA0022`, `WA0023`, `WA0039`, `WA0040`, `WA0061`, `WA0062`, `WA0064` -> Bifteki alla griglia candidate set. Strong visual match; verify current recipe/portion before `menu_verified`.
+- `WA0045`, `WA0047`, `WA0052`, `WA0054`, `WA0055`, `WA0056`, `WA0057` -> Piatto Meze Vegetariano candidate set. Strong visual match; verify current composition/quantity.
+- `WA0130` -> Hummus candidate; strong visual match, kitchen confirmation required.
+- `WA0135` -> Melitzanosalata candidate; strong visual match, kitchen confirmation required.
+- `WA0153` -> Tirokafteri candidate; strong visual match, kitchen confirmation required.
+- `WA0065` -> Salsa curry grande candidate; strong visual match, kitchen confirmation required.
+- `WA0010` from 2022 -> Piatto Souvlaki Kotopoulo candidate, but image shows 3 skewers; verify current portion before approval.
+- `WA0035` and old `WA0004` -> ambiguous Pita Gyros vs Pita piggy. Never link without confirmation.
+- old `WA0003` -> ambiguous Pita Pollo vs Pita chicky. Never link without confirmation.
+- `WA0049`, `WA0050`, `WA0078`, `WA0081` -> dessert family candidates, likely Portokalopita/Kataifi range, but no exact mapping without kitchen confirmation.
+- `WA0096`, `WA0066` -> fried polpettine family, but filling cannot be distinguished from photo; do not map to Ceci/Melanzane/Melanzane e formaggio without confirmation.
+
+### Useful alternatives / social assets
+- `WA0026`, `WA0028`, `WA0029`, `WA0030`, `WA0031` -> Gyros di Pollo al Piatto alternatives; verified/public main image already exists.
+- `WA0033`, old `WA0012`, old `WA0002` -> Gyros di Suino / generic gyros plate alternatives; main verified/public image already exists.
+- `WA0152` -> Tzatziki alternative/social asset; verified/public main image already exists.
+- `WA0037`, `WA0041`, `WA0042`, `WA0043`, `WA0044` -> real ARGO salsiccia plate assets, but active menu currently has Pita Salsiccia, not this exact plated item. Do not use as Pita Salsiccia photo.
+- `WA0032`, `WA0060`, `WA0025` -> backstage/process assets, not exact menu product photos.
+
+### Heritage / blocked for current public use
+- old `WA0007` -> Gemista heritage; not current menu.
+- old `WA0008` -> Dolmas old portion, 5 pieces without tzatziki; current serving differs.
+- old `WA0010`, `WA0011` -> old 5-piece polpettine serving; current serving differs.
+- `WA0058` -> heritage backstage, identifiable person + vertical-spit machine; requires consent/right and does not represent current process.
+- `WA0059` -> foreground resembles Meze Vegetariano but background shows vertical-spit machine; not valid current menu photo unless fully cropped and re-reviewed.
+
+### Current photo priorities
+Prioritize exact current-product coverage for:
+1. Mix Grill
+2. Pita Pollo and Pita chicky separately
+3. Pita Gyros and Pita piggy separately
+4. Pita Agnello
+5. Pita Bifteki
+6. Pita Salsiccia
+7. Pita Vegetariana
+8. Halloumi
+9. Bugiurdi
+10. desserts and sauces after exact confirmation
 
 ## Photo master
 Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
@@ -63,13 +116,15 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Admin photo import supports filename-based import from the local source folder.
 - Private preview functions protect Admin-only media.
 - Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
+- `argo-public-menu-photo` was hardened so only exact active `menu_verified` mappings can be served.
+- Real test of Moussaka and Saganaki public endpoint returned `404 Approved photo source unavailable`; therefore they were not left linked to broken public URLs.
 - Import of the full local 227-photo folder remains a user-side physical/local-file task.
 
 ## Photo review safety
 - Menu publication requires `category=menu_verified`, `status=menu`, and an exact active linked menu item.
 - Archive media cannot stay linked to menu items.
 - `menu_verified_unlinked` remains future/unlinked until exact product identity exists.
-- Review decisions are written to `argo_media_review_events`.
+- Review decisions are written to `argo_media_review_events` where applicable.
 
 ## Homepage / customer flow
 - Homepage reads active menu and current offers from Supabase.
@@ -81,6 +136,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Current hero/food imagery should use real ARGO assets, not generic Greece stock art.
 - Hours: 18:30–23:00, Wednesday closed, no lunch.
 - Chatbot must not guess prices or availability.
+- Homepage now reads `image_url` and uses real verified menu photos where available, with fallback and image error handling.
 
 ## Promotions
 - Promo creation/editing has DB and UI safeguards for discount values, thresholds, dates, use limits and duplicate codes.
@@ -124,6 +180,9 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Booking status changes write to `argo_booking_events`.
 - `admin/booking-history.html` exposes booking audit history.
 - Admin booking UI prioritizes real booking date/time and future reservations.
+- Next major phase after photo completion: build ARGO-owned table reservation system on the site, replacing dependency on Pienissimo runtime.
+- Reuse existing `argo_bookings` / `argo_booking_events` where sensible; do not create a parallel duplicate booking universe.
+- Planned booking system must include actual table availability, double-booking prevention, operating-hour rules, customer booking flow, admin calendar/table view, status workflow and audit trail.
 
 ## Marketing
 - Marketing Hub exists with draft/approval/schedule/ready/published workflow.
@@ -153,6 +212,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - A task is considered deployed only after a real commit and successful Pages deployment where relevant.
 - Keep `.github/workflows/argo-menu-snapshot.yml` and `.github/workflows/build-sunmi-apk.yml`.
 - Obsolete one-shot patch workflows were removed.
+- Seven verified product photos were copied into `assets/menu/verified/` and connected to live menu image URLs.
 
 ## Stable constraints
 - Never reintroduce site delivery logic into ARGO Direct without an explicit business decision.
@@ -163,13 +223,16 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Never claim physical SUNMI, social-account authorization, photo verification or local-folder import complete without real evidence.
 
 ## Current open work
-Only tasks requiring real external, local or physical input remain as material blockers:
-1. Import the 227 local originals into private ARGO storage from the actual local folder.
-2. Verify the 13 conditional/candidate photos against current products and portions.
-3. Execute the physical P1 photo shoot and post-shoot handoff.
-4. Install the current SUNMI APK on the real device and perform printer validation with a real/test operational order path.
-5. Connect Meta/Instagram/Facebook and optional Google Business using real provider authorization when desired.
-6. Replace the permanent File Library workbook with the validated 56-sheet XLSX when the actual file is available.
+Priority order:
+1. Finish photo QA / exact mappings and publish only verified exact-product assets.
+2. Get Moussaka, Saganaki and Patatine fritte through a real public image path and verify anonymous `200 image/*` before calling them live.
+3. Continue visual QA through remaining library without repeating filenames already documented above.
+4. Import the 227 local originals into private ARGO storage from the actual local folder when local-file access is available.
+5. Execute the physical P1 photo shoot and post-shoot handoff for unresolved high-value products.
+6. After photo phase is closed, implement the ARGO-owned table reservation system.
+7. Install the current SUNMI APK on the real device and perform printer validation.
+8. Connect Meta/Instagram/Facebook and optional Google Business only with real provider authorization.
+9. Replace the permanent File Library workbook with the validated 56-sheet XLSX when the actual file is available.
 
 ## Checkpoints
 - `docs/ARGO_COMPLETION_CHECKPOINT_2026-09-13.md`
