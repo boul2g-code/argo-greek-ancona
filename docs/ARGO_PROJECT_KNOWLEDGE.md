@@ -137,6 +137,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - Raw uploads cannot enter the public menu. `menu_derivative_ready` becomes true only after crop and mobile QA; both the review RPC and the public photo endpoint enforce this gate.
 - `admin/photo-crop.html` creates a non-generative 1200x800 JPEG from the private original. The server validates the exact dimensions and stores it separately at `argo-menu-derivatives/{media_id}.jpg`; saving a crop unlocks review but does not auto-publish.
 - The live photo plan links each missing product to mobile capture/import. New files may retain an intended active menu item as a candidate link, but remain `menu_candidate` / `future` and cannot publish before crop and review.
+- After crop, Admin returns to the exact media record. `APPROVA E PUBBLICA` requires `menu_derivative_ready`, an exact active product and explicit name confirmation, then uses the protected review RPC to publish atomically.
 - Private preview functions protect Admin-only media.
 - Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
 - `argo-public-menu-photo` was hardened so only exact active `menu_verified` mappings can be served.
