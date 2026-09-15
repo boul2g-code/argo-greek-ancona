@@ -139,6 +139,7 @@ Source of truth for visual audit: `ARGO_Photo_Audit_Master_2026.xlsx`.
 - The live photo plan links each missing product to mobile capture/import. New files may retain an intended active menu item as a candidate link, but remain `menu_candidate` / `future` and cannot publish before crop and review.
 - After crop, Admin returns to the exact media record. `APPROVA E PUBBLICA` requires `menu_derivative_ready`, an exact active product and explicit name confirmation, then uses the protected review RPC to publish atomically.
 - Admin Menu offers an audited `RIMUOVI FOTO` rollback for products with a live image. It clears only the menu URL, returns the verified media to `menu_candidate` / `future`, and preserves the original and derivative for review.
+- Publishing a replacement photo atomically returns any previous verified photo for that product to `menu_candidate` / `future`; a partial unique index guarantees exactly one active `menu_verified` mapping per menu item.
 - Private preview functions protect Admin-only media.
 - Public customer menu images use approved public/cache routes rather than raw private Google Drive access.
 - `argo-public-menu-photo` was hardened so only exact active `menu_verified` mappings can be served.
