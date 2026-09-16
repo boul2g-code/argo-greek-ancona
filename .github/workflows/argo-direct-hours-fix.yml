@@ -1,0 +1,61 @@
+name: ARGO Direct opening hours fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/argo-direct-hours-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch ARGO Direct pickup scheduling
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('ordina/index.html')
+          s=p.read_text()
+          marker='function nextPickupSlot('
+          if marker in s:
+              print('Already patched')
+              raise SystemExit(0)
+          old="""function localDateTime(d){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}
+function setPickupMinimum(){const d=new Date(Date.now()+30*60*1000);d.setSeconds(0,0);const v=localDateTime(d);$('when').min=v;if(!$('when').value||$('when').value<v)$('when').value=v}"""
+          new="""const STORE_TZ='Europe/Rome',OPEN_MIN=18*60+30,CLOSE_MIN=23*60,SLOT_MIN=15,LEAD_MIN=30;
+function pad2(n){return String(n).padStart(2,'0')}
+function romeWallNow(){const parts=new Intl.DateTimeFormat('en-CA',{timeZone:STORE_TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()),v={};for(const p of parts)if(p.type!=='literal')v[p.type]=Number(p.value);return new Date(Date.UTC(v.year,v.month-1,v.day,v.hour,v.minute))}
+function wallString(d){return `${d.getUTCFullYear()}-${pad2(d.getUTCMonth()+1)}-${pad2(d.getUTCDate())}T${pad2(d.getUTCHours())}:${pad2(d.getUTCMinutes())}`}
+function parseWall(v){if(!/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}$/.test(v||''))return null;const [date,time]=v.split('T'),[y,m,d]=date.split('-').map(Number),[h,mi]=time.split(':').map(Number);return new Date(Date.UTC(y,m-1,d,h,mi))}
+function openWall(d){const mins=d.getUTCHours()*60+d.getUTCMinutes();return d.getUTCDay()!==3&&mins>=OPEN_MIN&&mins<=CLOSE_MIN}
+function nextPickupSlot(from=romeWallNow()){let d=new Date(from.getTime()+LEAD_MIN*60000);d.setUTCSeconds(0,0);d.setUTCMinutes(Math.ceil(d.getUTCMinutes()/SLOT_MIN)*SLOT_MIN);for(let i=0;i<16;i++){if(d.getUTCDay()===3){d.setUTCDate(d.getUTCDate()+1);d.setUTCHours(18,30,0,0);continue}const mins=d.getUTCHours()*60+d.getUTCMinutes();if(mins<OPEN_MIN){d.setUTCHours(18,30,0,0);return d}if(mins<=CLOSE_MIN)return d;d.setUTCDate(d.getUTCDate()+1);d.setUTCHours(18,30,0,0)}return d}
+function validPickupValue(v){const d=parseWall(v);if(!d||!openWall(d))return false;return d.getTime()>=romeWallNow().getTime()+LEAD_MIN*60000}
+function pickupHint(v){const map={it:'Ritiro disponibile 18:30–23:00. Mercoledì chiuso.',en:'Collection available 18:30–23:00. Closed Wednesday.',el:'Παραλαβή 18:30–23:00. Τετάρτη κλειστά.',es:'Recogida disponible 18:30–23:00. Miércoles cerrado.',de:'Abholung 18:30–23:00. Mittwoch geschlossen.',fr:'Retrait disponible de 18:30 à 23:00. Fermé le mercredi.'};return map[lang]||map.it}
+function pickupError(){const map={it:'Scegli un orario di ritiro tra le 18:30 e le 23:00, escluso il mercoledì, almeno 30 minuti da adesso.',en:'Choose a collection time between 18:30 and 23:00, except Wednesday, at least 30 minutes from now.',el:'Διάλεξε ώρα παραλαβής 18:30–23:00, εκτός Τετάρτης, τουλάχιστον 30 λεπτά από τώρα.',es:'Elige una hora de recogida entre 18:30 y 23:00, excepto el miércoles, al menos 30 minutos desde ahora.',de:'Wähle eine Abholzeit zwischen 18:30 und 23:00 Uhr, außer mittwochs, mindestens 30 Minuten ab jetzt.',fr:'Choisissez un retrait entre 18:30 et 23:00, sauf le mercredi, au moins 30 minutes à partir de maintenant.'};return map[lang]||map.it}
+function setPickupMinimum(){const v=wallString(nextPickupSlot());$('when').min=v;$('when').step=SLOT_MIN*60;if(!$('when').value||!validPickupValue($('when').value))$('when').value=v;$('timeHint').textContent=pickupHint()}
+function romeWallToIso(v){const d=parseWall(v);if(!d)return null;const target=d.getTime();let guess=target;for(let i=0;i<2;i++){const parts=new Intl.DateTimeFormat('en-CA',{timeZone:STORE_TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(guess)),x={};for(const p of parts)if(p.type!=='literal')x[p.type]=Number(p.value);const shown=Date.UTC(x.year,x.month-1,x.day,x.hour,x.minute);guess+=target-shown}return new Date(guess).toISOString()}"""
+          if old not in s:
+              raise SystemExit('Scheduling block not found')
+          s=s.replace(old,new)
+          old2="""$('when').addEventListener('focus',setPickupMinimum);$('when').addEventListener('change',()=>{const min=$('when').min;if($('when').value<min)$('when').value=min});"""
+          new2="""$('when').addEventListener('focus',setPickupMinimum);$('when').addEventListener('change',()=>{if(!validPickupValue($('when').value)){$('when').value=wallString(nextPickupSlot());$('err').textContent=pickupError()}else $('err').textContent=''});"""
+          if old2 not in s:
+              raise SystemExit('Time change handler not found')
+          s=s.replace(old2,new2)
+          s=s.replace("if($('when').value<$('when').min){$('err').textContent=tx('time_error');return}","if(!validPickupValue($('when').value)){$('err').textContent=pickupError();return}")
+          s=s.replace("p_requested_at:new Date($('when').value).toISOString()","p_requested_at:romeWallToIso($('when').value)")
+          s=s.replace("$('timeHint').textContent=tx('time_hint');","$('timeHint').textContent=pickupHint();")
+          p.write_text(s)
+          PY
+      - name: Commit patch
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "ARGO automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add ordina/index.html
+          git commit -m "fix: enforce ARGO Direct pickup hours in UI"
+          git push
