@@ -1,0 +1,78 @@
+name: Patch ARGO Direct pickup hours
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-argo-direct-hours.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Patch pickup scheduling
+        shell: python
+        run: |
+          from pathlib import Path
+
+          p = Path('ordina/index.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = """function localDateTime(d){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}
+function setPickupMinimum(){const d=new Date(Date.now()+30*60*1000);d.setSeconds(0,0);const v=localDateTime(d);$('when').min=v;if(!$('when').value||$('when').value<v)$('when').value=v}"""
+
+          new = """const PICKUP_ZONE='Europe/Rome',PICKUP_LEAD_MIN=30,PICKUP_OPEN_MIN=18*60+30,PICKUP_CLOSE_MIN=23*60,PICKUP_CLOSED_DAY=3;
+function pad2(n){return String(n).padStart(2,'0')}
+function romeParts(d){const parts=new Intl.DateTimeFormat('en-CA',{timeZone:PICKUP_ZONE,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(d),o={};for(const x of parts)if(x.type!=='literal')o[x.type]=Number(x.value);return o}
+function civilDay(y,m,d,add=0){const x=new Date(Date.UTC(y,m-1,d+add,12));return{year:x.getUTCFullYear(),month:x.getUTCMonth()+1,day:x.getUTCDate(),dow:x.getUTCDay()}}
+function civilValue(x,h,m){return `${x.year}-${pad2(x.month)}-${pad2(x.day)}T${pad2(h)}:${pad2(m)}`}
+function pickupEarliest(){const r=romeParts(new Date(Date.now()+PICKUP_LEAD_MIN*60000+59000));let c=civilDay(r.year,r.month,r.day),mins=r.hour*60+r.minute;if(c.dow===PICKUP_CLOSED_DAY||mins>PICKUP_CLOSE_MIN){do{c=civilDay(c.year,c.month,c.day,1)}while(c.dow===PICKUP_CLOSED_DAY);return civilValue(c,18,30)}if(mins<PICKUP_OPEN_MIN)return civilValue(c,18,30);return civilValue(c,r.hour,r.minute)}
+function parsePickup(v){const m=String(v||'').match(/^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})$/);if(!m)return null;const x={year:+m[1],month:+m[2],day:+m[3],hour:+m[4],minute:+m[5]};x.dow=new Date(Date.UTC(x.year,x.month-1,x.day,12)).getUTCDay();x.mins=x.hour*60+x.minute;return x}
+function validPickup(v){const x=parsePickup(v);return!!x&&v>=pickupEarliest()&&x.dow!==PICKUP_CLOSED_DAY&&x.mins>=PICKUP_OPEN_MIN&&x.mins<=PICKUP_CLOSE_MIN}
+function pickupText(kind,v){const display=v?`${v.slice(8,10)}/${v.slice(5,7)} ${v.slice(11,16)}`:'';const M={it:{hint:`Orari ritiro: 18:30–23:00 · mercoledì chiuso. Primo orario disponibile: ${display}.`,bad:'Scegli un orario valido: 18:30–23:00, mercoledì chiuso, almeno 30 minuti da adesso.'},en:{hint:`Collection hours: 18:30–23:00 · closed Wednesday. First available time: ${display}.`,bad:'Choose a valid collection time: 18:30–23:00, closed Wednesday, at least 30 minutes from now.'},el:{hint:`Ώρες παραλαβής: 18:30–23:00 · Τετάρτη κλειστά. Πρώτη διαθέσιμη ώρα: ${display}.`,bad:'Διάλεξε έγκυρη ώρα παραλαβής: 18:30–23:00, Τετάρτη κλειστά, τουλάχιστον 30 λεπτά από τώρα.'},es:{hint:`Horario de recogida: 18:30–23:00 · miércoles cerrado. Primera hora disponible: ${display}.`,bad:'Elige una hora válida: 18:30–23:00, miércoles cerrado y al menos 30 minutos desde ahora.'},de:{hint:`Abholung: 18:30–23:00 · Mittwoch geschlossen. Erste verfügbare Zeit: ${display}.`,bad:'Wähle eine gültige Abholzeit: 18:30–23:00, Mittwoch geschlossen, mindestens 30 Minuten ab jetzt.'},fr:{hint:`Retrait: 18:30–23:00 · fermé le mercredi. Premier créneau disponible : ${display}.`,bad:'Choisissez une heure valide : 18:30–23:00, fermé le mercredi, au moins 30 minutes à partir de maintenant.'}};return(M[lang]||M.it)[kind]}
+function setPickupMinimum(force=false){const v=pickupEarliest(),w=$('when');w.min=v;if(force||!validPickup(w.value))w.value=v;$('timeHint').textContent=pickupText('hint',v)}
+function romeOffsetMinutes(d){const z=new Intl.DateTimeFormat('en-US',{timeZone:PICKUP_ZONE,timeZoneName:'shortOffset',hour:'2-digit'}).formatToParts(d).find(x=>x.type==='timeZoneName')?.value||'GMT+0',m=z.match(/GMT([+-])(\\d{1,2})(?::(\\d{2}))?/);if(!m)return 0;const n=(+m[2])*60+(+(m[3]||0));return m[1]==='-'?-n:n}
+function romeLocalToISO(v){const x=parsePickup(v);if(!x)throw new Error('invalid pickup time');const wall=Date.UTC(x.year,x.month-1,x.day,x.hour,x.minute),first=new Date(wall-romeOffsetMinutes(new Date(wall))*60000),utc=wall-romeOffsetMinutes(first)*60000;return new Date(utc).toISOString()}"""
+
+          if old not in s:
+              raise SystemExit('Expected pickup minimum block not found; aborting without changes')
+          s = s.replace(old, new, 1)
+
+          old = """function initLanguage(){const picker=$('language');picker.innerHTML=supported.map(code=>`<option value=\"${code}\">${I18N.languages[code].flag} ${I18N.languages[code].label}</option>`).join('');picker.value=lang;picker.addEventListener('change',()=>{lang=picker.value;applyLanguage()});applyLanguage()}"""
+          new = """function initLanguage(){const picker=$('language');picker.innerHTML=supported.map(code=>`<option value=\"${code}\">${I18N.languages[code].flag} ${I18N.languages[code].label}</option>`).join('');picker.value=lang;picker.addEventListener('change',()=>{lang=picker.value;applyLanguage();setPickupMinimum(false)});applyLanguage()}"""
+          if old not in s:
+              raise SystemExit('Expected language block not found; aborting without changes')
+          s = s.replace(old, new, 1)
+
+          old = """$('checkout').onclick=()=>{setPickupMinimum();$('modal').classList.add('on')};
+$('when').addEventListener('focus',setPickupMinimum);$('when').addEventListener('change',()=>{const min=$('when').min;if($('when').value<min)$('when').value=min});
+$('send').onclick=async()=>{$('err').textContent='';setPickupMinimum();if(!$('name').value.trim()||!$('phone').value.trim()){$('err').textContent=tx('required');return}if($('when').value<$('when').min){$('err').textContent=tx('time_error');return}"""
+          new = """$('checkout').onclick=()=>{setPickupMinimum(false);$('modal').classList.add('on')};
+$('when').addEventListener('focus',()=>setPickupMinimum(false));$('when').addEventListener('change',()=>{if(!validPickup($('when').value)){$('err').textContent=pickupText('bad');setPickupMinimum(true)}else $('err').textContent=''});
+$('send').onclick=async()=>{$('err').textContent='';setPickupMinimum(false);if(!$('name').value.trim()||!$('phone').value.trim()){$('err').textContent=tx('required');return}if(!validPickup($('when').value)){$('err').textContent=pickupText('bad');return}"""
+          if old not in s:
+              raise SystemExit('Expected pickup event block not found; aborting without changes')
+          s = s.replace(old, new, 1)
+
+          old = "p_requested_at:new Date($('when').value).toISOString()"
+          new = "p_requested_at:romeLocalToISO($('when').value)"
+          if old not in s:
+              raise SystemExit('Expected requested_at conversion not found; aborting without changes')
+          s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+
+      - name: Commit patch and remove one-shot workflow
+        run: |
+          rm .github/workflows/patch-argo-direct-hours.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ordina/index.html .github/workflows/patch-argo-direct-hours.yml
+          git commit -m "Fix ARGO Direct pickup scheduling in Europe/Rome"
+          git push origin main
