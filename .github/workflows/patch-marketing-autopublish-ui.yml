@@ -1,5 +1,6 @@
 name: Patch marketing autopublish UI
 
+# one-shot patch retrigger
 on:
   push:
     branches: [main]
