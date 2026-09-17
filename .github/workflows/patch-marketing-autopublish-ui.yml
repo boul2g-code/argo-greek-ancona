@@ -1,0 +1,51 @@
+name: Patch marketing autopublish UI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-marketing-autopublish-ui.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Patch marketing UI
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('admin/marketing.html')
+          s=p.read_text(encoding='utf-8')
+          old="""function providerHelp(p){return p==='meta'?'Richiede collegamento Meta Business':p==='tiktok'?'Richiede collegamento account TikTok':p==='google_business'?'Richiede collegamento Google Business Profile':''}
+function renderStats()"""
+          new="""function providerHelp(p){return p==='meta'?'Richiede collegamento Meta Business':p==='tiktok'?'Richiede collegamento account TikTok':p==='google_business'?'Richiede collegamento Google Business Profile':''}
+function providerForChannel(ch){return ch==='instagram'||ch==='facebook'?'meta':ch==='tiktok'?'tiktok':ch==='google_business'?'google_business':null}
+function connectionReady(provider){const c=connections.find(x=>x.provider===provider);return!!(c&&c.connected&&c.autopublish_enabled)}
+function postAutopublishReady(p){const ch=p.channels||[];return ch.length>0&&ch.every(x=>connectionReady(providerForChannel(x)))}
+function autopublishReason(p){const missing=[...new Set((p.channels||[]).map(providerForChannel).filter(Boolean).filter(x=>!connectionReady(x)))];return missing.length?'AUTO OFF · '+missing.map(providerLabel).join(', '):''}
+function renderStats()"""
+          if old not in s: raise SystemExit('provider block not found')
+          s=s.replace(old,new,1)
+          old="""${['approved','scheduled'].includes(p.status)?`<button class=\"btn soft\" onclick=\"act('${p.id}','ready')\">Invia ad autopublish</button>`:''}"""
+          new="""${['approved','scheduled'].includes(p.status)?(postAutopublishReady(p)?`<button class=\"btn soft\" onclick=\"act('${p.id}','ready')\">Invia ad autopublish</button>`:`<span class=\"pill bad\" title=\"Collega i canali e abilita AUTO nelle connessioni\">${esc(autopublishReason(p)||'AUTOPUBLISH NON DISPONIBILE')}</span>`):''}"""
+          if old not in s: raise SystemExit('autopublish button block not found')
+          s=s.replace(old,new,1)
+          old="""${p.status==='approved'?`<button class=\"btn schedule\" onclick=\"act('${p.id}','schedule')\">Programma</button>`:''}"""
+          new="""${p.status==='approved'?(p.scheduled_at?`<button class=\"btn schedule\" onclick=\"act('${p.id}','schedule')\">Programma</button>`:`<span class=\"pill warn\">IMPOSTA DATA / ORA</span>`):''}"""
+          if old not in s: raise SystemExit('schedule button block not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit patch
+        run: |
+          rm .github/workflows/patch-marketing-autopublish-ui.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add admin/marketing.html .github/workflows/patch-marketing-autopublish-ui.yml
+          git commit -m "Make marketing actions reflect real connection state"
+          git push origin main
