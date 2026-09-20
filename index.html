@@ -6,6 +6,7 @@
 <title>ARGO Greek Comfort Food | Ancona</title>
 <meta name="description" content="ARGO Greek Comfort Food ad Ancona. Menu live, ritiro diretto dal locale con offerte ARGO, delivery tramite Deliveroo e Just Eat, prenotazioni e catering.">
 <meta name="theme-color" content="#0D3B66">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -22,7 +23,7 @@
 <section><div class="wrap"><span id="foodTag" class="tag">Dal nostro banco</span><h2 id="foodTitle" class="title">IL CIBO<br><span>PRIMA DI TUTTO</span></h2><div class="photos"><div class="ph" style="background-image:url('assets/images/argo-food-gallery.jpg')"><span>ARGO GREEK COMFORT FOOD</span></div><div class="ph" style="background-image:url('assets/images/gyros-souvlaki-al-piatto.jpg')"><span>GYROS · SOUVLAKI · PIATTI</span></div></div></div></section>
 <section id="menu"><div class="wrap"><span id="menuTag" class="tag">Menu live</span><h2 id="menuTitle" class="title">SCEGLI COSA<br><span>TI VA</span></h2><p id="menuSub" class="sub">Prezzi, disponibilità e foto verificate arrivano dal menu live. Da ogni articolo puoi passare alla scelta tra delivery e ritiro.</p><div class="filters" id="filters"></div><div class="menu" id="menuGrid"><div class="sub">Caricamento menu…</div></div></div></section>
 <section id="info"><div class="wrap"><div class="info"><div class="ic"><h3 id="whereTitle">📍 DOVE SIAMO</h3><p id="whereText" class="sub">Via Marconi 27, Ancona. A pochi minuti dal porto.</p></div><div class="ic"><h3 id="hoursTitle">🕐 ORARI</h3><p id="hoursText" class="sub">Lun, Mar, Gio, Ven, Sab, Dom 18:30–23:00. Mercoledì chiuso.</p></div><div class="ic"><h3 id="bookTitle">📅 PRENOTA</h3><p id="bookText" class="sub">Prenota il tavolo online.</p><a id="bookBtn" class="btn gold" target="_blank" rel="noopener" href="https://pwa.pienissimo.com/?hashform=FowBB1Zn0ejdfLCOcpN5qHyOIaKBlJIu">PRENOTA TAVOLO</a></div></div></div></section>
-<footer><div class="foot"><span>© 2026 ARGO Greek Comfort Food · Via Marconi 27, Ancona</span><span id="footerService">Delivery: Deliveroo / Just Eat · Ritiro: ARGO Direct</span></div></footer>
+<footer><div class="foot"><span>© 2026 ARGO Greek Comfort Food · Via Marconi 27, Ancona</span><span id="footerService">Delivery: Deliveroo / Just Eat · Ritiro: ARGO Direct</span><a href="ordine-stato.html" style="color:var(--s);font-weight:800">📦 Stato ordine / Order status</a></div></footer>
 <script src="ordina/i18n.js"></script>
 <script>
 const S='https://zibubwrntdmdxyimqddo.supabase.co',K='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL',H={'apikey':K,'Content-Type':'application/json'},$=id=>document.getElementById(id),euro=n=>'€'+Number(n||0).toFixed(2).replace('.',',');let items=[],cat='Tutti';
@@ -48,6 +49,7 @@ function filters(){const base=[...new Set(items.map(x=>x.category))],labels=[t('
 function render(){const all=t('all'),base=[...new Set(items.map(x=>x.category))],selected=cat===all?null:base.find(x=>localText('categories',x)===cat),a=!selected?items:items.filter(x=>x.category===selected);$('menuGrid').innerHTML=a.map(x=>{const media=x.image_url?`<div class="pic"><img src="${esc(x.image_url)}" alt="${esc(localText('names',x.name))}" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></div>`:'';return `<article class="item">${media}<div class="ib"><h3>${esc(localText('names',x.name))}</h3><p>${esc(localText('descriptions',x.description||''))}</p><div class="if"><span class="price">${euro(x.price)}</span><button class="mini" onclick="document.getElementById('scegli').scrollIntoView({behavior:'smooth'})">${esc(t('how'))}</button></div></div></article>`}).join('')}
 function status(){const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes(),o=d!==3&&m>=1110&&m<1380;$('status').textContent=o?t('openNow'):t('closedNow')}
 initLanguage();menu();applyLanguage();setInterval(status,60000)
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body>
 </html>
