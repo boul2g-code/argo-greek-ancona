@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D3B66">
+<title>ARGO · Stato ordine</title>
+<link rel="manifest" href="manifest.webmanifest">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--n:#0D3B66;--b:#1D70FF;--s:#D9C7A3;--bg:#0c0f13;--card:#151b22;--muted:#94a3b8;--ok:#22c55e;--bad:#ef4444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:Inter,Arial,sans-serif;min-height:100vh}
+.top{background:#081d33;padding:12px 16px;position:sticky;top:0}.topin{max-width:720px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.logo{font-weight:900;font-size:22px}.logo span{color:var(--s)}
+select,input,button{font:inherit}.lang{background:#102943;color:#fff;border:1px solid #ffffff22;border-radius:9px;padding:8px}
+.wrap{max-width:720px;margin:auto;padding:28px 16px 60px}.card{background:var(--card);border:1px solid #ffffff12;border-radius:16px;padding:20px;margin-bottom:14px}
+h1{font-size:34px;margin:0 0 8px}h2{margin:0 0 12px}.muted{color:var(--muted);line-height:1.55}.form{display:grid;grid-template-columns:1fr 1fr auto;gap:9px;margin-top:18px}
+input{width:100%;background:#0e1722;color:#fff;border:1px solid #ffffff22;border-radius:10px;padding:12px}.go{border:0;border-radius:10px;background:var(--s);color:var(--n);font-weight:900;padding:12px 17px;cursor:pointer}.go:disabled{opacity:.55}
+.err{color:#fecaca;margin-top:10px;font-weight:700}.hidden{display:none}.orderhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.num{font-size:30px;font-weight:900;color:var(--s)}.status{font-weight:900;padding:6px 10px;border-radius:999px;background:#ffffff12}.status.cancelled{background:#7f1d1d}.status.completed{background:#14532d}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:22px 0}.step{text-align:center;color:#64748b;font-size:11px;font-weight:800}.dot{height:9px;border-radius:99px;background:#334155;margin-bottom:8px}.step.on{color:#fff}.step.on .dot{background:var(--b)}.step.done .dot{background:var(--ok)}.step.cancel .dot{background:var(--bad)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #ffffff0d}.row:last-child{border:0}.items{margin-top:14px}.item{display:flex;justify-content:space-between;gap:10px;padding:8px 0}.small{font-size:12px}.refresh{margin-top:12px;color:#64748b;font-size:11px}.back{display:inline-block;margin-top:8px;color:var(--s);font-weight:800;text-decoration:none}
+@media(max-width:560px){.form{grid-template-columns:1fr}.steps{gap:3px}.step{font-size:9px}h1{font-size:29px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><div class="logo">ARGO <span>GREEK</span></div><select id="lang" class="lang" aria-label="Language"></select></div></header>
+<main class="wrap">
+<section class="card">
+<h1 id="title">Stato del tuo ordine</h1>
+<div id="intro" class="muted">Inserisci numero ordine e telefono usato nell'ordine.</div>
+<div class="form"><input id="num" inputmode="numeric" placeholder="Numero ordine"><input id="phone" inputmode="tel" autocomplete="tel" placeholder="Telefono"><button id="go" class="go">CERCA</button></div>
+<div id="err" class="err"></div>
+</section>
+<section id="result" class="card hidden"></section>
+<a id="back" class="back" href="./">← Torna ad ARGO</a>
+</main>
+<script>
+const SB='https://zibubwrntdmdxyimqddo.supabase.co',KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL';
+const sb=supabase.createClient(SB,KEY),$=id=>document.getElementById(id);
+const T={
+it:{label:'Italiano',title:'Stato del tuo ordine',intro:"Inserisci numero ordine e telefono usato nell'ordine.",n:'Numero ordine',p:'Telefono',go:'CERCA',back:'← Torna ad ARGO',not:'Ordine non trovato. Controlla numero e telefono.',err:'Impossibile controllare l’ordine adesso.',new:'RICEVUTO',accepted:'ACCETTATO',preparing:'IN PREPARAZIONE',ready:'PRONTO',completed:'COMPLETATO',cancelled:'ANNULLATO',pickup:'Ritiro',total:'Totale',requested:'Ora richiesta',items:'Articoli',updated:'Aggiornamento automatico ogni 15 secondi',stages:['Ricevuto','Accettato','Preparazione','Pronto','Completato']},
+en:{label:'English',title:'Track your order',intro:'Enter your order number and the phone used for the order.',n:'Order number',p:'Phone',go:'TRACK',back:'← Back to ARGO',not:'Order not found. Check the order number and phone.',err:'Unable to check the order right now.',new:'RECEIVED',accepted:'ACCEPTED',preparing:'PREPARING',ready:'READY',completed:'COMPLETED',cancelled:'CANCELLED',pickup:'Collection',total:'Total',requested:'Requested time',items:'Items',updated:'Automatically refreshes every 15 seconds',stages:['Received','Accepted','Preparing','Ready','Completed']},
+el:{label:'Ελληνικά',title:'Παρακολούθηση παραγγελίας',intro:'Βάλε τον αριθμό παραγγελίας και το τηλέφωνο που χρησιμοποίησες.',n:'Αριθμός παραγγελίας',p:'Τηλέφωνο',go:'ΑΝΑΖΗΤΗΣΗ',back:'← Πίσω στο ARGO',not:'Η παραγγελία δεν βρέθηκε. Έλεγξε αριθμό και τηλέφωνο.',err:'Δεν είναι δυνατός ο έλεγχος της παραγγελίας τώρα.',new:'ΠΑΡΑΛΗΦΘΗΚΕ',accepted:'ΕΓΚΡΙΘΗΚΕ',preparing:'ΕΤΟΙΜΑΖΕΤΑΙ',ready:'ΕΤΟΙΜΗ',completed:'ΟΛΟΚΛΗΡΩΘΗΚΕ',cancelled:'ΑΚΥΡΩΘΗΚΕ',pickup:'Παραλαβή',total:'Σύνολο',requested:'Ώρα παραλαβής',items:'Προϊόντα',updated:'Αυτόματη ενημέρωση κάθε 15 δευτερόλεπτα',stages:['Παραλήφθηκε','Εγκρίθηκε','Ετοιμάζεται','Έτοιμη','Ολοκληρώθηκε']},
+es:{label:'Español',title:'Estado de tu pedido',intro:'Introduce el número de pedido y el teléfono usado.',n:'Número de pedido',p:'Teléfono',go:'BUSCAR',back:'← Volver a ARGO',not:'Pedido no encontrado. Comprueba número y teléfono.',err:'No se puede consultar el pedido ahora.',new:'RECIBIDO',accepted:'ACEPTADO',preparing:'PREPARANDO',ready:'LISTO',completed:'COMPLETADO',cancelled:'CANCELADO',pickup:'Recogida',total:'Total',requested:'Hora solicitada',items:'Productos',updated:'Actualización automática cada 15 segundos',stages:['Recibido','Aceptado','Preparando','Listo','Completado']},
+de:{label:'Deutsch',title:'Bestellung verfolgen',intro:'Bestellnummer und verwendete Telefonnummer eingeben.',n:'Bestellnummer',p:'Telefon',go:'SUCHEN',back:'← Zurück zu ARGO',not:'Bestellung nicht gefunden. Nummer und Telefon prüfen.',err:'Bestellung kann gerade nicht geprüft werden.',new:'EINGEGANGEN',accepted:'ANGENOMMEN',preparing:'IN ZUBEREITUNG',ready:'BEREIT',completed:'ABGESCHLOSSEN',cancelled:'STORNIERT',pickup:'Abholung',total:'Gesamt',requested:'Gewünschte Zeit',items:'Artikel',updated:'Automatische Aktualisierung alle 15 Sekunden',stages:['Eingegangen','Angenommen','Zubereitung','Bereit','Abgeschlossen']},
+fr:{label:'Français',title:'Suivre votre commande',intro:'Saisissez le numéro de commande et le téléphone utilisé.',n:'Numéro de commande',p:'Téléphone',go:'SUIVRE',back:'← Retour à ARGO',not:'Commande introuvable. Vérifiez le numéro et le téléphone.',err:'Impossible de vérifier la commande maintenant.',new:'REÇUE',accepted:'ACCEPTÉE',preparing:'EN PRÉPARATION',ready:'PRÊTE',completed:'TERMINÉE',cancelled:'ANNULÉE',pickup:'Retrait',total:'Total',requested:'Heure demandée',items:'Articles',updated:'Actualisation automatique toutes les 15 secondes',stages:['Reçue','Acceptée','Préparation','Prête','Terminée']}
+};
+let lang=localStorage.getItem('argo_direct_language')||'it',timer=null,last=null;
+if(!T[lang])lang='it';
+$('lang').innerHTML=Object.entries(T).map(([k,v])=>'<option value="'+k+'">'+v.label+'</option>').join('');$('lang').value=lang;
+function tx(k){return T[lang][k]??T.it[k]??k}
+function applyLang(){$('title').textContent=tx('title');$('intro').textContent=tx('intro');$('num').placeholder=tx('n');$('phone').placeholder=tx('p');$('go').textContent=tx('go');$('back').textContent=tx('back');if(last)render(last)}
+$('lang').onchange=()=>{lang=$('lang').value;localStorage.setItem('argo_direct_language',lang);applyLang()};
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function euro(n){return new Intl.NumberFormat(lang==='el'?'el-GR':lang==='en'?'en-GB':lang+'-'+({it:'IT',es:'ES',de:'DE',fr:'FR'}[lang]||'IT'),{style:'currency',currency:'EUR'}).format(Number(n||0))}
+function time(v){return v?new Intl.DateTimeFormat(lang,{timeZone:'Europe/Rome',hour:'2-digit',minute:'2-digit'}).format(new Date(v)):'—'}
+const orderStages=['new','accepted','preparing','ready','completed'];
+function render(o){last=o;const idx=orderStages.indexOf(o.status),cancel=o.status==='cancelled';$('result').classList.remove('hidden');$('result').innerHTML=
+'<div class="orderhead"><div><div class="num">#'+esc(o.order_number)+'</div><div class="muted">'+tx('pickup')+'</div></div><div class="status '+esc(o.status)+'">'+esc(tx(o.status)||o.status)+'</div></div>'+
+'<div class="steps">'+orderStages.map((s,i)=>'<div class="step '+(cancel?'cancel':i<idx?'done':i===idx?'on':'')+'"><div class="dot"></div>'+esc(tx('stages')[i])+'</div>').join('')+'</div>'+
+(cancel?'<div class="err">'+esc(tx('cancelled'))+'</div>':'')+
+'<div class="row"><span>'+esc(tx('requested'))+'</span><b>'+esc(time(o.requested_at))+'</b></div>'+
+'<div class="row"><span>'+esc(tx('total'))+'</span><b>'+esc(euro(o.total))+'</b></div>'+
+'<div class="items"><h2>'+esc(tx('items'))+'</h2>'+((o.items||[]).map(i=>'<div class="item"><span><b>'+Number(i.quantity||0)+'× '+esc(i.name)+'</b>'+(i.notes?'<div class="muted small">'+esc(i.notes)+'</div>':'')+'</span></div>').join('')||'—')+'</div>'+
+'<div class="refresh">'+esc(tx('updated'))+'</div>';
+if(['completed','cancelled'].includes(o.status)&&timer){clearInterval(timer);timer=null}}
+async function lookup(silent=false){const n=Number($('num').value),p=$('phone').value.trim();if(!Number.isFinite(n)||n<=0||!p){if(!silent)$('err').textContent=tx('not');return}$('go').disabled=true;if(!silent)$('err').textContent='';const {data,error}=await sb.rpc('argo_track_order',{p_order_number:n,p_phone:p});$('go').disabled=false;if(error){if(!silent)$('err').textContent=tx('err');return}const o=Array.isArray(data)?data[0]:data;if(!o){if(!silent){$('err').textContent=tx('not');$('result').classList.add('hidden')}return}sessionStorage.setItem('argo_track_phone_'+n,p);render(o);if(!timer&&!['completed','cancelled'].includes(o.status))timer=setInterval(()=>lookup(true),15000)}
+$('go').onclick=()=>lookup(false);$('phone').addEventListener('keydown',e=>{if(e.key==='Enter')lookup(false)});$('num').addEventListener('keydown',e=>{if(e.key==='Enter')lookup(false)});
+const qp=new URLSearchParams(location.search),qn=qp.get('n');if(qn){$('num').value=qn;const sp=sessionStorage.getItem('argo_track_phone_'+qn)||'';if(sp){$('phone').value=sp;setTimeout(()=>lookup(false),50)}}
+applyLang();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
