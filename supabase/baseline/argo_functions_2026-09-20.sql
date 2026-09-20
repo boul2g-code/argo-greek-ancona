@@ -2,7 +2,7 @@
 -- Captured 2026-09-20 from Supabase project zibubwrntdmdxyimqddo.
 -- Scope: public.argo_* functions only. Non-ARGO/KIROX functions are excluded.
 -- Snapshot only: do NOT treat this file as an automatically replayed migration.
--- Function count at capture: 50.
+-- Function count at capture: 51.
 
 -- argo_admin_booking_history(text,uuid)
 CREATE OR REPLACE FUNCTION public.argo_admin_booking_history(p_token text, p_booking_id uuid DEFAULT NULL::uuid)
@@ -935,6 +935,53 @@ begin
   update public.argo_menu_items
      set name=btrim(p_name), price=p_price, active=p_active, updated_at=now()
    where id=p_id;
+  return found;
+end;
+$function$
+
+
+-- argo_admin_update_item_allergens(text,uuid,text[],text,boolean)
+CREATE OR REPLACE FUNCTION public.argo_admin_update_item_allergens(p_token text, p_id uuid, p_allergens text[], p_note text DEFAULT NULL::text, p_mark_reviewed boolean DEFAULT true)
+ RETURNS boolean
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO 'public', 'extensions'
+AS $function$
+declare
+  v_allowed constant text[] := array[
+    'gluten','crustaceans','eggs','fish','peanuts','soy',
+    'milk','nuts','celery','mustard','sesame','sulphites',
+    'lupin','molluscs'
+  ];
+  v_clean text[];
+begin
+  if not public.argo_admin_valid(p_token) then
+    raise exception 'Unauthorized';
+  end if;
+
+  if p_allergens is not null then
+    select coalesce(array_agg(distinct x order by x),'{}'::text[])
+      into v_clean
+      from unnest(p_allergens) x
+      where x is not null and btrim(x) <> '';
+
+    if not (v_clean <@ v_allowed) then
+      raise exception 'invalid_allergen_code';
+    end if;
+  else
+    v_clean := null;
+  end if;
+
+  update public.argo_menu_items
+     set allergens = v_clean,
+         allergens_note = nullif(btrim(coalesce(p_note,'')),''),
+         allergens_reviewed_at = case
+           when coalesce(p_mark_reviewed,false) then now()
+           else null
+         end,
+         updated_at = now()
+   where id = p_id;
+
   return found;
 end;
 $function$
