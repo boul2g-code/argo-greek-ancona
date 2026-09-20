@@ -55,7 +55,28 @@ de:{gluten:'Gluten',crustaceans:'Krebstiere',eggs:'Eier',fish:'Fisch',peanuts:'E
 fr:{gluten:'gluten',crustaceans:'crustacés',eggs:'œufs',fish:'poisson',peanuts:'arachides',soy:'soja',milk:'lait',nuts:'fruits à coque',celery:'céleri',mustard:'moutarde',sesame:'sésame',sulphites:'sulfites',lupin:'lupin',molluscs:'mollusques'}
 };
 function allergenText(x){if(!x?.allergens_reviewed_at)return'';const a=Array.isArray(x.allergens)?x.allergens:[],labels=ALLERGEN_LABELS[lang]||ALLERGEN_LABELS.it,prefix={it:'Allergeni',en:'Allergens',el:'Αλλεργιογόνα',es:'Alérgenos',de:'Allergene',fr:'Allergènes'}[lang]||'Allergeni';if(!a.length)return'';return prefix+': '+a.map(k=>labels[k]||k).join(', ')}
-function render(){const all=t('all'),base=[...new Set(items.map(x=>x.category))],selected=cat===all?null:base.find(x=>localText('categories',x)===cat),a=!selected?items:items.filter(x=>x.category===selected);$('menuGrid').innerHTML=a.map(x=>{const media=x.image_url?`<div class="pic"><img src="${esc(x.image_url)}" alt="${esc(localText('names',x.name))}" loading="lazy" decoding="async" onerror="this.parentElement.remove()"></div>`:'';return `<article class="item">${media}<div class="ib"><h3>${esc(localText('names',x.name))}</h3><p>${esc(localText('descriptions',x.description||''))}</p>${allergenText(x)?`<div style="margin-top:8px;font-size:11px;line-height:1.4;color:#d9c7a3;font-weight:700">⚠ ${esc(allergenText(x))}${x.allergens_note?` · ${esc(x.allergens_note)}`:''}</div>`:''}<div class="if"><span class="price">${euro(x.price)}</span><button class="mini" onclick="document.getElementById('scegli').scrollIntoView({behavior:'smooth'})">${esc(t('how'))}</button></div></div></article>`}).join('')}
+const TEMP_PHOTOS={"pita":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=9ceeeaf7-23bb-4652-8bd2-c3fed6e02a6b&v=20260916-0343","plate":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=5e1cc23a-dd63-4a57-b628-dd84456efc20&v=20260916-0343","saganaki":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=13ce8b4c-447e-4794-ba67-d12c7c497a50&v=20260916-0343","feta":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=df1f6ae3-727d-4932-b0e8-af972d98ab1a&v=20260916-0343","dolmas":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=949fabb5-a82b-492e-9411-aa66d4c681b1&v=20260916-0343","salad":"https://zibubwrntdmdxyimqddo.supabase.co/functions/v1/argo-public-menu-photo?item=1b61625f-52a8-42e6-9118-649f52e2d9af&v=20260916-0343"};
+function indicativeLabel(){return ({it:'Foto indicativa',en:'Illustrative photo',el:'Ενδεικτική φωτογραφία',es:'Foto orientativa',de:'Beispielfoto',fr:'Photo indicative'}[lang]||'Foto indicativa')}
+function fallbackPhoto(x,categoryName){
+  if(x.image_url)return {url:x.image_url,indicative:false};
+  const n=String(x.name||'').toLowerCase(),c=String(categoryName||'').toLowerCase();
+  if(c==='pita')return {url:TEMP_PHOTOS.pita,indicative:true};
+  if(c==='piatti')return {url:TEMP_PHOTOS.plate,indicative:true};
+  if(c==='insalate')return {url:TEMP_PHOTOS.salad,indicative:true};
+  if(c==='vegetariano'){
+    if(n.includes('dolmas'))return {url:TEMP_PHOTOS.dolmas,indicative:true};
+    if(n.includes('feta'))return {url:TEMP_PHOTOS.feta,indicative:true};
+    return {url:TEMP_PHOTOS.salad,indicative:true};
+  }
+  if(c==='mezedes'){
+    if(n.includes('dolm'))return {url:TEMP_PHOTOS.dolmas,indicative:true};
+    if(n.includes('feta'))return {url:TEMP_PHOTOS.feta,indicative:true};
+    if(n.includes('saganaki')||n.includes('halloumi')||n.includes('tirokeft'))return {url:TEMP_PHOTOS.saganaki,indicative:true};
+    return {url:TEMP_PHOTOS.saganaki,indicative:true};
+  }
+  return {url:'',indicative:false};
+}
+function render(){const all=t('all'),base=[...new Set(items.map(x=>x.category))],selected=cat===all?null:base.find(x=>localText('categories',x)===cat),a=!selected?items:items.filter(x=>x.category===selected);$('menuGrid').innerHTML=a.map(x=>{const ph=fallbackPhoto(x,x.category),media=ph.url?`<div class="pic"><img src="${esc(ph.url)}" alt="${esc(localText('names',x.name))}" loading="lazy" decoding="async" onerror="this.parentElement.remove()">${ph.indicative?`<span style="position:absolute;left:8px;bottom:8px;z-index:2;background:#081d33d9;color:#fff;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900">${esc(indicativeLabel())}</span>`:''}</div>`:'';return `<article class="item">${media}<div class="ib"><h3>${esc(localText('names',x.name))}</h3><p>${esc(localText('descriptions',x.description||''))}</p>${allergenText(x)?`<div style="margin-top:8px;font-size:11px;line-height:1.4;color:#d9c7a3;font-weight:700">⚠ ${esc(allergenText(x))}${x.allergens_note?` · ${esc(x.allergens_note)}`:''}</div>`:''}<div class="if"><span class="price">${euro(x.price)}</span><button class="mini" onclick="document.getElementById('scegli').scrollIntoView({behavior:'smooth'})">${esc(t('how'))}</button></div></div></article>`}).join('')}
 function status(){const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes(),o=d!==3&&m>=1110&&m<1380;$('status').textContent=o?t('openNow'):t('closedNow')}
 initLanguage();menu();applyLanguage();setInterval(status,60000)
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
