@@ -1,0 +1,15 @@
+{
+  "name": "ARGO Greek Comfort Food",
+  "short_name": "ARGO",
+  "description": "Menu, ritiro diretto e stato ordine ARGO Greek Comfort Food Ancona.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c0f13",
+  "theme_color": "#0D3B66",
+  "icons": [
+    {"src":"argo-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"},
+    {"src":"argo-channel-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+  ]
+}
