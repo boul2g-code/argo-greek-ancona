@@ -37,7 +37,7 @@ async function load(){
  ]);
  if(ve||!ok){location.replace('./');return}
  if(ie||ce){document.getElementById('content').innerHTML='<div class="empty">Errore caricamento menu</div>';return}
- const active=(items||[]).filter(x=>x.active),activeCats=(cats||[]).filter(c=>c.active!==false),by={};for(const x of active)(by[x.category_id]??=[]).push(x);
+ const active=(items||[]).filter(x=>x.active),activeCats=(cats||[]).filter(c=>c.active!==false&&String(c.slug||'').toLowerCase()!=='posate'),by={};for(const x of active)(by[x.category_id]??=[]).push(x);
  document.getElementById('stamp').textContent='Aggiornato: '+new Intl.DateTimeFormat('it-IT',{dateStyle:'short',timeStyle:'short'}).format(new Date());
  document.getElementById('content').innerHTML='<div class="cols">'+activeCats.filter(c=>by[c.id]?.length).map(c=>`<section class="section"><h2>${esc(c.name)}</h2>${String(c.slug||'').toLowerCase()==='pita'||String(c.name||'').toLowerCase()==='pita'?'<div class="extra">EXTRA PITE · Doppia salsa + € 1,00 · Feta o Halloumi + € 1,50</div>':''}${by[c.id].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)||String(a.name).localeCompare(String(b.name))).map(x=>`<div class="item"><div><div class="name">${esc(x.name)}</div>${x.description?`<div class="desc">${esc(x.description)}</div>`:''}</div><div class="price">${euro(x.price)}</div></div>`).join('')}</section>`).join('')+'</div>';
  if(new URLSearchParams(location.search).get('autoprint')==='1')setTimeout(()=>window.print(),250);
