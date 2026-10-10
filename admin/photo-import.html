@@ -23,7 +23,7 @@
 <div id="msg" class="muted" style="margin-top:12px"></div><div id="log"></div>
 </div></main>
 <script>
-const SB='https://zibubwrntdmdxyimqddo.supabase.co',KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL',IMPORT=SB+'/functions/v1/argo-photo-import';
+const SB='https://xbzixjrdglpsssgnzrxl.supabase.co',KEY='sb_publishable_GdFwld1NP2ZEbpkbUYm2SA_THrug4uo',IMPORT=SB+'/functions/v1/argo-photo-import';
 const sb=supabase.createClient(SB,KEY),tok=()=>localStorage.getItem('argo_admin_token_v1'),intendedItemId=new URLSearchParams(location.search).get('item')||'';
 let rows=[],statusRows=[],chosen=[],menu=[];
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

@@ -1,4 +1,4 @@
-const CACHE='argo-admin-v6';
+const CACHE='argo-admin-v7';
 const APP=['./manifest.webmanifest','../admin-icon.svg'];
 
 self.addEventListener('install',e=>{

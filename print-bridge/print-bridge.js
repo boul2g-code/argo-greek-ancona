@@ -14,8 +14,8 @@ if (fs.existsSync(envPath)) {
 }
 
 const cfg = {
-  url: process.env.SUPABASE_URL || 'https://zibubwrntdmdxyimqddo.supabase.co',
-  key: process.env.SUPABASE_KEY || 'sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL',
+  url: process.env.SUPABASE_URL || 'https://xbzixjrdglpsssgnzrxl.supabase.co',
+  key: process.env.SUPABASE_KEY || 'sb_publishable_GdFwld1NP2ZEbpkbUYm2SA_THrug4uo',
   email: process.env.ARGO_ADMIN_EMAIL,
   password: process.env.ARGO_ADMIN_PASSWORD,
   host: process.env.PRINTER_HOST || '192.168.1.130',

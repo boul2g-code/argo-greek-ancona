@@ -34,7 +34,7 @@
 <section><div class="card"><h2>Coda contenuti</h2><div class="toolbar"><select id="statusFilter"><option value="all">Tutti gli stati</option><option value="draft">Bozze</option><option value="approved">Approvati</option><option value="scheduled">Programmati</option><option value="ready_to_publish">Pronti autopublish</option><option value="published">Pubblicati</option><option value="failed">Errori</option><option value="cancelled">Annullati</option></select><input id="search" placeholder="Cerca…"></div><div id="posts"><div class="empty">Caricamento…</div></div></div></section>
 </div></main>
 <script>
-const SB_URL='https://zibubwrntdmdxyimqddo.supabase.co',KEY='sb_publishable_IGXGYoh2jg1ardyg9jW3vg_DTybVlOL',PREVIEW_URL=SB_URL+'/functions/v1/argo-photo-preview';
+const SB_URL='https://xbzixjrdglpsssgnzrxl.supabase.co',KEY='sb_publishable_GdFwld1NP2ZEbpkbUYm2SA_THrug4uo',PREVIEW_URL=SB_URL+'/functions/v1/argo-photo-preview';
 const sb=supabase.createClient(SB_URL,KEY);
 const tok=()=>localStorage.getItem('argo_admin_token_v1');const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let posts=[],mediaRows=[],connections=[],menuRows=[],categories=[];const previewCache=new Map();
 function approvedMedia(r){const c=r.category||'';return r.active&&(r.status==='menu'||['hero','heritage','social','social_verified'].includes(c))}

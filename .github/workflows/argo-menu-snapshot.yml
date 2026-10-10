@@ -26,7 +26,7 @@ jobs:
           m=re.search(r"KEY='([^']+)'",html)
           if not m: raise SystemExit('Public menu key not found in ordina/index.html')
           key=m.group(1)
-          base='https://zibubwrntdmdxyimqddo.supabase.co/rest/v1/'
+          base='https://xbzixjrdglpsssgnzrxl.supabase.co/rest/v1/'
           headers={'apikey':key,'Accept':'application/json'}
           endpoints={
             'cats':'argo_menu_categories?select=*&active=eq.true&order=sort_order.asc',
