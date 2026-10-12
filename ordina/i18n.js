@@ -182,7 +182,7 @@
   const categories = build(categoryRows), names = build(nameRows), descriptions = build(descRows), groups = build(groupRows), options = build(optionRows);
   Object.entries(sizeDescriptions).forEach(([key, values]) => { descriptions[key] = { it: key }; codes.slice(1).forEach((code, i) => { descriptions[key][code] = values[i]; }); });
 
-  // Current live product descriptions; keep ingredients and serving details in every language.
+  // Current live and cached product descriptions, including all serving details.
   Object.assign(descriptions, {
   "Pita con halloumi, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
     "it": "Pita con halloumi, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
@@ -415,6 +415,14 @@
     "es": "3 brochetas de cordero con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
     "de": "3 Lammspieße mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
     "fr": "3 brochettes d’agneau avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Costolette di agnello servite con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Costolette di agnello servite con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Lamb chops served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Αρνίσια παϊδάκια με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Chuletas de cordero con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Lammkoteletts mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Côtelettes d’agneau avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
   }
 });
 
