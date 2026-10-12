@@ -1,0 +1,1 @@
+alter table public.argo_orders add constraint argo_orders_table_hours_check check (order_type<>'tavolo' or (requested_at is not null and extract(dow from requested_at at time zone 'Europe/Rome')<>3 and (requested_at at time zone 'Europe/Rome')::time between time '18:30' and time '23:00')) not valid;
