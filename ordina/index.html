@@ -42,7 +42,7 @@ const SUPA='https://xbzixjrdglpsssgnzrxl.supabase.co',KEY='sb_publishable_GdFwld
 const $=id=>document.getElementById(id),euro=n=>'€ '+Number(n||0).toFixed(2).replace('.',','),esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const I18N=window.ARGO_I18N||{languages:{it:{label:'Italiano',flag:'🇮🇹'}},ui:{it:{}},categories:{},names:{},descriptions:{},groups:{},options:{}};
 const supported=Object.keys(I18N.languages),queryLang=new URLSearchParams(location.search).get('lang'),savedLang=localStorage.getItem('argo_direct_language'),browserLang=(navigator.language||'it').slice(0,2).toLowerCase();
-let lang=supported.includes(queryLang)?queryLang:supported.includes(savedLang)?savedLang:supported.includes(browserLang)?browserLang:'it';
+let lang=supported.includes(queryLang)?queryLang:supported.includes(browserLang)?browserLang:'it';
 const tableQuery=new URLSearchParams(location.search), tableMode=tableQuery.get('mode')==='tavolo'||tableQuery.has('table');
 let tableNumber=/^([1-9]|10)$/.test(tableQuery.get('table')||'')?Number(tableQuery.get('table')):0;
 const tableTx=k=>(window.ARGO_TABLE_TEXT[lang]||window.ARGO_TABLE_TEXT.it)[k],tableDisplay=()=>tableTx('table')+' '+tableNumber;
