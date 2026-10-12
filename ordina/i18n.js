@@ -182,5 +182,241 @@
   const categories = build(categoryRows), names = build(nameRows), descriptions = build(descRows), groups = build(groupRows), options = build(optionRows);
   Object.entries(sizeDescriptions).forEach(([key, values]) => { descriptions[key] = { it: key }; codes.slice(1).forEach((code, i) => { descriptions[key][code] = values[i]; }); });
 
+  // Current live product descriptions; keep ingredients and serving details in every language.
+  Object.assign(descriptions, {
+  "Pita con halloumi, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con halloumi, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with halloumi, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με χαλούμι, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con halloumi, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Halloumi, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec halloumi, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con feta, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con feta, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with feta, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με φέτα, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con feta, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Feta, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec feta, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con doppia porzione di gyros di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con doppia porzione di gyros di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with a double portion of pork gyros, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με διπλή μερίδα χοιρινού γύρου, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con doble ración de gyros de cerdo, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit einer doppelten Portion Schweinegyros, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec une double portion de gyros de porc, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Gyros di pollo servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Gyros di pollo servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Chicken gyros served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Γύρος κοτόπουλο με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Gyros de pollo con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Hähnchengyros mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Gyros de poulet avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Pita con pollo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con pollo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with chicken, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με κοτόπουλο, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con pollo, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Hähnchen, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec poulet, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con doppia porzione di pollo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con doppia porzione di pollo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with a double portion of chicken, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με διπλή μερίδα κοτόπουλου, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con doble ración de pollo, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit einer doppelten Portion Hähnchen, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec une double portion de poulet, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con farcitura vegetale, insalata, cipolla, pomodoro e patate. Salsa sostituibile a scelta.": {
+    "it": "Pita con farcitura vegetale, insalata, cipolla, pomodoro e patate. Salsa sostituibile a scelta.",
+    "en": "Pita with plant-based filling, lettuce, onion, tomato and potatoes. You can choose a different sauce.",
+    "el": "Πίτα με φυτική γέμιση, μαρούλι, κρεμμύδι, ντομάτα και πατάτες. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con relleno vegetal, lechuga, cebolla, tomate y patatas. Puedes elegir otra salsa.",
+    "de": "Pita mit pflanzlicher Füllung, Salat, Zwiebel, Tomate und Kartoffeln. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita à la garniture végétale, salade, oignon, tomate et pommes de terre. Vous pouvez choisir une autre sauce."
+  },
+  "Souvlaki di pollo servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Souvlaki di pollo servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Chicken souvlaki served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Σουβλάκι κοτόπουλο με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Souvlaki de pollo con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Hähnchen-Souvlaki mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Souvlaki de poulet avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Pita con agnello, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con agnello, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with lamb, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με αρνί, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con cordero, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Lamm, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec agneau, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con dolmas, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con dolmas, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with stuffed vine leaves, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με ντολμαδάκια, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con hojas de parra rellenas, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit gefüllten Weinblättern, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec feuilles de vigne farcies, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Souvlaki di suino servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Souvlaki di suino servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Pork souvlaki served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Χοιρινό σουβλάκι με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Souvlaki de cerdo con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Schweine-Souvlaki mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Souvlaki de porc avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Pita con bifteki di manzo e agnello, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con bifteki di manzo e agnello, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with beef and lamb bifteki, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με μπιφτέκι από μοσχάρι και αρνί, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con bifteki de ternera y cordero, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Bifteki aus Rind und Lamm, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec bifteki de bœuf et d’agneau, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con salsiccia greca, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con salsiccia greca, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with Greek sausage, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με ελληνικό λουκάνικο, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con salchicha griega, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit griechischer Wurst, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec saucisse grecque, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con carne di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con carne di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with pork, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με χοιρινό, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con cerdo, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Schweinefleisch, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec porc, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con polpette al sugo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con polpette al sugo, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with meatballs in sauce, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με κεφτέδες με σάλτσα, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con albóndigas en salsa, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Hackbällchen in Sauce, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec boulettes de viande en sauce, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Vino Rosso Secco – Grecia Peloponneso. Consigliato a 18° C, vino fruttato da accompagnare con piatti speziati. Servire a 18° C.": {
+    "it": "Vino Rosso Secco – Grecia Peloponneso. Consigliato a 18° C, vino fruttato da accompagnare con piatti speziati. Servire a 18° C.",
+    "en": "Dry red wine from the Peloponnese, Greece. Fruity wine recommended with spicy dishes. Serve at 18°C.",
+    "el": "Ξηρό κόκκινο κρασί από την Πελοπόννησο. Φρουτώδες, προτείνεται με πικάντικα πιάτα. Σερβίρεται στους 18°C.",
+    "es": "Vino tinto seco del Peloponeso, Grecia. Afrutado, recomendado con platos especiados. Servir a 18°C.",
+    "de": "Trockener Rotwein aus dem Peloponnes, Griechenland. Fruchtig, empfohlen zu würzigen Gerichten. Bei 18°C servieren.",
+    "fr": "Vin rouge sec du Péloponnèse, Grèce. Fruité, conseillé avec des plats épicés. Servir à 18°C."
+  },
+  "Mix grill servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Mix grill servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Mixed grill served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Ποικιλία κρεατικών σχάρας με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Parrillada mixta con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Gemischter Grillteller mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Assortiment de viandes grillées avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Bifteki di manzo e agnello servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Bifteki di manzo e agnello servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Beef and lamb bifteki served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Μπιφτέκι από μοσχάρι και αρνί με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Bifteki de ternera y cordero con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Bifteki aus Rind und Lamm mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Bifteki de bœuf et d’agneau avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Vino Bianco secco del Peloponneso. Servito freddo, gusto morbido con note di legno e un aroma balsamico. Consigliato a 10°. Servire freddo · 10° C.": {
+    "it": "Vino Bianco secco del Peloponneso. Servito freddo, gusto morbido con note di legno e un aroma balsamico. Consigliato a 10°. Servire freddo · 10° C.",
+    "en": "Dry white wine from the Peloponnese. Smooth flavour with woody notes and a balsamic aroma. Serve chilled at 10°C.",
+    "el": "Ξηρό λευκό κρασί από την Πελοπόννησο. Απαλή γεύση με νότες ξύλου και βαλσαμικό άρωμα. Σερβίρεται δροσερό στους 10°C.",
+    "es": "Vino blanco seco del Peloponeso. Sabor suave con notas de madera y aroma balsámico. Servir frío a 10°C.",
+    "de": "Trockener Weißwein aus dem Peloponnes. Milder Geschmack mit Holznoten und balsamischem Aroma. Gekühlt bei 10°C servieren.",
+    "fr": "Vin blanc sec du Péloponnèse. Saveur douce avec des notes boisées et un arôme balsamique. Servir frais à 10°C."
+  },
+  "Selezione vegetariana servita con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Selezione vegetariana servita con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Vegetarian selection served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Χορτοφαγική ποικιλία με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Selección vegetariana con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Vegetarische Auswahl mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Assortiment végétarien avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Moussaka della casa servita con insalata, cipolla, pomodoro, tzatziki e pita.": {
+    "it": "Moussaka della casa servita con insalata, cipolla, pomodoro, tzatziki e pita.",
+    "en": "Homemade moussaka served with lettuce, onion, tomato, tzatziki and pita.",
+    "el": "Σπιτικός μουσακάς με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι και πίτα.",
+    "es": "Musaka de la casa con lechuga, cebolla, tomate, tzatziki y pita.",
+    "de": "Hausgemachte Moussaka mit Salat, Zwiebel, Tomate, Tzatziki und Pita.",
+    "fr": "Moussaka maison avec salade, oignon, tomate, tzatziki et pita."
+  },
+  "Polpette di carne servite con salsa": {
+    "it": "Polpette di carne servite con salsa",
+    "en": "Meatballs served with sauce",
+    "el": "Κεφτέδες με σάλτσα",
+    "es": "Albóndigas servidas con salsa",
+    "de": "Hackbällchen mit Sauce",
+    "fr": "Boulettes de viande servies avec une sauce"
+  },
+  "4 polpette di manzo in padella, servite con salsa": {
+    "it": "4 polpette di manzo in padella, servite con salsa",
+    "en": "4 pan-cooked beef meatballs, served with sauce",
+    "el": "4 μοσχαρίσιοι κεφτέδες στο τηγάνι, με σάλτσα",
+    "es": "4 albóndigas de ternera cocinadas en sartén, con salsa",
+    "de": "4 Rindfleischbällchen aus der Pfanne, mit Sauce",
+    "fr": "4 boulettes de bœuf cuites à la poêle, avec une sauce"
+  },
+  "Patate al forno": {
+    "it": "Patate al forno",
+    "en": "Oven-baked potatoes",
+    "el": "Πατάτες φούρνου",
+    "es": "Patatas al horno",
+    "de": "Ofenkartoffeln",
+    "fr": "Pommes de terre au four"
+  },
+  "Pita con gyros di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con gyros di suino, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with pork gyros, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με χοιρινό γύρο, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con gyros de cerdo, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Schweinegyros, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec gyros de porc, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Gyros di suino servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "Gyros di suino servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "Pork gyros served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "Χοιρινός γύρος με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "Gyros de cerdo con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "Schweinegyros mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "Gyros de porc avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  },
+  "Pita con polpette di ceci, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con polpette di ceci, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with chickpea croquettes, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με ρεβιθοκεφτέδες, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con croquetas de garbanzos, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Kichererbsenbällchen, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec croquettes de pois chiches, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "Pita con soutzoukaki, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.": {
+    "it": "Pita con soutzoukaki, insalata, cipolla, pomodoro, patate e tzatziki. Salsa sostituibile a scelta.",
+    "en": "Pita with soutzoukaki, lettuce, onion, tomato, potatoes and tzatziki. You can choose a different sauce.",
+    "el": "Πίτα με σουτζουκάκια, μαρούλι, κρεμμύδι, ντομάτα, πατάτες και τζατζίκι. Η σάλτσα μπορεί να αντικατασταθεί με άλλη επιλογής σας.",
+    "es": "Pita con soutzoukaki, lechuga, cebolla, tomate, patatas y tzatziki. Puedes elegir otra salsa.",
+    "de": "Pita mit Soutzoukaki, Salat, Zwiebel, Tomate, Kartoffeln und Tzatziki. Eine andere Sauce kann gewählt werden.",
+    "fr": "Pita avec soutzoukaki, salade, oignon, tomate, pommes de terre et tzatziki. Vous pouvez choisir une autre sauce."
+  },
+  "3 Spiedini di agnello servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.": {
+    "it": "3 Spiedini di agnello servito con insalata, cipolla, pomodoro, tzatziki, pita e patate.",
+    "en": "3 lamb skewers served with lettuce, onion, tomato, tzatziki, pita and potatoes.",
+    "el": "3 αρνίσια καλαμάκια με μαρούλι, κρεμμύδι, ντομάτα, τζατζίκι, πίτα και πατάτες.",
+    "es": "3 brochetas de cordero con lechuga, cebolla, tomate, tzatziki, pita y patatas.",
+    "de": "3 Lammspieße mit Salat, Zwiebel, Tomate, Tzatziki, Pita und Kartoffeln.",
+    "fr": "3 brochettes d’agneau avec salade, oignon, tomate, tzatziki, pita et pommes de terre."
+  }
+});
+
   window.ARGO_I18N = { languages, ui, categories, names, descriptions, groups, options };
 })();
