@@ -1,0 +1,80 @@
+window.ARGO_TABLE_TEXT={
+  "it": {
+    "title": "Ordina dal tavolo",
+    "subtitle": "Scegli e personalizza i piatti. La comanda arriva direttamente al locale.",
+    "table": "Tavolo",
+    "choose": "Scegli il tuo tavolo",
+    "confirm": "Controlla il numero del tavolo prima di inviare.",
+    "pay": "Pagamento in cassa",
+    "name": "Nome (facoltativo)",
+    "send": "INVIA COMANDA",
+    "wait": "La comanda è arrivata. Attendi la conferma del personale.",
+    "error": "Controlla il tavolo e riprova. Per assistenza, chiama il personale.",
+    "card": "Sei già da ARGO? Ordina dal tuo tavolo e paga in cassa."
+  },
+  "en": {
+    "title": "Order at your table",
+    "subtitle": "Choose and customise your food. Your order goes straight to the restaurant.",
+    "table": "Table",
+    "choose": "Choose your table",
+    "confirm": "Check your table number before sending.",
+    "pay": "Pay at the counter",
+    "name": "Name (optional)",
+    "send": "SEND TABLE ORDER",
+    "wait": "Your order has arrived. Please wait for staff confirmation.",
+    "error": "Check your table and try again. Ask staff for help.",
+    "card": "Already at ARGO? Order at your table and pay at the counter."
+  },
+  "el": {
+    "title": "Παραγγελία από το τραπέζι",
+    "subtitle": "Διάλεξε και προσάρμοσε τα πιάτα σου. Η παραγγελία φτάνει απευθείας στο κατάστημα.",
+    "table": "Τραπέζι",
+    "choose": "Διάλεξε το τραπέζι σου",
+    "confirm": "Έλεγξε τον αριθμό του τραπεζιού πριν στείλεις.",
+    "pay": "Πληρωμή στο ταμείο",
+    "name": "Όνομα (προαιρετικό)",
+    "send": "ΑΠΟΣΤΟΛΗ ΠΑΡΑΓΓΕΛΙΑΣ",
+    "wait": "Η παραγγελία έφτασε. Περίμενε την επιβεβαίωση του προσωπικού.",
+    "error": "Έλεγξε το τραπέζι και δοκίμασε ξανά. Ζήτησε βοήθεια από το προσωπικό.",
+    "card": "Είσαι ήδη στο ARGO; Παράγγειλε από το τραπέζι και πλήρωσε στο ταμείο."
+  },
+  "es": {
+    "title": "Pide desde tu mesa",
+    "subtitle": "Elige y personaliza tus platos. El pedido llega directamente al restaurante.",
+    "table": "Mesa",
+    "choose": "Elige tu mesa",
+    "confirm": "Comprueba el número de mesa antes de enviar.",
+    "pay": "Pago en caja",
+    "name": "Nombre (opcional)",
+    "send": "ENVIAR PEDIDO",
+    "wait": "Tu pedido ha llegado. Espera la confirmación del personal.",
+    "error": "Comprueba la mesa e inténtalo de nuevo. Pide ayuda al personal.",
+    "card": "¿Ya estás en ARGO? Pide desde tu mesa y paga en caja."
+  },
+  "de": {
+    "title": "Am Tisch bestellen",
+    "subtitle": "Wähle deine Gerichte und passe sie an. Die Bestellung geht direkt ans Restaurant.",
+    "table": "Tisch",
+    "choose": "Wähle deinen Tisch",
+    "confirm": "Prüfe die Tischnummer vor dem Absenden.",
+    "pay": "An der Kasse bezahlen",
+    "name": "Name (optional)",
+    "send": "BESTELLUNG SENDEN",
+    "wait": "Die Bestellung ist eingegangen. Bitte warte auf die Bestätigung des Personals.",
+    "error": "Prüfe den Tisch und versuche es erneut. Bitte das Personal um Hilfe.",
+    "card": "Schon bei ARGO? Bestelle am Tisch und bezahle an der Kasse."
+  },
+  "fr": {
+    "title": "Commander à table",
+    "subtitle": "Choisissez et personnalisez vos plats. La commande arrive directement au restaurant.",
+    "table": "Table",
+    "choose": "Choisissez votre table",
+    "confirm": "Vérifiez le numéro de table avant d’envoyer.",
+    "pay": "Paiement en caisse",
+    "name": "Nom (facultatif)",
+    "send": "ENVOYER LA COMMANDE",
+    "wait": "Votre commande est arrivée. Attendez la confirmation du personnel.",
+    "error": "Vérifiez la table et réessayez. Demandez de l’aide au personnel.",
+    "card": "Déjà chez ARGO ? Commandez à table et payez en caisse."
+  }
+};

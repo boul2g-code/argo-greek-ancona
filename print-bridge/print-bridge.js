@@ -61,7 +61,7 @@ function ticket(o) {
   out.push('\x1bE\x00\x1ba\x00'); // bold off, left
   out.push(hr());
   out.push('\x1d!\x11');            // double size
-  out.push(`#${o.order_number}  ${clean(o.order_type).toUpperCase()}\n`);
+  out.push(`#${o.order_number}  ${clean(o.order_type === 'tavolo' ? (o.address || o.customer_name || 'TAVOLO') : o.order_type).toUpperCase()}\n`);
   out.push('\x1d!\x00');
   out.push(`${new Date(o.created_at).toLocaleString('it-IT')}\n`);
   if (o.requested_at) out.push(`RICHIESTO: ${new Date(o.requested_at).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}\n`);
