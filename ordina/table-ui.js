@@ -11,7 +11,7 @@ window.ARGO_TABLE_TEXT={
     "wait": "La comanda è arrivata. Attendi la conferma del personale.",
     "error": "Controlla il tavolo e riprova. Per assistenza, chiama il personale.",
     "card": "Sei già da ARGO? Ordina dal tuo tavolo e paga in cassa.",
-    "closed": "Gli ordini dal tavolo sono disponibili dalle 18:30 alle 23:00, mercoledì chiuso. Fuori orario, rivolgiti al personale."
+    "closed": "Gli ordini dal tavolo sono disponibili solo negli orari di apertura. Fuori orario, rivolgiti al personale."
   },
   "en": {
     "title": "Order at your table",
@@ -25,7 +25,7 @@ window.ARGO_TABLE_TEXT={
     "wait": "Your order has arrived. Please wait for staff confirmation.",
     "error": "Check your table and try again. Ask staff for help.",
     "card": "Already at ARGO? Order at your table and pay at the counter.",
-    "closed": "Table orders are available 18:30–23:00, closed Wednesday. Outside these hours, please ask staff."
+    "closed": "Table orders are available only during opening hours. Outside these hours, please ask staff."
   },
   "el": {
     "title": "Παραγγελία από το τραπέζι",
@@ -39,7 +39,7 @@ window.ARGO_TABLE_TEXT={
     "wait": "Η παραγγελία έφτασε. Περίμενε την επιβεβαίωση του προσωπικού.",
     "error": "Έλεγξε το τραπέζι και δοκίμασε ξανά. Ζήτησε βοήθεια από το προσωπικό.",
     "card": "Είσαι ήδη στο ARGO; Παράγγειλε από το τραπέζι και πλήρωσε στο ταμείο.",
-    "closed": "Οι παραγγελίες από το τραπέζι γίνονται 18:30–23:00, Τετάρτη κλειστά. Εκτός ωραρίου, απευθυνθείτε στο προσωπικό."
+    "closed": "Οι παραγγελίες από το τραπέζι γίνονται μόνο εντός ωραρίου λειτουργίας. Εκτός ωραρίου, απευθυνθείτε στο προσωπικό."
   },
   "es": {
     "title": "Pide desde tu mesa",
@@ -53,7 +53,7 @@ window.ARGO_TABLE_TEXT={
     "wait": "Tu pedido ha llegado. Espera la confirmación del personal.",
     "error": "Comprueba la mesa e inténtalo de nuevo. Pide ayuda al personal.",
     "card": "¿Ya estás en ARGO? Pide desde tu mesa y paga en caja.",
-    "closed": "Los pedidos desde la mesa están disponibles de 18:30 a 23:00, miércoles cerrado. Fuera de horario, consulta al personal."
+    "closed": "Los pedidos desde la mesa solo están disponibles en horario de apertura. Fuera de horario, consulta al personal."
   },
   "de": {
     "title": "Am Tisch bestellen",
@@ -67,7 +67,7 @@ window.ARGO_TABLE_TEXT={
     "wait": "Die Bestellung ist eingegangen. Bitte warte auf die Bestätigung des Personals.",
     "error": "Prüfe den Tisch und versuche es erneut. Bitte das Personal um Hilfe.",
     "card": "Schon bei ARGO? Bestelle am Tisch und bezahle an der Kasse.",
-    "closed": "Tischbestellungen sind von 18:30 bis 23:00 möglich, mittwochs geschlossen. Außerhalb dieser Zeiten bitte das Personal fragen."
+    "closed": "Tischbestellungen sind nur während der Öffnungszeiten möglich. Außerhalb dieser Zeiten bitte das Personal fragen."
   },
   "fr": {
     "title": "Commander à table",
@@ -81,6 +81,6 @@ window.ARGO_TABLE_TEXT={
     "wait": "Votre commande est arrivée. Attendez la confirmation du personnel.",
     "error": "Vérifiez la table et réessayez. Demandez de l’aide au personnel.",
     "card": "Déjà chez ARGO ? Commandez à table et payez en caisse.",
-    "closed": "Les commandes à table sont disponibles de 18h30 à 23h00, fermé le mercredi. En dehors de ces horaires, adressez-vous au personnel."
+    "closed": "Les commandes à table ne sont disponibles que pendant les horaires d’ouverture. En dehors de ces horaires, adressez-vous au personnel."
   }
 };

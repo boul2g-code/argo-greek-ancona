@@ -1,0 +1,50 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARGO Admin · Orari</title><meta name="theme-color" content="#081d33"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef2f6;color:#17263a}.top{position:sticky;top:0;background:#081d33;color:white;padding:10px 14px;z-index:10}.brand{font-weight:900;font-size:20px}.nav{display:flex;gap:7px;overflow:auto;padding-top:9px}.nav a{white-space:nowrap;text-decoration:none;border-radius:18px;padding:8px 11px;background:#173b60;color:#fff;font-weight:800;font-size:12px}.nav .active{background:white;color:#0d3b66}.wrap{max-width:760px;margin:auto;padding:14px}.card{background:#fff;border:1px solid #dbe2e8;border-radius:14px;padding:18px;margin-bottom:12px}.card h3{margin:0 0 10px;color:#0d3b66}.muted{color:#64748b;font-size:13px;line-height:1.5}.row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;padding:11px 0;border-top:1px solid #eef2f6}.row:first-of-type{border-top:0}.dname{font-weight:900;font-size:15px}.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sw{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;cursor:pointer;user-select:none}.sw input{width:20px;height:20px;accent-color:#0d3b66}.times{display:flex;gap:8px;align-items:center}.times input{padding:9px;border:1px solid #ccd5df;border-radius:8px;font-size:15px}.row.closed .times{opacity:.35;pointer-events:none}.row.closed .dname{color:#991b1b}.btn{display:inline-block;border:0;border-radius:9px;padding:12px 16px;background:#0d3b66;color:#fff;font-weight:900;cursor:pointer;font-size:14px}.btn.soft{background:#eef3f8;color:#173a67}.btn:disabled{opacity:.55;cursor:wait}.actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}.msg{margin-top:12px;font-weight:800;font-size:13px}.ok{color:#166534}.bad{color:#991b1b}.prev{background:#f8fafc;border:1px solid #dbe2e8;border-radius:10px;padding:12px;font-weight:800;color:#0d3b66;margin-top:6px}@media(max-width:460px){.row{grid-template-columns:1fr}.brand{font-size:17px}}</style></head><body><div class="top"><div class="brand">🍽️ ARGO ADMIN</div><div class="nav"><a href="orders.html">🧾 Ordini</a><a href="menu.html">🍽️ Menu</a><a href="allergens.html">⚠️ Allergeni</a><a href="promos.html">🏷️ Promo</a><a href="marketing.html">📣 Marketing</a><a href="photos.html">📷 Foto</a><a href="photo-review.html">✅ Verifica Foto</a><a href="bookings.html">📅 Prenotazioni</a><a class="active" href="hours.html">🕐 Orari</a><a href="stats.html">📊 Statistiche</a><a href="settings.html">⚙️ Impostazioni</a></div></div>
+<main class="wrap"><div class="card"><h3>Giorni e orari di apertura</h3><div class="muted">Vale per il sito, per gli ordini da ritiro e per gli ordini dal tavolo. Gli orari sono sempre quelli di Ancona (Europe/Rome). Le modifiche sono attive subito: chi ordina fuori orario viene bloccato anche dal database.</div>
+<div id="rows" style="margin-top:10px"></div>
+<div class="prev" id="prev">…</div>
+<div class="actions"><button class="btn" id="save">SALVA ORARI</button><button class="btn soft" id="reload">ANNULLA MODIFICHE</button></div><div id="msg" class="msg"></div></div>
+<div class="card"><h3>Chiusure straordinarie</h3><div class="muted">Per una chiusura singola (ferie, evento) basta togliere la spunta al giorno, salvare, e rimetterla dopo. Deliveroo / Just Eat e Pienissimo (prenotazioni tavoli) hanno orari propri, da cambiare sulle loro piattaforme.</div></div></main>
+<script>
+const sb=supabase.createClient('https://xbzixjrdglpsssgnzrxl.supabase.co','sb_publishable_GdFwld1NP2ZEbpkbUYm2SA_THrug4uo');
+const $=id=>document.getElementById(id),tok=()=>localStorage.getItem('argo_admin_token_v1')||'';
+const NAMES=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'],ORDER=[1,2,3,4,5,6,0];
+const SHORT=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+let days={};
+function authFail(){localStorage.removeItem('argo_admin_token_v1');location.replace('./')}
+function msg(t,c){$('msg').textContent=t||'';$('msg').className='msg '+(c||'')}
+function render(){
+ $('rows').innerHTML=ORDER.map(d=>{const x=days[d];return `<div class="row ${x.open?'':'closed'}" data-d="${d}"><div class="dname">${NAMES[d]}</div><div class="ctl"><label class="sw"><input type="checkbox" data-k="open" ${x.open?'checked':''}> ${x.open?'Aperto':'Chiuso'}</label><span class="times"><input type="time" data-k="from" value="${x.from}"> – <input type="time" data-k="to" value="${x.to}"></span></div></div>`}).join('');
+ $('rows').querySelectorAll('.row').forEach(row=>{const d=row.dataset.d;row.querySelectorAll('input').forEach(i=>i.addEventListener('change',()=>{const k=i.dataset.k;days[d][k]=k==='open'?i.checked:i.value;render();preview()}))});
+ preview();
+}
+function preview(){
+ const open=ORDER.filter(d=>days[d].open),closed=ORDER.filter(d=>!days[d].open);
+ const g=new Map();open.forEach(d=>{const k=days[d].from+'–'+days[d].to;g.set(k,[...(g.get(k)||[]),d])});
+ const parts=[...g].map(([k,l])=>l.map(d=>SHORT[d]).join(', ')+' '+k);
+ $('prev').textContent=(parts.join(' · ')||'Sempre chiuso')+(closed.length?'  |  Chiuso: '+closed.map(d=>NAMES[d].toLowerCase()).join(', '):'');
+}
+async function load(){
+ msg('');
+ const {data,error}=await sb.rpc('argo_public_hours');
+ if(error||!data||!data.days){msg('Impossibile leggere gli orari.','bad');return}
+ days={};for(let d=0;d<7;d++){const x=data.days[d];days[d]={open:!!x.open,from:x.from,to:x.to}}
+ render();
+}
+async function boot(){
+ if(!tok()){location.replace('./');return}
+ const {data:ok}=await sb.rpc('argo_admin_valid',{p_token:tok()});
+ if(!ok){authFail();return}
+ load();
+}
+$('reload').onclick=load;
+$('save').onclick=async()=>{
+ const b=$('save');b.disabled=true;msg('Salvataggio…');
+ for(const d of ORDER){if(days[d].open&&days[d].from>=days[d].to){msg(NAMES[d]+': l\'orario di chiusura deve essere dopo l\'apertura.','bad');b.disabled=false;return}}
+ if(!ORDER.some(d=>days[d].open)){msg('Almeno un giorno deve essere aperto.','bad');b.disabled=false;return}
+ const {error}=await sb.rpc('argo_admin_set_hours',{p_token:tok(),p_hours:{days}});
+ b.disabled=false;
+ if(error){if(/unauthorized/i.test(error.message)){authFail();return}msg('Errore: '+error.message,'bad');return}
+ msg('Orari salvati. Sono già attivi su sito e ordini.','ok');
+};
+boot();
+</script></body></html>
