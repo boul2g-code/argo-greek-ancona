@@ -3,6 +3,7 @@ import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
 const html = fs.readFileSync(new URL('ordina/index.html', root), 'utf8');
+const homeHtml = fs.readFileSync(new URL('index.html', root), 'utf8');
 const snapshot = JSON.parse(fs.readFileSync(new URL('ordina/menu-snapshot.json', root), 'utf8'));
 const source = fs.readFileSync(new URL('ordina/i18n.js', root), 'utf8');
 const context = { window: {} };
@@ -45,6 +46,13 @@ if (missingIds.length) fail(`JavaScript references missing IDs: ${missingIds.joi
 const txKeys = new Set([...html.matchAll(/tx\('([^']+)'/g)].map((match) => match[1]));
 const missingTx = [...txKeys].filter((key) => !i18n.ui.it[key]);
 if (missingTx.length) fail(`JavaScript references missing UI translations: ${missingTx.join(', ')}`);
+
+for (const [page, markup] of [['homepage', homeHtml], ['ordering page', html]]) {
+  if (!markup.includes('id="languageButtons"') || !markup.includes('class="languageButton"')) {
+    fail(`${page} is missing the desktop language buttons`);
+  }
+  if (!markup.includes('20261026-desktop')) fail(`${page} is missing the translation cache version`);
+}
 
 if (!process.exitCode) {
   console.log(`ARGO Direct i18n OK: ${codes.length} languages, ${snapshot.items.length} products, ${uiKeys.length} UI messages.`);

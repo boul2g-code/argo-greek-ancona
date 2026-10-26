@@ -175,8 +175,8 @@
     'Maionese':['Mayonnaise','Μαγιονέζα','Mayonesa','Mayonnaise','Mayonnaise']
   };
 
-  const groupRows = [['Rimuovi ingredienti','Remove ingredients','Αφαίρεση υλικών','Quitar ingredientes','Zutaten abwählen','Retirer des ingrédients'],['Salsa','Sauce','Σάλτσα','Salsa','Sauce','Sauce'],['Extra','Extras','Έξτρα','Extras','Extras','Suppléments']];
-  const optionRows = [['Doppia salsa','Double sauce','Διπλή σάλτσα','Salsa doble','Doppelte Sauce','Double sauce'],['Tzatziki','Tzatziki','Τζατζίκι','Tzatziki','Tzatziki','Tzatziki'],['Tirokafteri','Tirokafteri','Τυροκαυτερή','Tirokafteri','Tirokafteri','Tirokafteri'],['Senza cipolla','No onion','Χωρίς κρεμμύδι','Sin cebolla','Ohne Zwiebel','Sans oignon'],['Senza pomodoro','No tomato','Χωρίς ντομάτα','Sin tomate','Ohne Tomate','Sans tomate'],['Senza salsa','No sauce','Χωρίς σάλτσα','Sin salsa','Ohne Sauce','Sans sauce'],['Senza insalata','No salad','Χωρίς σαλάτα','Sin ensalada','Ohne Salat','Sans salade'],['Senza patate','No fries','Χωρίς πατάτες','Sin patatas','Ohne Pommes','Sans frites']];
+  const groupRows = [['Rimuovi ingredienti','Remove ingredients','Αφαίρεση υλικών','Quitar ingredientes','Zutaten abwählen','Retirer des ingrédients'],['Salsa','Sauce','Σάλτσα','Salsa','Sauce','Sauce'],['Extra','Extras','Έξτρα','Extras','Extras','Suppléments'],['Formaggio extra','Extra cheese','Έξτρα τυρί','Queso extra','Extra Käse','Fromage supplémentaire']];
+  const optionRows = [['Doppia salsa','Double sauce','Διπλή σάλτσα','Salsa doble','Doppelte Sauce','Double sauce'],['Tzatziki','Tzatziki','Τζατζίκι','Tzatziki','Tzatziki','Tzatziki'],['Tirokafteri','Tirokafteri','Τυροκαυτερή','Tirokafteri','Tirokafteri','Tirokafteri'],['Feta','Feta','Φέτα','Feta','Feta','Feta'],['Halloumi','Halloumi','Χαλούμι','Halloumi','Halloumi','Halloumi'],['Senza cipolla','No onion','Χωρίς κρεμμύδι','Sin cebolla','Ohne Zwiebel','Sans oignon'],['Senza pomodoro','No tomato','Χωρίς ντομάτα','Sin tomate','Ohne Tomate','Sans tomate'],['Senza salsa','No sauce','Χωρίς σάλτσα','Sin salsa','Ohne Sauce','Sans sauce'],['Senza insalata','No salad','Χωρίς σαλάτα','Sin ensalada','Ohne Salat','Sans salade'],['Senza patate','No fries','Χωρίς πατάτες','Sin patatas','Ohne Pommes','Sans frites']];
   const codes = ['it','en','el','es','de','fr'];
   function build(rows) { const out = {}; rows.forEach(row => { out[row[0]] = {}; codes.forEach((code, i) => { out[row[0]][code] = row[i]; }); }); return out; }
   const categories = build(categoryRows), names = build(nameRows), descriptions = build(descRows), groups = build(groupRows), options = build(optionRows);
@@ -427,6 +427,20 @@
 });
 
   Object.assign(descriptions, {"Gyros di suino, salsiccia, pollo e bifteki di manzo e agnello, con tzatziki e pita. Senza verdure e senza patate.":{"it":"Gyros di suino, salsiccia, pollo e bifteki di manzo e agnello, con tzatziki e pita. Senza verdure e senza patate.","en":"Pork gyros, sausage, chicken and beef-and-lamb bifteki, with tzatziki and pita. No vegetables or potatoes.","el":"Χοιρινός γύρος, λουκάνικο, κοτόπουλο και μπιφτέκι από μοσχάρι και αρνί, με τζατζίκι και πίτα. Χωρίς λαχανικά και πατάτες.","es":"Gyros de cerdo, salchicha, pollo y bifteki de ternera y cordero, con tzatziki y pita. Sin verduras ni patatas.","de":"Schweinegyros, Wurst, Hähnchen und Bifteki aus Rind und Lamm, mit Tzatziki und Pita. Ohne Gemüse und Kartoffeln.","fr":"Gyros de porc, saucisse, poulet et bifteki de bœuf et d’agneau, avec tzatziki et pita. Sans légumes ni pommes de terre."},"Moussaka della casa servita con cipolla, pomodoro, insalata, pita e tzatziki. Senza patate.":{"it":"Moussaka della casa servita con cipolla, pomodoro, insalata, pita e tzatziki. Senza patate.","en":"Homemade moussaka served with onion, tomato, lettuce, pita and tzatziki. No potatoes.","el":"Σπιτικός μουσακάς με κρεμμύδι, ντομάτα, σαλάτα, πίτα και τζατζίκι. Χωρίς πατάτες.","es":"Musaka de la casa con cebolla, tomate, lechuga, pita y tzatziki. Sin patatas.","de":"Hausgemachte Moussaka mit Zwiebel, Tomate, Salat, Pita und Tzatziki. Ohne Kartoffeln.","fr":"Moussaka maison avec oignon, tomate, salade, pita et tzatziki. Sans pommes de terre."}});
+
+  Object.assign(names, {
+    "Manzo Kokkinisto":{"it":"Manzo Kokkinisto","en":"Beef Kokkinisto","el":"Μοσχάρι κοκκινιστό","es":"Ternera Kokkinisto","de":"Rind Kokkinisto","fr":"Bœuf Kokkinisto"}
+  });
+  Object.assign(descriptions, {
+    "Teneri bocconcini di manzo cotti lentamente in salsa di pomodoro, serviti con patate fritte dorate, pita greca calda e feta con olio extravergine d’oliva e origano.":{
+      "it":"Teneri bocconcini di manzo cotti lentamente in salsa di pomodoro, serviti con patate fritte dorate, pita greca calda e feta con olio extravergine d’oliva e origano.",
+      "en":"Tender beef pieces slow-cooked in tomato sauce, served with golden fries, warm Greek pita and feta with extra virgin olive oil and oregano.",
+      "el":"Τρυφερά κομμάτια μοσχαριού σιγομαγειρεμένα σε σάλτσα ντομάτας, με χρυσαφένιες πατάτες, ζεστή ελληνική πίτα και φέτα με εξαιρετικό παρθένο ελαιόλαδο και ρίγανη.",
+      "es":"Tiernos trozos de ternera cocinados lentamente en salsa de tomate, con patatas fritas doradas, pita griega caliente y feta con aceite de oliva virgen extra y orégano.",
+      "de":"Zarte Rindfleischstücke, langsam in Tomatensauce gegart, mit goldenen Pommes, warmer griechischer Pita und Feta mit nativem Olivenöl extra und Oregano.",
+      "fr":"Tendres morceaux de bœuf mijotés dans une sauce tomate, servis avec des frites dorées, une pita grecque chaude et de la feta à l’huile d’olive vierge extra et à l’origan."
+    }
+  });
 
   window.ARGO_I18N = { languages, ui, categories, names, descriptions, groups, options };
 })();
