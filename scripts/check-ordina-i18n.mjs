@@ -4,6 +4,7 @@ import vm from 'node:vm';
 const root = new URL('../', import.meta.url);
 const html = fs.readFileSync(new URL('ordina/index.html', root), 'utf8');
 const homeHtml = fs.readFileSync(new URL('index.html', root), 'utf8');
+const promoAdminHtml = fs.readFileSync(new URL('admin/promos.html', root), 'utf8');
 const snapshot = JSON.parse(fs.readFileSync(new URL('ordina/menu-snapshot.json', root), 'utf8'));
 const source = fs.readFileSync(new URL('ordina/i18n.js', root), 'utf8');
 const context = { window: {} };
@@ -52,6 +53,21 @@ for (const [page, markup] of [['homepage', homeHtml], ['ordering page', html]]) 
     fail(`${page} is missing the desktop language buttons`);
   }
   if (!markup.includes('20261026-desktop')) fail(`${page} is missing the translation cache version`);
+}
+
+const obsoleteClosedDay = [
+  'Mercoledì chiuso',
+  'Closed Wednesday',
+  'Τετάρτη κλειστά',
+  'Miércoles cerrado',
+  'Mittwoch geschlossen',
+  'Fermé le mercredi'
+];
+for (const text of obsoleteClosedDay) {
+  if (homeHtml.includes(text)) fail(`homepage still says Wednesday is closed: ${text}`);
+}
+if (!promoAdminHtml.includes('Martedì chiuso') || !promoAdminHtml.includes('d.day_no===2&&!d.code')) {
+  fail('promo admin does not mark Tuesday as the closed day');
 }
 
 if (!process.exitCode) {
