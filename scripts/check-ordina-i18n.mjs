@@ -5,6 +5,8 @@ const root = new URL('../', import.meta.url);
 const html = fs.readFileSync(new URL('ordina/index.html', root), 'utf8');
 const homeHtml = fs.readFileSync(new URL('index.html', root), 'utf8');
 const promoAdminHtml = fs.readFileSync(new URL('admin/promos.html', root), 'utf8');
+const menuAdminHtml = fs.readFileSync(new URL('admin/menu.html', root), 'utf8');
+const pickupPromoMigration = fs.readFileSync(new URL('supabase/migrations/20261027113000_pickup_date_promos.sql', root), 'utf8');
 const snapshot = JSON.parse(fs.readFileSync(new URL('ordina/menu-snapshot.json', root), 'utf8'));
 const source = fs.readFileSync(new URL('ordina/i18n.js', root), 'utf8');
 const context = { window: {} };
@@ -52,7 +54,7 @@ for (const [page, markup] of [['homepage', homeHtml], ['ordering page', html]]) 
   if (!markup.includes('id="languageButtons"') || !markup.includes('class="languageButton"')) {
     fail(`${page} is missing the desktop language buttons`);
   }
-  if (!markup.includes('20261026-desktop')) fail(`${page} is missing the translation cache version`);
+  if (!markup.includes('20261027-pickup-promo')) fail(`${page} is missing the translation cache version`);
 }
 
 const obsoleteClosedDay = [
@@ -68,6 +70,15 @@ for (const text of obsoleteClosedDay) {
 }
 if (!promoAdminHtml.includes('Martedì chiuso') || !promoAdminHtml.includes('d.day_no===2&&!d.code')) {
   fail('promo admin does not mark Tuesday as the closed day');
+}
+if (!html.includes("rpc('argo_public_promo_for_pickup'") || !html.includes("rpc('argo_validate_promo_for_pickup'")) {
+  fail('ordering page does not use the scheduled pickup date for promotions');
+}
+if (!pickupPromoMigration.includes('argo_validate_promo_for_pickup') || !pickupPromoMigration.includes('p_requested_at')) {
+  fail('database migration is missing pickup-date promo enforcement');
+}
+if (!menuAdminHtml.includes('MODIFICA PIATTO / PREZZO')) {
+  fail('menu admin does not expose dish and price editing clearly');
 }
 
 if (!process.exitCode) {
