@@ -1,0 +1,7 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "axiosops-governance-v1-5": false
+    }
+  }
+}

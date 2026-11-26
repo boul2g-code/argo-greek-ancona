@@ -1,0 +1,3 @@
+# AXIOSOPS contributor instructions
+
+Before any relevant task read [AXIOSOPS-MASTER-RULES.md](AXIOSOPS-MASTER-RULES.md). All sixteen owner-approved rules (v1.5, 2026-11-26) are mandatory, including LINDYMODE, TRUTHMODE, REDTEAM, HORMOZI MODE, Y COMBINATOR MODE and 80/20 MODE. Apply them together with existing repository-specific rules, permissions, independent review and release gates. No unauthorized deployments, data changes, outreach, payments, offensive activity or spending. On older branches, consult the latest approved policy on the `axiosops-governance-v1-5` branch before work; a policy branch is not production authorization. Preserve product and release scope. Do not copy private strategy or secrets into public repositories.
