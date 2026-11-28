@@ -1,0 +1,82 @@
+# AXIOSOPS governance guard — owner-approved 2026-11-28.
+# Ensures every NEW branch, and every branch with new commits after the
+# install time, carries the AGENTS.md/CLAUDE.md pointer to the canonical
+# AXIOSOPS master rules. Untouched older branches and frozen QA/release
+# branches are never modified. Adds pointer files only; never deploys.
+name: AXIOSOPS governance guard
+
+on:
+  create:
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: axiosops-governance-guard
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    if: github.event_name != 'create' || github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EVENT: ${{ github.event_name }}
+      NEW_BRANCH: ${{ github.event.ref }}
+      PRIVATE: ${{ github.event.repository.private }}
+      CANON: https://github.com/boul2g-code/axiosops-haccp-/blob/rc03-europe-regulatory-review-20261126/AXIOSOPS-MASTER-RULES.md
+      INDEX: https://github.com/boul2g-code/kirox-mission-control/blob/main/docs/AXIOSOPS_GOVERNANCE_INDEX.md
+      SINCE: "2026-11-28T03:41:58Z"
+      # Frozen QA / release / policy branches: never modified automatically.
+      EXCLUDE_RE: '^(rc[0-9]|release/|preview/|frozen/|qa/|docs/axiosops-governance-|axiosops-governance-)'
+    steps:
+      - name: Ensure governance pointer
+        shell: bash
+        run: |
+          set -uo pipefail
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          since_epoch=$(date -d "$SINCE" +%s)
+          if [ "$EVENT" = "create" ]; then branches="$NEW_BRANCH"
+          else branches=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/branches" --jq '.[].name'); fi
+          if [ "$PRIVATE" = "true" ]; then
+            block="Before any task in this repository, including rework of older code, read and apply the latest owner-approved AXIOSOPS master rules: currently v1.6, the ten principles plus mandatory rules 11–18 (LINDYMODE, TRUTHMODE, REDTEAM, HORMOZI MODE, Y COMBINATOR MODE, 80/20 MODE, ROBBINS MODE, KIYOSAKI MODE).
+
+          - Canonical source (private): ${CANON}
+          - Distribution index: ${INDEX}
+
+          Read the canonical source from that link even when this branch is older; do not switch, merge or rewrite the active product branch to obtain it. If you cannot open it, say so and ask the owner instead of assuming its content. Project-specific safety, privacy, independent QA and release gates still apply. This file grants no deployment, spending, outreach or release authorization."
+          else
+            block="Before any task in this repository, including rework of older code, read and apply the latest owner-approved AXIOSOPS working rules from the owner's private policy: ${CANON}
+
+          Read it from that link even when this branch is older. If you cannot open it, say so and ask the owner instead of assuming its content. Project-specific safety, privacy, QA and release gates still apply. This file grants no deployment, spending, outreach or release authorization."
+          fi
+          block=$(printf '%s\n' "$block" | sed 's/^          //')
+          for b in $branches; do
+            if [[ "$b" =~ $EXCLUDE_RE ]]; then echo "skip (frozen/policy): $b"; continue; fi
+            rm -rf w
+            git clone -q --depth 1 --branch "$b" "$url" w || { echo "::warning::clone failed: $b"; continue; }
+            pushd w >/dev/null
+            if [ "$EVENT" != "create" ] && [ "$(git log -1 --format=%ct)" -lt "$since_epoch" ]; then
+              echo "skip (no new work since install): $b"; popd >/dev/null; continue; fi
+            if grep -qsF "$CANON" AGENTS.md; then echo "ok: $b"; popd >/dev/null; continue; fi
+            if [ -f AGENTS.md ]; then
+              { printf '## AXIOSOPS governance (mandatory)\n\n%s\n\n---\n\n' "$block"; cat AGENTS.md; } > .a && mv .a AGENTS.md
+            else
+              printf '# AXIOSOPS agent instructions\n\n%s\n' "$block" > AGENTS.md
+            fi
+            if [ -f CLAUDE.md ]; then
+              grep -qsF "AGENTS.md" CLAUDE.md || { { printf 'Read [AGENTS.md](AGENTS.md) first and apply it, including the AXIOSOPS master rules it links.\n\n'; cat CLAUDE.md; } > .c && mv .c CLAUDE.md; }
+            else
+              printf '# Claude instructions\n\nRead [AGENTS.md](AGENTS.md) first and apply it, including the AXIOSOPS master rules it links.\n' > CLAUDE.md
+            fi
+            git add AGENTS.md CLAUDE.md
+            git commit -q -m "docs(governance): add AXIOSOPS master rules pointer [skip ci]" \
+              && git push -q origin "HEAD:$b" && echo "added: $b" || echo "::warning::could not update $b (protected or race)"
+            popd >/dev/null
+          done
